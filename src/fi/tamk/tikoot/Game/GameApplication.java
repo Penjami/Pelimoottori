@@ -5,13 +5,13 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 /**
  * Created by Penjami on 5.11.2017.
  */
-public class GameApplication extends Application {
+public abstract class GameApplication extends Application {
     /*
         while(isRunning)
     {
@@ -25,40 +25,34 @@ public class GameApplication extends Application {
         Render->draw();
     }
      */
+    private Scene mainScene;
+    private GraphicsContext gc;
 
-    Scene mainScene;
+    private void initialize(Stage primaryStage) {
+        Settings localSettings = new Settings();
+        setSettings(localSettings);
 
-    private void initialize(Stage primaryStage)
-    {
         Group root = new Group();
-        Canvas canvas = new Canvas( 512, 512 );
-        root.getChildren().add( canvas );
+        Canvas gameCanvas = new Canvas(localSettings.getWidth(), localSettings.getHeight());
+        gc = gameCanvas.getGraphicsContext2D();
+        root.getChildren().add(gameCanvas);
         mainScene = new Scene(root);
-        primaryStage.setTitle("Game Tutorial");
+        primaryStage.setTitle(localSettings.getTitle());
         primaryStage.setResizable(false);
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
 
 
-    private void update()
-    {
 
-    }
-
-    private void draw()
-    {
-
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         initialize(primaryStage);
 
-        final Long[] lastNanoTime = {new Long(System.nanoTime())};
+        final Long[] lastNanoTime = {System.nanoTime()};
 
         InputHandler inputHandler = new InputHandler(mainScene);
-
 
         //Create game loop
         new AnimationTimer()
@@ -77,7 +71,12 @@ public class GameApplication extends Application {
 
                 // render
                 draw();
+
             }
         }.start();
     }
+
+    abstract protected void setSettings(Settings settings);
+    abstract protected void update();
+    abstract protected void draw();
 }

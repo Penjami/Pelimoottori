@@ -46,6 +46,7 @@ public class Sprite
     {
         return s.getBoundary().intersects( this.getBoundary() );
     }
+
     public void setImage(Image i)
     {
         image = i;

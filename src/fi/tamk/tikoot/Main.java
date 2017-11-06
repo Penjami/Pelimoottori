@@ -1,16 +1,12 @@
 package fi.tamk.tikoot;
 
-import fi.tamk.tikoot.Game.Game;
+import fi.tamk.tikoot.Game.GameApplication;
+import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Game game = new Game();
-        try {
-            game.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Application.launch(GameApplication.class, args);
     }
 }
