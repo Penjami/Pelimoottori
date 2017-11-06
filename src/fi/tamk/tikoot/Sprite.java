@@ -12,8 +12,6 @@ public class Sprite
     private Image image;
     private double positionX;
     private double positionY;
-    private double velocityX;
-    private double velocityY;
     private double width;
     private double height;
 
@@ -22,14 +20,12 @@ public class Sprite
     {
         positionX = 0;
         positionY = 0;
-        velocityX = 0;
-        velocityY = 0;
     }
-
-    public void update(double time)
+    public Sprite(String fileLocation)
     {
-        positionX += velocityX * time;
-        positionY += velocityY * time;
+        setImage(fileLocation);
+        positionX = 0;
+        positionY = 0;
     }
 
     public void render(GraphicsContext gc)
@@ -66,15 +62,23 @@ public class Sprite
         positionY = y;
     }
 
-    public void setVelocity(double x, double y)
-    {
-        velocityX = x;
-        velocityY = y;
+    public Image getImage() {
+        return image;
     }
 
-    public void addVelocity(double x, double y)
-    {
-        velocityX += x;
-        velocityY += y;
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
     }
 }

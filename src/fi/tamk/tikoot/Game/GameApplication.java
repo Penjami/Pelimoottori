@@ -25,26 +25,24 @@ public abstract class GameApplication extends Application {
         Render->draw();
     }
      */
-    private Scene mainScene;
-    private GraphicsContext gc;
+    protected Scene mainScene;
+    protected GraphicsContext graphicsContext;
+    protected InputHandler inputHandler;
 
     private void initialize(Stage primaryStage) {
         Settings localSettings = new Settings();
         setSettings(localSettings);
 
         Group root = new Group();
-        Canvas gameCanvas = new Canvas(localSettings.getWidth(), localSettings.getHeight());
-        gc = gameCanvas.getGraphicsContext2D();
+        Canvas gameCanvas = new Canvas(localSettings.getWidth() + 20,localSettings.getHeight() + 20);
+        graphicsContext = gameCanvas.getGraphicsContext2D();
         root.getChildren().add(gameCanvas);
-        mainScene = new Scene(root);
+        mainScene = new Scene(root,localSettings.getWidth(),localSettings.getHeight());
         primaryStage.setTitle(localSettings.getTitle());
         primaryStage.setResizable(false);
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
-
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -52,7 +50,7 @@ public abstract class GameApplication extends Application {
 
         final Long[] lastNanoTime = {System.nanoTime()};
 
-        InputHandler inputHandler = new InputHandler(mainScene);
+        inputHandler = new InputHandler(mainScene);
 
         //Create game loop
         new AnimationTimer()
@@ -64,7 +62,7 @@ public abstract class GameApplication extends Application {
                 lastNanoTime[0] = currentNanoTime;
 
                 // game logic
-                update();
+                update(elapsedTime);
 
                 // collision detection
 
@@ -77,6 +75,6 @@ public abstract class GameApplication extends Application {
     }
 
     abstract protected void setSettings(Settings settings);
-    abstract protected void update();
+    abstract protected void update(double time);
     abstract protected void draw();
 }

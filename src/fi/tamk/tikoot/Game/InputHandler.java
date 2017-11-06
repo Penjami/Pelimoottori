@@ -11,12 +11,13 @@ import java.util.ArrayList;
  */
 public class InputHandler {
 
-    Scene mainScene;
+    private Scene mainScene;
+    private ArrayList<String> input;
 
     public InputHandler(Scene scene) {
         mainScene = scene;
 
-        ArrayList<String> input = new ArrayList<String>();
+        input = new ArrayList<String>();
 
         mainScene.setOnKeyPressed(
                 new EventHandler<KeyEvent>()
@@ -38,6 +39,10 @@ public class InputHandler {
                         input.remove( code );
                     }
                 });
+    }
+
+    public ArrayList<String> getInput() {
+        return input;
     }
 
 }
