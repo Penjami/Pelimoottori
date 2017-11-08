@@ -1,5 +1,9 @@
 package fi.tamk.tikoot;
 
+import javafx.geometry.Rectangle2D;
+
+import java.util.ArrayList;
+
 /**
  * Created by Penjami on 5.11.2017.
  */
@@ -43,6 +47,16 @@ public class GameObject extends Sprite {
     {
         velocityX += x;
         velocityY += y;
+    }
+
+    public Rectangle2D getBoundary()
+    {
+        return new Rectangle2D(getPositionX(),getPositionY(),getWidth(),getHeight());
+    }
+
+    public boolean intersects(GameObject g)
+    {
+        return g.getBoundary().intersects( this.getBoundary() );
     }
 
 }

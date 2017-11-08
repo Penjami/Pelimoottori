@@ -1,5 +1,6 @@
 package fi.tamk.tikoot.Game;
 
+import fi.tamk.tikoot.GameObject;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -7,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 /**
  * Created by Penjami on 5.11.2017.
@@ -28,6 +31,7 @@ public abstract class GameApplication extends Application {
     protected Scene mainScene;
     protected GraphicsContext graphicsContext;
     protected InputHandler inputHandler;
+    protected ArrayList<GameObject> gameObjects = new ArrayList<>();
 
     private void initialize(Stage primaryStage) {
         Settings localSettings = new Settings();
@@ -65,7 +69,7 @@ public abstract class GameApplication extends Application {
                 update(elapsedTime);
 
                 // collision detection
-
+                collisions();
 
                 // render
                 draw();
@@ -76,5 +80,6 @@ public abstract class GameApplication extends Application {
 
     abstract protected void setSettings(Settings settings);
     abstract protected void update(double time);
+    abstract protected void collisions();
     abstract protected void draw();
 }
