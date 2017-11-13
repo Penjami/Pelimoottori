@@ -10,20 +10,17 @@ import java.io.File;
 public class Sound {
 
     private Media sound;
-    private MediaPlayer mediaPlayer;
 
     public Sound(String fileLocation) {
         setSound(fileLocation);
     }
 
     public void play() {
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
 
     public void setSound(String fileLocation) {
         sound = new Media(new File(fileLocation).toURI().toString());
-        mediaPlayer = new MediaPlayer(sound);
     }
-
-
 }
