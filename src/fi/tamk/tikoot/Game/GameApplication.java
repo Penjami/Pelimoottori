@@ -1,12 +1,14 @@
 package fi.tamk.tikoot.Game;
 
-import fi.tamk.tikoot.GameObject;
+import fi.tamk.tikoot.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Effect;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public abstract class GameApplication extends Application {
     protected Scene mainScene;
     protected GraphicsContext graphicsContext;
     protected InputHandler inputHandler;
-    protected ArrayList<GameObject> gameObjects = new ArrayList<>();
+    protected ArrayList<Sprite> sprites = new ArrayList<>();
 
     private void initialize(Stage primaryStage) {
         Settings localSettings = new Settings();
@@ -40,6 +42,7 @@ public abstract class GameApplication extends Application {
         Group root = new Group();
         Canvas gameCanvas = new Canvas(localSettings.getWidth() + 20,localSettings.getHeight() + 20);
         graphicsContext = gameCanvas.getGraphicsContext2D();
+        graphicsContext.setFont(Font.font(40));
         root.getChildren().add(gameCanvas);
         mainScene = new Scene(root,localSettings.getWidth(),localSettings.getHeight());
         primaryStage.setTitle(localSettings.getTitle());

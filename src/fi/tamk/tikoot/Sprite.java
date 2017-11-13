@@ -7,43 +7,18 @@ import javafx.scene.image.Image;
 /**
  * Created by Penjami on 5.11.2017.
  */
-public class Sprite
-{
+public class Sprite extends GameObject {
+
     private Image image;
-    private double positionX;
-    private double positionY;
     private double width;
     private double height;
 
-
-    public Sprite()
-    {
-        positionX = 0;
-        positionY = 0;
-    }
-    public Sprite(String fileLocation)
-    {
+    public Sprite() {}
+    public Sprite(String fileLocation) {
         setImage(fileLocation);
-        positionX = 0;
-        positionY = 0;
     }
 
-    public void render(GraphicsContext gc)
-    {
-        gc.drawImage( image, positionX, positionY );
-    }
-
-    public Rectangle2D getBoundary()
-    {
-        return new Rectangle2D(positionX,positionY,width,height);
-    }
-
-    public boolean intersects(Sprite s)
-    {
-        return s.getBoundary().intersects( this.getBoundary() );
-    }
-
-    public void setImage(Image i)
+    void setImage(Image i)
     {
         image = i;
         width = i.getWidth();
@@ -56,22 +31,24 @@ public class Sprite
         setImage(i);
     }
 
-    public void setPosition(double x, double y)
+    public void render(GraphicsContext gc)
     {
-        positionX = x;
-        positionY = y;
+        gc.drawImage( image, getPositionX(),getPositionY() );
     }
+
+    public Rectangle2D getBoundary()
+    {
+        return new Rectangle2D(getPositionX(),getPositionY(),getWidth(),getHeight());
+    }
+
+    public boolean intersects(Sprite g)
+    {
+        return g.getBoundary().intersects( this.getBoundary() );
+    }
+
 
     public Image getImage() {
         return image;
-    }
-
-    public double getPositionX() {
-        return positionX;
-    }
-
-    public double getPositionY() {
-        return positionY;
     }
 
     public double getWidth() {
@@ -81,4 +58,5 @@ public class Sprite
     public double getHeight() {
         return height;
     }
+
 }

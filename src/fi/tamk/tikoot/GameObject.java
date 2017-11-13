@@ -1,22 +1,33 @@
 package fi.tamk.tikoot;
 
 import javafx.geometry.Rectangle2D;
-
-import java.util.ArrayList;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 /**
  * Created by Penjami on 5.11.2017.
  */
-public class GameObject extends Sprite {
+public class GameObject
+{
 
+    private double positionX;
+    private double positionY;
     private double velocityY;
     private double velocityX;
 
-    public GameObject() {}
-    public GameObject(String fileLocation) {
-        super(fileLocation);
+
+    public GameObject()
+    {
+        positionX = 0;
+        positionY = 0;
     }
 
+
+    public void setPosition(double x, double y)
+    {
+        positionX = x;
+        positionY = y;
+    }
     public void update(double time)
     {
         setPosition(getPositionX() + velocityX * time, getPositionY() + velocityY * time );
@@ -49,14 +60,14 @@ public class GameObject extends Sprite {
         velocityY += y;
     }
 
-    public Rectangle2D getBoundary()
-    {
-        return new Rectangle2D(getPositionX(),getPositionY(),getWidth(),getHeight());
+
+
+    public double getPositionX() {
+        return positionX;
     }
 
-    public boolean intersects(GameObject g)
-    {
-        return g.getBoundary().intersects( this.getBoundary() );
+    public double getPositionY() {
+        return positionY;
     }
 
 }
