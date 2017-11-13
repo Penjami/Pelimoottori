@@ -34,7 +34,6 @@ public class TestGame extends GameApplication {
         soda2.setPosition(100,300);
         soda3.setPosition(300,300);
 
-
     }
     @Override
     protected void update(double time) {
