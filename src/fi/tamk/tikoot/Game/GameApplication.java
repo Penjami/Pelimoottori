@@ -35,6 +35,13 @@ public abstract class GameApplication extends Application {
     protected InputHandler inputHandler;
     protected ArrayList<Sprite> sprites = new ArrayList<>();
 
+
+
+    /**
+     * Creates and initializes the stage and settings.
+     *
+     * @param primaryStage Stage in which the games content is drawn.
+     */
     private void initialize(Stage primaryStage) {
         Settings localSettings = new Settings();
         setSettings(localSettings);
@@ -51,6 +58,11 @@ public abstract class GameApplication extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Does everything needed to start the game.
+     *
+     * @param primaryStage Stage in which the games content is drawn.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         initialize(primaryStage);
@@ -81,8 +93,24 @@ public abstract class GameApplication extends Application {
         }.start();
     }
 
+    /**
+     * Setting the necessary settings.
+     *
+     * @param settings object containing all the settings
+     */
     abstract protected void setSettings(Settings settings);
+    /**
+     * Do logic in this method
+     *
+     * @param time
+     */
     abstract protected void update(double time);
+    /**
+     * Check collision in this method
+     */
     abstract protected void collisions();
+    /**
+     * Draw all sprites in this method
+     */
     abstract protected void draw();
 }
