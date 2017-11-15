@@ -14,6 +14,11 @@ public class InputHandler {
     private Scene mainScene;
     private ArrayList<String> input;
 
+    /**
+     * Construction of the InputHandler class.
+     *
+     * @param scene Scene in which the games content is drawn.
+     */
     public InputHandler(Scene scene) {
         mainScene = scene;
 
@@ -41,6 +46,9 @@ public class InputHandler {
                 });
     }
 
+    /**
+     * @return List containing all the key inputs from this frame.
+     */
     public ArrayList<String> getInput() {
         return input;
     }
