@@ -14,6 +14,11 @@ public class InputHandler {
     private Scene mainScene;
     private ArrayList<String> input;
 
+    /**
+     * Saves key presses and releases in an array.
+     *
+     * @param scene Scene is used to get the listener for registering key presses.
+     */
     public InputHandler(Scene scene) {
         mainScene = scene;
 
@@ -41,6 +46,11 @@ public class InputHandler {
                 });
     }
 
+    /**
+     * Returns the recorded inputs.
+     *
+     * @return Returns the recorded inputs.
+     */
     public ArrayList<String> getInput() {
         return input;
     }
