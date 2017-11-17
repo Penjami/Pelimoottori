@@ -47,9 +47,7 @@ public class InputHandler {
     }
 
     /**
-     * Returns the recorded inputs.
-     *
-     * @return Returns the recorded inputs.
+     * @return List containing all the key inputs from this frame.
      */
     public ArrayList<String> getInput() {
         return input;
