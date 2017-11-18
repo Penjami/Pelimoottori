@@ -2,7 +2,7 @@ package fi.tamk.tikoot.games;
 
 import fi.tamk.tikoot.pelimoottori.*;
 import javafx.scene.paint.Color;
-
+import java.util.Random;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TestGame extends GameApplication {
 
     private Sprite backGround = new Sprite("img.jpg");
-    private ArrayList<Sprite> sprites = new ArrayList<>();
+    private ArrayList<Sprite> collectables = new ArrayList<>();
     private Sprite monk = new Sprite("monk.png");
     private Sprite soda1 = new Sprite("soda.png");
     private Sprite soda2 = new Sprite("soda.png");
@@ -29,14 +29,25 @@ public class TestGame extends GameApplication {
         settings.setTitle("TestGame");
         settings.setWidth(600);
         settings.setHeight(360);
-        sprites.add(monk);
-        sprites.add(soda1);
-        sprites.add(soda2);
-        sprites.add(soda3);
-        soda1.setPosition(300,200);
-        soda2.setPosition(100,300);
-        soda3.setPosition(300,300);
+        collectables.add(soda1);
+        collectables.add(soda2);
+        collectables.add(soda3);
+
     }
+
+    @Override
+    protected void start() {
+        soda1.setPosition(randomBetweenNum(0,mainScene.getWidth() - soda1.getWidth()),
+                randomBetweenNum(0,mainScene.getHeight() - soda1.getHeight()));
+        soda2.setPosition(randomBetweenNum(0,mainScene.getWidth() - soda2.getWidth()),
+                randomBetweenNum(0,mainScene.getHeight() - soda2.getHeight()));
+        soda3.setPosition(randomBetweenNum(0,mainScene.getWidth() - soda3.getWidth()),
+                randomBetweenNum(0,mainScene.getHeight() - soda3.getHeight()));
+        soda1.setVelocity(randomBetweenNum(10,20),randomBetweenNum(-10,-20));
+        soda2.setVelocity(randomBetweenNum(-10,-20),randomBetweenNum(10,20));
+        soda3.setVelocity(randomBetweenNum(10,20),randomBetweenNum(-10,20));
+    }
+
     @Override
     protected void update(double time) {
 
@@ -54,25 +65,30 @@ public class TestGame extends GameApplication {
         if (inputHandler.getInput().contains("DOWN"))
             monk.addVelocity(0,50);
 
+        for(Sprite obj : collectables) {
+            changeDirIfHitWall(obj);
+        }
+        for(Sprite obj : collectables) {
+            obj.update(time);
+        }
         monk.update(time);
-
     }
 
     @Override
     protected void collisions() {
         if(soda1 != null && monk.intersects(soda1)) {
             gotItemSound.play();
-            sprites.remove(soda1);
+            collectables.remove(soda1);
             soda1 = null;
         }
         if(soda2 != null && monk.intersects(soda2)) {
             gotItemSound.play();
-            sprites.remove(soda2);
+            collectables.remove(soda2);
             soda2 = null;
         }
         if(soda3 != null && monk.intersects(soda3)) {
             gotItemSound.play();
-            sprites.remove(soda3);
+            collectables.remove(soda3);
             soda3 = null;
         }
     }
@@ -81,9 +97,30 @@ public class TestGame extends GameApplication {
     protected void draw() {
         graphicsContext.clearRect(0, 0, mainScene.getWidth(), mainScene.getHeight());
         backGround.render(graphicsContext);
-        for(Sprite obj : sprites) {
+        for(Sprite obj : collectables) {
             obj.render(graphicsContext);
         }
+        monk.render(graphicsContext);
         points.render(graphicsContext);
+    }
+
+    public void changeDirIfHitWall(Sprite sprite) {
+        if(sprite.getPositionX() >= mainScene.getWidth() - sprite.getWidth()) {
+            sprite.setVelocityX(sprite.getVelocityX() * -1);
+        }
+        if(sprite.getPositionX() <= 0) {
+            sprite.setVelocityX(sprite.getVelocityX() * -1);
+        }
+        if(sprite.getPositionY() >= mainScene.getHeight() - sprite.getHeight()) {
+            sprite.setVelocityY(sprite.getVelocityY() * -1);
+        }
+        if(sprite.getPositionY() <= 0) {
+            sprite.setVelocityY(sprite.getVelocityY() * -1);
+        }
+    }
+
+    public double randomBetweenNum(double min, double max) {
+        Random r = new Random();
+        return min + (max - min) * r.nextDouble();
     }
 }

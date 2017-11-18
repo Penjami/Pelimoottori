@@ -34,7 +34,6 @@ public abstract class GameApplication extends Application {
     protected ArrayList<Sprite> sprites = new ArrayList<>();
 
 
-
     /**
      * Creates and initializes the stage and settings.
      *
@@ -54,6 +53,7 @@ public abstract class GameApplication extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(mainScene);
         primaryStage.show();
+        start();
     }
 
     /**
@@ -111,4 +111,8 @@ public abstract class GameApplication extends Application {
      * Draw all sprites in this method
      */
     abstract protected void draw();
+    /**
+     * Used to set all objects to start values.
+     */
+    abstract protected void start();
 }

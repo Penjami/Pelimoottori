@@ -3,6 +3,7 @@ package fi.tamk.tikoot.pelimoottori;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
@@ -15,35 +16,46 @@ public class InputHandler {
     private ArrayList<String> input;
 
     /**
-     * Saves key presses and releases in an array.
+     * Saves key and mouse presses and releases in an array.
      *
-     * @param scene Scene is used to get the listener for registering key presses.
+     * @param scene Scene is used to get the listener for registering key and mouse presses and releases.
      */
     public InputHandler(Scene scene) {
         mainScene = scene;
 
         input = new ArrayList<String>();
 
-        mainScene.setOnKeyPressed(
-                new EventHandler<KeyEvent>()
-                {
-                    public void handle(KeyEvent e)
-                    {
-                        String code = e.getCode().toString();
-                        if ( !input.contains(code) )
-                            input.add( code );
-                    }
-                });
+        mainScene.setOnKeyPressed((event) ->
+            {
+                String code = event.getCode().toString();
+                if (!input.contains(code)) {
+                    input.add(code);
+                }
+            }
+        );
 
-        mainScene.setOnKeyReleased(
-                new EventHandler<KeyEvent>()
-                {
-                    public void handle(KeyEvent e)
-                    {
-                        String code = e.getCode().toString();
-                        input.remove( code );
-                    }
-                });
+        mainScene.setOnKeyReleased((event) ->
+            {
+                String code = event.getCode().toString();
+                input.remove( code );
+            }
+        );
+
+        mainScene.setOnMousePressed((event) ->
+            {
+                String code = event.getButton().toString();
+                System.out.println(event.getButton().toString());
+                if (!input.contains(code)) {
+                    input.add(code);
+                }
+            }
+        );
+        mainScene.setOnMouseReleased((event)->
+            {
+                String code = event.getButton().toString();
+                input.remove( code );
+            }
+        );
     }
 
     /**
