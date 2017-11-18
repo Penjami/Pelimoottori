@@ -31,8 +31,7 @@ public abstract class GameApplication extends Application {
     protected Scene mainScene;
     protected GraphicsContext graphicsContext;
     protected InputHandler inputHandler;
-    protected ArrayList<Sprite> sprites = new ArrayList<>();
-
+    protected Stage primaryStage;
 
     /**
      * Creates and initializes the stage and settings.
@@ -40,6 +39,7 @@ public abstract class GameApplication extends Application {
      * @param primaryStage Stage in which the games content is drawn.
      */
     private void initialize(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         Settings localSettings = new Settings();
         setSettings(localSettings);
 
@@ -87,6 +87,9 @@ public abstract class GameApplication extends Application {
                 // render
                 draw();
 
+                // remove marked objects
+                removeObjects();
+
             }
         }.start();
     }
@@ -97,6 +100,10 @@ public abstract class GameApplication extends Application {
      * @param settings object containing all the settings
      */
     abstract protected void setSettings(Settings settings);
+    /**
+     * Used to set all objects to start values.
+     */
+    abstract protected void launchProperties();
     /**
      * Do logic in this method
      *
@@ -112,7 +119,9 @@ public abstract class GameApplication extends Application {
      */
     abstract protected void draw();
     /**
-     * Used to set all objects to start values.
+     * Draw all sprites in this method
      */
-    abstract protected void launchProperties();
+    abstract protected void removeObjects();
+
+
 }

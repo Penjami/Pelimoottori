@@ -1,6 +1,8 @@
 package fi.tamk.tikoot.games;
 
 import fi.tamk.tikoot.pelimoottori.*;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import java.util.Random;
 import java.util.ArrayList;
@@ -11,16 +13,13 @@ import java.util.ArrayList;
 public class TestGame extends GameApplication {
 
     private int score = 0;
-    private Sprite backGround = new Sprite("img.jpg");
-    private ArrayList<Sprite> collectables = new ArrayList<>();
-    private Sprite monk = new Sprite("monk.png");
-    private Sprite soda1 = new Sprite("soda.png");
-    private Sprite soda2 = new Sprite("soda.png");
-    private Sprite soda3 = new Sprite("soda.png");
+    private SpriteObject backGround = new SpriteObject("img.jpg");
+    private ArrayList<SpriteObject> collectables = new ArrayList<>();
+    private ArrayList<SpriteObject> removeList = new ArrayList<>();
+    private SpriteObject monk = new SpriteObject("monk.png");
     private TextObject points = new TextObject("Points : " + score, Color.ALICEBLUE, 0, 30);
     private Music bgm = new Music("src/bgm3.mp3");
     private Sound gotItemSound = new Sound("src/ballHit.wav");
-
 
     public static void main(String[] args) {
         launch(args);
@@ -31,23 +30,20 @@ public class TestGame extends GameApplication {
         settings.setTitle("TestGame");
         settings.setWidth(600);
         settings.setHeight(360);
-        collectables.add(soda1);
-        collectables.add(soda2);
-        collectables.add(soda3);
     }
 
     @Override
     protected void launchProperties() {
         monk.setPosition(20,40);
-        soda1.setPosition(randomBetweenNum(0,mainScene.getWidth() - soda1.getWidth()),
-                randomBetweenNum(0,mainScene.getHeight() - soda1.getHeight()));
-        soda2.setPosition(randomBetweenNum(0,mainScene.getWidth() - soda2.getWidth()),
-                randomBetweenNum(0,mainScene.getHeight() - soda2.getHeight()));
-        soda3.setPosition(randomBetweenNum(0,mainScene.getWidth() - soda3.getWidth()),
-                randomBetweenNum(0,mainScene.getHeight() - soda3.getHeight()));
-        soda1.setVelocity(randomBetweenNum(10,20),randomBetweenNum(-10,-20));
-        soda2.setVelocity(randomBetweenNum(-10,-20),randomBetweenNum(10,20));
-        soda3.setVelocity(randomBetweenNum(10,20),randomBetweenNum(-10,20));
+
+        for(int i = 0; i<10; i++) {
+            collectables.add(new SpriteObject("soda.png"));
+        }
+        for(SpriteObject col : collectables) {
+            col.setPosition(randomBetweenNum(0,mainScene.getWidth() - col.getWidth()),
+                    randomBetweenNum(0,mainScene.getHeight() - col.getHeight()));
+            col.setVelocity(randomBetweenNum(-20,20),randomBetweenNum(-20,20));
+        }
     }
 
     @Override
@@ -67,34 +63,26 @@ public class TestGame extends GameApplication {
         if (inputHandler.getInput().contains("DOWN"))
             monk.addVelocity(0,50);
 
-        for(Sprite obj : collectables) {
-            changeDirIfHitWall(obj);
+        for(SpriteObject col : collectables) {
+            changeDirIfHitWall(col);
         }
-        for(Sprite obj : collectables) {
-            obj.update(time);
+        for(SpriteObject col : collectables) {
+            col.update(time);
         }
         monk.update(time);
+
+        if(collectables.isEmpty()) {
+        }
     }
 
     @Override
     protected void collisions() {
-        if(soda1 != null && monk.intersects(soda1)) {
-            addScore();
-            gotItemSound.play();
-            collectables.remove(soda1);
-            soda1 = null;
-        }
-        if(soda2 != null && monk.intersects(soda2)) {
-            addScore();
-            gotItemSound.play();
-            collectables.remove(soda2);
-            soda2 = null;
-        }
-        if(soda3 != null && monk.intersects(soda3)) {
-            addScore();
-            gotItemSound.play();
-            collectables.remove(soda3);
-            soda3 = null;
+        for(SpriteObject col : collectables) {
+            if(monk.intersects(col)) {
+                addScore();
+                gotItemSound.play();
+                removeList.add(col);
+            }
         }
     }
 
@@ -102,14 +90,21 @@ public class TestGame extends GameApplication {
     protected void draw() {
         graphicsContext.clearRect(0, 0, mainScene.getWidth(), mainScene.getHeight());
         backGround.render(graphicsContext);
-        for(Sprite obj : collectables) {
-            obj.render(graphicsContext);
+        for(SpriteObject col : collectables) {
+            col.render(graphicsContext);
         }
         monk.render(graphicsContext);
         points.render(graphicsContext);
     }
 
-    private void changeDirIfHitWall(Sprite sprite) {
+    @Override
+    protected void removeObjects() {
+        for(SpriteObject col : removeList) {
+            collectables.remove(col);
+        }
+    }
+
+    private void changeDirIfHitWall(SpriteObject sprite) {
         if(sprite.getPositionX() >= mainScene.getWidth() - sprite.getWidth()) {
             sprite.setVelocityX(sprite.getVelocityX() * -1);
         }

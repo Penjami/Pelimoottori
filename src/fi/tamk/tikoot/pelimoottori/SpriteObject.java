@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 /**
  * Created by Penjami on 5.11.2017.
  */
-public class Sprite extends GameObject {
+public class SpriteObject extends GameObject {
 
     private Image image;
     private double width;
@@ -16,14 +16,14 @@ public class Sprite extends GameObject {
     /**
      * Constructor for sprite object.
      */
-    public Sprite() {}
+    public SpriteObject() {}
 
     /**
      * Constructor for sprite object.
      *
      * @param fileLocation Location of the sprite.
      */
-    public Sprite(String fileLocation) {
+    public SpriteObject(String fileLocation) {
         setImage(fileLocation);
     }
 
@@ -73,7 +73,7 @@ public class Sprite extends GameObject {
      *
      * @param g the other sprite object.
      */
-    public boolean intersects(Sprite g)
+    public boolean intersects(SpriteObject g)
     {
         return g.getBoundary().intersects( this.getBoundary() );
     }
