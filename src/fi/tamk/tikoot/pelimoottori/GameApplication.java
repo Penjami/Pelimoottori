@@ -53,11 +53,11 @@ public abstract class GameApplication extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(mainScene);
         primaryStage.show();
-        start();
+        launchProperties();
     }
 
     /**
-     * Does everything needed to start the game.
+     * Does everything needed to launchProperties the game.
      *
      * @param primaryStage Stage in which the games content is drawn.
      */
@@ -114,5 +114,5 @@ public abstract class GameApplication extends Application {
     /**
      * Used to set all objects to start values.
      */
-    abstract protected void start();
+    abstract protected void launchProperties();
 }

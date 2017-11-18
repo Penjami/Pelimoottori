@@ -10,15 +10,17 @@ import java.util.ArrayList;
  */
 public class TestGame extends GameApplication {
 
+    private int score = 0;
     private Sprite backGround = new Sprite("img.jpg");
     private ArrayList<Sprite> collectables = new ArrayList<>();
     private Sprite monk = new Sprite("monk.png");
     private Sprite soda1 = new Sprite("soda.png");
     private Sprite soda2 = new Sprite("soda.png");
     private Sprite soda3 = new Sprite("soda.png");
-    private TextObject points = new TextObject("Points : 0", Color.ALICEBLUE, 0, 30);
+    private TextObject points = new TextObject("Points : " + score, Color.ALICEBLUE, 0, 30);
     private Music bgm = new Music("src/bgm3.mp3");
     private Sound gotItemSound = new Sound("src/ballHit.wav");
+
 
     public static void main(String[] args) {
         launch(args);
@@ -32,11 +34,11 @@ public class TestGame extends GameApplication {
         collectables.add(soda1);
         collectables.add(soda2);
         collectables.add(soda3);
-
     }
 
     @Override
-    protected void start() {
+    protected void launchProperties() {
+        monk.setPosition(20,40);
         soda1.setPosition(randomBetweenNum(0,mainScene.getWidth() - soda1.getWidth()),
                 randomBetweenNum(0,mainScene.getHeight() - soda1.getHeight()));
         soda2.setPosition(randomBetweenNum(0,mainScene.getWidth() - soda2.getWidth()),
@@ -77,16 +79,19 @@ public class TestGame extends GameApplication {
     @Override
     protected void collisions() {
         if(soda1 != null && monk.intersects(soda1)) {
+            addScore();
             gotItemSound.play();
             collectables.remove(soda1);
             soda1 = null;
         }
         if(soda2 != null && monk.intersects(soda2)) {
+            addScore();
             gotItemSound.play();
             collectables.remove(soda2);
             soda2 = null;
         }
         if(soda3 != null && monk.intersects(soda3)) {
+            addScore();
             gotItemSound.play();
             collectables.remove(soda3);
             soda3 = null;
@@ -104,7 +109,7 @@ public class TestGame extends GameApplication {
         points.render(graphicsContext);
     }
 
-    public void changeDirIfHitWall(Sprite sprite) {
+    private void changeDirIfHitWall(Sprite sprite) {
         if(sprite.getPositionX() >= mainScene.getWidth() - sprite.getWidth()) {
             sprite.setVelocityX(sprite.getVelocityX() * -1);
         }
@@ -119,8 +124,13 @@ public class TestGame extends GameApplication {
         }
     }
 
-    public double randomBetweenNum(double min, double max) {
+    private double randomBetweenNum(double min, double max) {
         Random r = new Random();
         return min + (max - min) * r.nextDouble();
+    }
+
+    private void addScore() {
+        score++;
+        points.setText("Points : " + score);
     }
 }

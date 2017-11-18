@@ -44,7 +44,6 @@ public class InputHandler {
         mainScene.setOnMousePressed((event) ->
             {
                 String code = event.getButton().toString();
-                System.out.println(event.getButton().toString());
                 if (!input.contains(code)) {
                     input.add(code);
                 }
