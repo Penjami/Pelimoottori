@@ -12,6 +12,7 @@ public class SpriteObject extends GameObject {
     private Image image;
     private double width;
     private double height;
+    private SpriteObject lastCollision;
 
     /**
      * Constructor for sprite object.

@@ -40,9 +40,18 @@ public class TestGame extends GameApplication {
             collectables.add(new SpriteObject("soda.png"));
         }
         for(SpriteObject col : collectables) {
+            double dir = randomBetweenNum(0,4);
             col.setPosition(randomBetweenNum(0,mainScene.getWidth() - col.getWidth()),
                     randomBetweenNum(0,mainScene.getHeight() - col.getHeight()));
-            col.setVelocity(randomBetweenNum(-20,20),randomBetweenNum(-20,20));
+            if(dir<=1) {
+                col.setVelocity(randomBetweenNum(10,20),randomBetweenNum(-10,-20));
+            } else if(dir>1 && dir<=2) {
+                col.setVelocity(randomBetweenNum(-10,-20),randomBetweenNum(10,20));
+            } else if(dir>2 && dir<=3) {
+                col.setVelocity(randomBetweenNum(-10,-20),randomBetweenNum(-10,-20));
+            } else if(dir>3 && dir<=4) {
+                col.setVelocity(randomBetweenNum(10,20),randomBetweenNum(10,20));
+            }
         }
     }
 
@@ -64,9 +73,6 @@ public class TestGame extends GameApplication {
             monk.addVelocity(0,50);
 
         for(SpriteObject col : collectables) {
-            changeDirIfHitWall(col);
-        }
-        for(SpriteObject col : collectables) {
             col.update(time);
         }
         monk.update(time);
@@ -84,6 +90,28 @@ public class TestGame extends GameApplication {
                 removeList.add(col);
             }
         }
+        for(int i=0; i<collectables.size(); i++)
+        {
+            for(int j=i+1; j<collectables.size(); j++)
+            {
+                if (collectables.get(i).intersects(collectables.get(j))
+                        && collectables.get(i) != collectables.get(j)) {
+                    System.out.println("collision");
+                    double vel1X = collectables.get(i).getVelocityX();
+                    double vel1Y = collectables.get(i).getVelocityY();
+                    double vel2X = collectables.get(j).getVelocityX();
+                    double vel2Y = collectables.get(j).getVelocityY();
+
+                    collectables.get(i).setVelocity(vel2X, vel2Y);
+                    collectables.get(j).setVelocity(vel1X, vel1Y);
+                }
+            }
+        }
+        for(SpriteObject col : collectables) {
+            changeDirIfHitWall(col);
+        }
+
+
     }
 
     @Override
@@ -99,9 +127,7 @@ public class TestGame extends GameApplication {
 
     @Override
     protected void removeObjects() {
-        for(SpriteObject col : removeList) {
-            collectables.remove(col);
-        }
+        collectables.removeAll(removeList);
     }
 
     private void changeDirIfHitWall(SpriteObject sprite) {
