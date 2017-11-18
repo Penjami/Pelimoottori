@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.Game;
+package fi.tamk.tikoot.pelimoottori;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package fi.tamk.tikoot;
+package fi.tamk.tikoot.pelimoottori;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,14 +7,12 @@ import javafx.scene.image.Image;
 /**
  * Created by Penjami on 5.11.2017.
  */
-public abstract class GameObject
-{
+public abstract class GameObject {
 
     private double positionX;
     private double positionY;
     private double velocityY;
     private double velocityX;
-
 
     /**
      * Sets the position of the object'
@@ -22,8 +20,7 @@ public abstract class GameObject
      * @param x Position in the x axis.
      * @param y Position in the y axis.
      */
-    public void setPosition(double x, double y)
-    {
+    public void setPosition(double x, double y) {
         positionX = x;
         positionY = y;
     }
@@ -33,9 +30,8 @@ public abstract class GameObject
      *
      * @param time The time between frames.
      */
-    public void update(double time)
-    {
-        setPosition(getPositionX() + velocityX * time, getPositionY() + velocityY * time );
+    public void update(double time) {
+        setPosition(getPositionX() + velocityX * time, getPositionY() + velocityY * time);
     }
 
     /**
@@ -80,8 +76,7 @@ public abstract class GameObject
      * @param x X axis velocity.
      * @param y Y axis velocity.
      */
-    public void setVelocity(double x, double y)
-    {
+    public void setVelocity(double x, double y) {
         setVelocityX(x);
         setVelocityY(y);
     }
@@ -92,8 +87,7 @@ public abstract class GameObject
      * @param x X axis velocity.
      * @param y Y axis velocity.
      */
-    public void addVelocity(double x, double y)
-    {
+    public void addVelocity(double x, double y) {
         velocityX += x;
         velocityY += y;
     }

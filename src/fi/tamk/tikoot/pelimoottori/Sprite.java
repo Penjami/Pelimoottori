@@ -1,4 +1,4 @@
-package fi.tamk.tikoot;
+package fi.tamk.tikoot.pelimoottori;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;

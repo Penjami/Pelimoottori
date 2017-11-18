@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.Game;
+package fi.tamk.tikoot.pelimoottori;
 
 /**
  * Created by Penjami on 6.11.2017.

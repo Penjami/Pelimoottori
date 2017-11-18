@@ -1,13 +1,11 @@
-package fi.tamk.tikoot.Game;
+package fi.tamk.tikoot.pelimoottori;
 
-import fi.tamk.tikoot.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.Effect;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 

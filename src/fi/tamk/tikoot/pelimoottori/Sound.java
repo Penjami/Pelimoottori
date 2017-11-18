@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.Game;
+package fi.tamk.tikoot.pelimoottori;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

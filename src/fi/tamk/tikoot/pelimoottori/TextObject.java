@@ -1,5 +1,6 @@
-package fi.tamk.tikoot;
+package fi.tamk.tikoot.pelimoottori;
 
+import fi.tamk.tikoot.pelimoottori.GameObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

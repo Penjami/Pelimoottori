@@ -1,9 +1,6 @@
-package fi.tamk.tikoot;
+package fi.tamk.tikoot.games;
 
-import fi.tamk.tikoot.Game.GameApplication;
-import fi.tamk.tikoot.Game.Music;
-import fi.tamk.tikoot.Game.Settings;
-import fi.tamk.tikoot.Game.Sound;
+import fi.tamk.tikoot.pelimoottori.*;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
