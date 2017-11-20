@@ -35,7 +35,7 @@ public class TestGame extends GameApplication {
     @Override
     protected void launchProperties() {
         monk.setPosition(20,40);
-
+        int collisions = 1;
         for(int i = 0; i<10; i++) {
             collectables.add(new SpriteObject("soda.png"));
         }
@@ -51,6 +51,20 @@ public class TestGame extends GameApplication {
                 col.setVelocity(randomBetweenNum(-10,-20),randomBetweenNum(-10,-20));
             } else if(dir>3 && dir<=4) {
                 col.setVelocity(randomBetweenNum(10,20),randomBetweenNum(10,20));
+            }
+        }
+        for (int k = 0; k < collisions; k++) {
+            for(int i=0; i<collectables.size(); i++)
+            {
+                for(int j=i+1; j<collectables.size(); j++)
+                {
+                    if (collectables.get(i).intersects(collectables.get(j))
+                            && collectables.get(i) != collectables.get(j)) {
+                        collectables.get(i).setPosition(randomBetweenNum(0,mainScene.getWidth() - collectables.get(i).getWidth()),
+                                randomBetweenNum(0,mainScene.getHeight() - collectables.get(i).getHeight()));
+                        collisions++;
+                    }
+                }
             }
         }
     }
@@ -96,7 +110,6 @@ public class TestGame extends GameApplication {
             {
                 if (collectables.get(i).intersects(collectables.get(j))
                         && collectables.get(i) != collectables.get(j)) {
-                    System.out.println("collision");
                     double vel1X = collectables.get(i).getVelocityX();
                     double vel1Y = collectables.get(i).getVelocityY();
                     double vel2X = collectables.get(j).getVelocityX();

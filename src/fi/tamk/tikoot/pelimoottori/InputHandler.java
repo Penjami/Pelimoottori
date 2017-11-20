@@ -14,6 +14,9 @@ public class InputHandler {
 
     private Scene mainScene;
     private ArrayList<String> input;
+    private double mouseX;
+    private double mouseY;
+
 
     /**
      * Saves key and mouse presses and releases in an array.
@@ -24,6 +27,8 @@ public class InputHandler {
         mainScene = scene;
 
         input = new ArrayList<String>();
+
+
 
         mainScene.setOnKeyPressed((event) ->
             {
@@ -55,6 +60,12 @@ public class InputHandler {
                 input.remove( code );
             }
         );
+        mainScene.setOnMouseMoved(event ->
+            {
+                mouseX = event.getX();
+                mouseY = event.getY();
+            }
+        );
     }
 
     /**
@@ -62,6 +73,18 @@ public class InputHandler {
      */
     public ArrayList<String> getInput() {
         return input;
+    }
+    /**
+     * @return Current x position of mouse.
+     */
+    public double getMouseX() {
+        return mouseX;
+    }
+    /**
+     * @return Curren y position of mouse.
+     */
+    public double getMouseY() {
+        return mouseY;
     }
 
 }

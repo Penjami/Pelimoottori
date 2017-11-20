@@ -57,7 +57,7 @@ public abstract class GameApplication extends Application {
     }
 
     /**
-     * Does everything needed to launchProperties the game.
+     * Does everything needed to start the game.
      *
      * @param primaryStage Stage in which the games content is drawn.
      */
