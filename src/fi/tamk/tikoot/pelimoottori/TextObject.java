@@ -62,16 +62,7 @@ public class TextObject extends GameObject {
     public void setTextColor(Color textColor) {
         this.textColor = textColor;
     }
-
-    /**
-     * Used to get the width of this object.
-     *
-     * @return Width of this line of text.
-     */
-    public double getWidth() {
-        return 2;
-    }
-
+    
     /**
      * Used to render this text object.
      *
