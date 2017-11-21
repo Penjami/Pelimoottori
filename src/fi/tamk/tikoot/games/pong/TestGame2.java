@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.games;
+package fi.tamk.tikoot.games.pong;
 
 import fi.tamk.tikoot.pelimoottori.*;
 import javafx.scene.paint.Color;
