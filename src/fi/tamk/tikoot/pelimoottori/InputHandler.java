@@ -8,7 +8,11 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 
 /**
- * Created by Penjami on 5.11.2017.
+ * This class records key inputs that can be used to interact with the game.
+ *
+ * @author Penjami Rantakangas
+ * @version "%I%, %G%"
+ * @since 1.8
  */
 public class InputHandler {
 

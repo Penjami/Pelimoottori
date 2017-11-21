@@ -111,7 +111,7 @@ public abstract class GameApplication extends Application {
     /**
      * Do logic in this method
      *
-     * @param time
+     * @param time the time between frames.
      */
     abstract protected void update(double time);
     /**

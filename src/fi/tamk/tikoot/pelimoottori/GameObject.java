@@ -5,7 +5,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
- * Created by Penjami on 5.11.2017.
+ * This is used to create the base for the game object classes.
+ *
+ * @author Penjami Rantakangas
+ * @version "%I%, %G%"
+ * @since 1.8
  */
 public abstract class GameObject {
 

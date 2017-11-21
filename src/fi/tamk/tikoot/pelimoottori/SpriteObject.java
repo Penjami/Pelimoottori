@@ -5,7 +5,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
- * Created by Penjami on 5.11.2017.
+ * This class is used to create game objects for the game.
+ *
+ * @author Penjami Rantakangas
+ * @version "%I%, %G%"
+ * @since 1.8
  */
 public class SpriteObject extends GameObject {
 
@@ -63,6 +67,7 @@ public class SpriteObject extends GameObject {
 
     /**
      * Used to get the boundaries of this object.
+     * @return Returns a Rectangle2D object that has this objects boundaries.
      */
     public Rectangle2D getBoundary()
     {
@@ -73,6 +78,7 @@ public class SpriteObject extends GameObject {
      * Used to check if this object intersects with a certain other sprite object.
      *
      * @param g the other sprite object.
+     * @return Returns the boolean that informs if the objects in question collide with each other.
      */
     public boolean intersects(SpriteObject g)
     {

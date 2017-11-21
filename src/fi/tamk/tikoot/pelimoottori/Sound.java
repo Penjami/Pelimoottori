@@ -5,7 +5,11 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 /**
- * Created by Penjami on 13.11.2017.
+ * This class can be used to play sound files in game.
+ *
+ * @author Penjami Rantakangas
+ * @version "%I%, %G%"
+ * @since 1.8
  */
 public class Sound {
 

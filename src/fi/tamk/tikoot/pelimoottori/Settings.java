@@ -1,7 +1,11 @@
 package fi.tamk.tikoot.pelimoottori;
 
 /**
- * Created by Penjami on 6.11.2017.
+ * This class is used to set all the base settings for the game application.
+ *
+ * @author Penjami Rantakangas
+ * @version "%I%, %G%"
+ * @since 1.8
  */
 public class Settings {
 

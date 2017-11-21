@@ -7,7 +7,11 @@ import javafx.scene.text.Font;
 
 
 /**
- * Created by Penjami on 13.11.2017.
+ * This class is used to create text elements in game.
+ *
+ * @author Penjami Rantakangas
+ * @version "%I%, %G%"
+ * @since 1.8
  */
 public class TextObject extends GameObject {
 
@@ -22,6 +26,7 @@ public class TextObject extends GameObject {
      * @param textColor The color of the text.
      * @param x Position x of the text object.
      * @param y Position y of the text object.
+     * @param fontSize The size of the font of this object.
      */
     public TextObject(String text, Color textColor, double x, double y, int fontSize) {
         this.text = text;
