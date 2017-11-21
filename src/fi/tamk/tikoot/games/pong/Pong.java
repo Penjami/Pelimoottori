@@ -96,7 +96,7 @@ public class Pong extends GameApplication {
     private void changeDirIfHitWall(SpriteObject sprite) {
         if(sprite.getPositionX() >= mainScene.getWidth() - sprite.getWidth()) {
             player1Score++;
-            player1ScoreText.setText("P2 Points : " + player1Score);
+            player1ScoreText.setText("P1 Points : " + player1Score);
             ball.setPosition(mainScene.getWidth()/2, mainScene.getHeight()/2);
             randomBallVel();
             ballBounceSound.play();
