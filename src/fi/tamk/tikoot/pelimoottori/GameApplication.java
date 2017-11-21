@@ -50,7 +50,7 @@ public abstract class GameApplication extends Application {
         Group root = new Group();
         Canvas gameCanvas = new Canvas(localSettings.getWidth() + 20,localSettings.getHeight() + 20);
         graphicsContext = gameCanvas.getGraphicsContext2D();
-        graphicsContext.setFont(Font.font(40));
+        graphicsContext.setFont(Font.font(30));
         root.getChildren().add(gameCanvas);
         mainScene = new Scene(root,localSettings.getWidth(),localSettings.getHeight());
         primaryStage.setTitle(localSettings.getTitle());

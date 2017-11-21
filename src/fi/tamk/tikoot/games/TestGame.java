@@ -17,7 +17,7 @@ public class TestGame extends GameApplication {
     private ArrayList<SpriteObject> collectables = new ArrayList<>();
     private ArrayList<SpriteObject> removeList = new ArrayList<>();
     private SpriteObject monk = new SpriteObject("monk.png");
-    private TextObject points = new TextObject("Points : " + score, Color.ALICEBLUE, 0, 30);
+    private TextObject points = new TextObject("Points : " + score, Color.ALICEBLUE, 0, 30, 20);
     private Music bgm = new Music("src/bgm3.mp3");
     private Sound gotItemSound = new Sound("src/ballHit.wav");
 
