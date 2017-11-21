@@ -12,7 +12,11 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Created by Penjami on 5.11.2017.
+ * This is the main-class of the program. Everything starts from here.
+ *
+ * @author Penjami Rantakangas
+ * @version "%I%, %G%"
+ * @since 1.8
  */
 public abstract class GameApplication extends Application {
     /*
