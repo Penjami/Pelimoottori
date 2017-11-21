@@ -15,7 +15,9 @@ public class TestGame2 extends GameApplication {
     private ArrayList<SpriteObject> collectables = new ArrayList<>();
     private ArrayList<SpriteObject> removeList = new ArrayList<>();
     private SpriteObject monk = new SpriteObject("monk.png");
-    private TextObject points = new TextObject("Points : " + score, Color.ALICEBLUE, 0, 30);
+    private SpriteObject pongPadPlayer1 = new SpriteObject("pongPad1.png");
+    private SpriteObject pongPadPlayer2 = new SpriteObject("pongPad2.png");
+    private TextObject points = new TextObject("Points : " + score, Color.ALICEBLUE,0,0);
     private Music bgm = new Music("src/bgm3.mp3");
     private Sound gotItemSound = new Sound("src/ballHit.wav");
 
@@ -33,8 +35,9 @@ public class TestGame2 extends GameApplication {
     @Override
     protected void launchProperties() {
         monk.setPosition(20,40);
+        points.setPosition( mainScene.getWidth()/2, 30);
         int collisions = 1;
-        for(int i = 0; i<10; i++) {
+        for(int i = 0; i<1; i++) {
             collectables.add(new SpriteObject("soda.png"));
         }
         for(SpriteObject col : collectables) {
@@ -132,6 +135,8 @@ public class TestGame2 extends GameApplication {
         for(SpriteObject col : collectables) {
             col.render(graphicsContext);
         }
+        pongPadPlayer1.render(graphicsContext);
+        pongPadPlayer2.render(graphicsContext);
         monk.render(graphicsContext);
         points.render(graphicsContext);
     }
