@@ -14,7 +14,6 @@ public class TestGame2 extends GameApplication {
     private SpriteObject backGround = new SpriteObject("img.jpg");
     private ArrayList<SpriteObject> collectables = new ArrayList<>();
     private ArrayList<SpriteObject> removeList = new ArrayList<>();
-    private SpriteObject monk = new SpriteObject("monk.png");
     private SpriteObject pongPadPlayer1 = new SpriteObject("pongPad1.png");
     private SpriteObject pongPadPlayer2 = new SpriteObject("pongPad2.png");
     private TextObject points = new TextObject("Points : " + score, Color.ALICEBLUE,0,0);
@@ -34,7 +33,9 @@ public class TestGame2 extends GameApplication {
 
     @Override
     protected void launchProperties() {
-        monk.setPosition(20,40);
+        pongPadPlayer1.setPosition(20,mainScene.getHeight()/2 - pongPadPlayer1.getHeight()/2);
+        pongPadPlayer1.setPosition(mainScene.getWidth() - pongPadPlayer2.getWidth(),
+                mainScene.getHeight()/2 - pongPadPlayer2.getHeight()/2);
         points.setPosition( mainScene.getWidth()/2, 30);
         int collisions = 1;
         for(int i = 0; i<1; i++) {
@@ -44,14 +45,16 @@ public class TestGame2 extends GameApplication {
             double dir = randomBetweenNum(0,4);
             col.setPosition(randomBetweenNum(0,mainScene.getWidth() - col.getWidth()),
                     randomBetweenNum(0,mainScene.getHeight() - col.getHeight()));
+            int max = 100;
+            int min = 50;
             if(dir<=1) {
-                col.setVelocity(randomBetweenNum(10,20),randomBetweenNum(-10,-20));
+                col.setVelocity(randomBetweenNum(min,max),randomBetweenNum(-min,-max));
             } else if(dir>1 && dir<=2) {
-                col.setVelocity(randomBetweenNum(-10,-20),randomBetweenNum(10,20));
+                col.setVelocity(randomBetweenNum(-min,-max),randomBetweenNum(min,max));
             } else if(dir>2 && dir<=3) {
-                col.setVelocity(randomBetweenNum(-10,-20),randomBetweenNum(-10,-20));
+                col.setVelocity(randomBetweenNum(-min,-max),randomBetweenNum(-min,-max));
             } else if(dir>3 && dir<=4) {
-                col.setVelocity(randomBetweenNum(10,20),randomBetweenNum(10,20));
+                col.setVelocity(randomBetweenNum(min,max),randomBetweenNum(min,max));
             }
         }
         for (int k = 0; k < collisions; k++) {
@@ -77,20 +80,22 @@ public class TestGame2 extends GameApplication {
             bgm.play();
         }
 
-        monk.setVelocity(0,0);
-        if (inputHandler.getInput().contains("LEFT"))
-            monk.addVelocity(-50,0);
-        if (inputHandler.getInput().contains("RIGHT"))
-            monk.addVelocity(50,0);
+        pongPadPlayer2.setVelocity(0,0);
+        pongPadPlayer1.setVelocity(0,0);
+        if (inputHandler.getInput().contains("W"))
+            pongPadPlayer1.addVelocity(0,-100);
+        if (inputHandler.getInput().contains("S"))
+            pongPadPlayer1.addVelocity(0,100);
         if (inputHandler.getInput().contains("UP"))
-            monk.addVelocity(0,-50);
+            pongPadPlayer2.addVelocity(0,-100);
         if (inputHandler.getInput().contains("DOWN"))
-            monk.addVelocity(0,50);
+            pongPadPlayer2.addVelocity(0,100);
 
         for(SpriteObject col : collectables) {
             col.update(time);
         }
-        monk.update(time);
+        pongPadPlayer1.update(time);
+        pongPadPlayer2.update(time);
 
         if(collectables.isEmpty()) {
         }
@@ -99,11 +104,6 @@ public class TestGame2 extends GameApplication {
     @Override
     protected void collisions() {
         for(SpriteObject col : collectables) {
-            if(monk.intersects(col)) {
-                addScore();
-                gotItemSound.play();
-                removeList.add(col);
-            }
         }
         for(int i=0; i<collectables.size(); i++)
         {
@@ -137,7 +137,6 @@ public class TestGame2 extends GameApplication {
         }
         pongPadPlayer1.render(graphicsContext);
         pongPadPlayer2.render(graphicsContext);
-        monk.render(graphicsContext);
         points.render(graphicsContext);
     }
 

@@ -62,7 +62,7 @@ public class TextObject extends GameObject {
     public void setTextColor(Color textColor) {
         this.textColor = textColor;
     }
-    
+
     /**
      * Used to render this text object.
      *
