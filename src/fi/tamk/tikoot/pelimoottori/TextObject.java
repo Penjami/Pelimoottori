@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
  * This class is used to create text elements in game.
  *
  * @author Penjami Rantakangas
- * @version "%I%, %G%"
+ * @version 1.2
  * @since 1.8
  */
 public class TextObject extends GameObject {

@@ -8,7 +8,7 @@ import java.io.File;
  * This class can be used to play sound files in game.
  *
  * @author Penjami Rantakangas
- * @version "%I%, %G%"
+ * @version 1.2
  * @since 1.8
  */
 public class Sound {

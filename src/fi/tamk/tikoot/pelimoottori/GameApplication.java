@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * This is the main-class of the program. Everything starts from here.
  *
  * @author Penjami Rantakangas
- * @version "%I%, %G%"
+ * @version 1.2
  * @since 1.8
  */
 public abstract class GameApplication extends Application {

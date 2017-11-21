@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * This is used to create the base for the game object classes.
  *
  * @author Penjami Rantakangas
- * @version "%I%, %G%"
+ * @version 1.2
  * @since 1.8
  */
 public abstract class GameObject {

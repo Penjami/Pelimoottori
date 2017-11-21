@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * This class is used to create game objects for the game.
  *
  * @author Penjami Rantakangas
- * @version "%I%, %G%"
+ * @version 1.2
  * @since 1.8
  */
 public class SpriteObject extends GameObject {

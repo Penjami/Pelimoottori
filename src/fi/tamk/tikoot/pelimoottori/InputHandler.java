@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * This class records key inputs that can be used to interact with the game.
  *
  * @author Penjami Rantakangas
- * @version "%I%, %G%"
+ * @version 1.2
  * @since 1.8
  */
 public class InputHandler {
