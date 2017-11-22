@@ -82,7 +82,6 @@ public abstract class GameApplication extends Application {
                 // calculate time since last update.
                 double elapsedTime = (currentNanoTime - lastNanoTime[0]) / 1000000000.0;
                 lastNanoTime[0] = currentNanoTime;
-
                 gameScene.update(elapsedTime);
 
             }

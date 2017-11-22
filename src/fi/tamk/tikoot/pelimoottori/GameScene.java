@@ -6,11 +6,13 @@ import javafx.scene.canvas.GraphicsContext;
 abstract public class GameScene {
     private GraphicsContext graphicsContext;
     private Scene scene;
-
+    private InputHandler inputHandler;
 
 
     public void update(float time) {
-
+        update(time);
+        collisions();
+        draw();
     }
 
     public GraphicsContext getGraphicsContext() {
@@ -29,8 +31,16 @@ abstract public class GameScene {
         this.scene = scene;
     }
 
-    public void changeScene(GameScene scene) {
-        
+    public void changeGameScene(GameScene scene) {
+
+    }
+
+    public InputHandler getInputHandler() {
+        return inputHandler;
+    }
+
+    public void setInputHandler(InputHandler inputHandler) {
+        this.inputHandler = inputHandler;
     }
 
     /**

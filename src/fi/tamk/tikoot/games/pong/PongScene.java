@@ -24,13 +24,13 @@ public class PongScene extends GameScene {
 
     @Override
     protected void launchProperties() {
-        pongPadPlayer1.setPosition(20,mainScene.getHeight()/2 - pongPadPlayer1.getHeight()/2);
-        pongPadPlayer1.setPosition(mainScene.getWidth() - pongPadPlayer2.getWidth(),
-                mainScene.getHeight()/2 - pongPadPlayer2.getHeight()/2);
-        player1ScoreText.setPosition( mainScene.getWidth()/2-250, 30);
-        player2ScoreText.setPosition( mainScene.getWidth()/2+100, 30);
+        pongPadPlayer1.setPosition(20,getScene().getHeight()/2 - pongPadPlayer1.getHeight()/2);
+        pongPadPlayer1.setPosition(getScene().getWidth() - pongPadPlayer2.getWidth(),
+                getScene().getHeight()/2 - pongPadPlayer2.getHeight()/2);
+        player1ScoreText.setPosition( getScene().getWidth()/2-250, 30);
+        player2ScoreText.setPosition( getScene().getWidth()/2+100, 30);
 
-        ball.setPosition(mainScene.getWidth()/2, mainScene.getHeight()/2);
+        ball.setPosition(getScene().getWidth()/2, getScene().getHeight()/2);
         randomBallVel();
 
     }
@@ -47,12 +47,12 @@ public class PongScene extends GameScene {
         if (inputHandler.getInput().contains("W") && pongPadPlayer1.getPositionY()>0)
             pongPadPlayer1.addVelocity(0,-100);
         if (inputHandler.getInput().contains("S")
-                && pongPadPlayer1.getPositionY()<mainScene.getHeight()-pongPadPlayer1.getHeight())
+                && pongPadPlayer1.getPositionY()<getScene().getHeight()-pongPadPlayer1.getHeight())
             pongPadPlayer1.addVelocity(0,100);
         if (inputHandler.getInput().contains("UP") && pongPadPlayer2.getPositionY()>0)
             pongPadPlayer2.addVelocity(0,-100);
         if (inputHandler.getInput().contains("DOWN")
-                && pongPadPlayer1.getPositionY()<mainScene.getHeight()-pongPadPlayer1.getHeight() )
+                && pongPadPlayer1.getPositionY()<getScene().getHeight()-pongPadPlayer1.getHeight() )
             pongPadPlayer2.addVelocity(0,100);
 
         ball.update(time);
@@ -72,7 +72,7 @@ public class PongScene extends GameScene {
 
     @Override
     protected void draw() {
-        graphicsContext.clearRect(0, 0, mainScene.getWidth(), mainScene.getHeight());
+        graphicsContext.clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
         ball.render(graphicsContext);
         pongPadPlayer1.render(graphicsContext);
         pongPadPlayer2.render(graphicsContext);
@@ -84,21 +84,21 @@ public class PongScene extends GameScene {
     protected void removeObjects() {}
 
     private void changeDirIfHitWall(SpriteObject sprite) {
-        if(sprite.getPositionX() >= mainScene.getWidth() - sprite.getWidth()) {
+        if(sprite.getPositionX() >= getScene().getWidth() - sprite.getWidth()) {
             player1Score++;
             player1ScoreText.setText("P1 Points : " + player1Score);
-            ball.setPosition(mainScene.getWidth()/2, mainScene.getHeight()/2);
+            ball.setPosition(getScene().getWidth()/2, getScene().getHeight()/2);
             randomBallVel();
             ballBounceSound.play();
         }
         if(sprite.getPositionX() <= 0) {
             player2Score++;
             player2ScoreText.setText("P2 Points : " + player2Score);
-            ball.setPosition(mainScene.getWidth()/2, mainScene.getHeight()/2);
+            ball.setPosition(getScene().getWidth()/2, getScene().getHeight()/2);
             randomBallVel();
             ballBounceSound.play();
         }
-        if(sprite.getPositionY() >= mainScene.getHeight() - sprite.getHeight()) {
+        if(sprite.getPositionY() >= getScene().getHeight() - sprite.getHeight()) {
             sprite.setVelocityY(sprite.getVelocityY() * -1);
             ballBounceSound.play();
         }
