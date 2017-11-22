@@ -21,9 +21,13 @@ public class PongScene extends GameScene {
     private Music bgm = new Music("src/bgm.mp3");
     private Sound ballBounceSound = new Sound("src/ballHit.wav");
 
+    public PongScene(Settings settings) {
+        super(settings);
+    }
 
     @Override
     protected void launchProperties() {
+        bgm.loop(true);
         pongPadPlayer1.setPosition(20,getScene().getHeight()/2 - pongPadPlayer1.getHeight()/2);
         pongPadPlayer1.setPosition(getScene().getWidth() - pongPadPlayer2.getWidth(),
                 getScene().getHeight()/2 - pongPadPlayer2.getHeight()/2);
@@ -43,16 +47,21 @@ public class PongScene extends GameScene {
 
         pongPadPlayer2.setVelocity(0,0);
         pongPadPlayer1.setVelocity(0,0);
-        if (getInputHandler().getInput().contains("W") && pongPadPlayer1.getPositionY()>0)
+        if (getInputHandler().getInput().contains("W") && pongPadPlayer1.getPositionY()>0) {
             pongPadPlayer1.addVelocity(0,-100);
+        }
         if (getInputHandler().getInput().contains("S")
-                && pongPadPlayer1.getPositionY()<getScene().getHeight()-pongPadPlayer1.getHeight())
+                && pongPadPlayer1.getPositionY()<getScene().getHeight()-pongPadPlayer1.getHeight()){
             pongPadPlayer1.addVelocity(0,100);
-        if (getInputHandler().getInput().contains("UP") && pongPadPlayer2.getPositionY()>0)
+        }
+        if (getInputHandler().getInput().contains("UP") && pongPadPlayer2.getPositionY()>0){
             pongPadPlayer2.addVelocity(0,-100);
+        }
         if (getInputHandler().getInput().contains("DOWN")
-                && pongPadPlayer1.getPositionY()<getScene().getHeight()-pongPadPlayer1.getHeight() )
+                && pongPadPlayer2.getPositionY()<getScene().getHeight()-pongPadPlayer2.getHeight() ) {
             pongPadPlayer2.addVelocity(0,100);
+        }
+
 
         ball.update(time);
         pongPadPlayer1.update(time);

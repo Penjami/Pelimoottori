@@ -60,4 +60,18 @@ public class Music {
     public boolean isPlaying() {
         return mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING;
     }
+
+    /**
+     * Set the music to loop or not to loop.
+     *
+     * @param t Boolean value that defines if the music loops.
+     */
+    public void loop(boolean t) {
+        if(t) {
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        } else {
+            mediaPlayer.setCycleCount(0);
+        }
+
+    }
 }

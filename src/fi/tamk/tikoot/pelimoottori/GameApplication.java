@@ -44,13 +44,6 @@ public abstract class GameApplication extends Application {
         this.primaryStage = primaryStage;
         Settings localSettings = new Settings();
         setSettings(localSettings);
-
-        Group root = new Group();
-        Canvas gameCanvas = new Canvas(localSettings.getWidth() + 20,localSettings.getHeight() + 20);
-        gameScene.setGraphicsContext(gameCanvas.getGraphicsContext2D());
-        gameScene.getGraphicsContext().setFont(Font.font(30));
-        root.getChildren().add(gameCanvas);
-        gameScene.setScene(new Scene(root,localSettings.getWidth(),localSettings.getHeight()));
         primaryStage.setTitle(localSettings.getTitle());
         primaryStage.setResizable(false);
         primaryStage.setScene(gameScene.getScene());
@@ -79,7 +72,7 @@ public abstract class GameApplication extends Application {
                 // calculate time since last update.
                 double elapsedTime = (currentNanoTime - lastNanoTime[0]) / 1000000000.0;
                 lastNanoTime[0] = currentNanoTime;
-                gameScene.update(elapsedTime);
+                gameScene.loop(elapsedTime);
 
             }
         }.start();

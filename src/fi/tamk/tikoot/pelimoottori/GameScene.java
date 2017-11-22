@@ -1,7 +1,10 @@
 package fi.tamk.tikoot.pelimoottori;
 
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.text.Font;
 
 abstract public class GameScene {
     private GraphicsContext graphicsContext;
@@ -9,7 +12,16 @@ abstract public class GameScene {
     private InputHandler inputHandler;
 
 
-    public void update(float time) {
+    public GameScene(Settings settings) {
+        Group root = new Group();
+        Canvas gameCanvas = new Canvas(settings.getWidth() + 20,settings.getHeight() + 20);
+        setGraphicsContext(gameCanvas.getGraphicsContext2D());
+        getGraphicsContext().setFont(Font.font(30));
+        root.getChildren().add(gameCanvas);
+        setScene(new Scene(root,settings.getWidth(),settings.getHeight()));
+    }
+
+    public void loop(double time) {
         update(time);
         collisions();
         draw();

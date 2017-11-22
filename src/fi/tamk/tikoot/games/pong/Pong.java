@@ -5,15 +5,15 @@ import fi.tamk.tikoot.pelimoottori.GameScene;
 import fi.tamk.tikoot.pelimoottori.Settings;
 
 public class Pong extends GameApplication {
-    private PongScene pongScene = new PongScene();
+    private PongScene pongScene;
 
     public static void main(String[] args) { launch(args); }
 
     @Override
     protected void setSettings(Settings settings) {
-        gameScene = pongScene;
         settings.setTitle("TestGame");
         settings.setWidth(600);
         settings.setHeight(360);
+        gameScene = new PongScene(settings);
     }
 }

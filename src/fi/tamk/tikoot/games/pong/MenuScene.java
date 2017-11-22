@@ -1,8 +1,14 @@
 package fi.tamk.tikoot.games.pong;
 
 import fi.tamk.tikoot.pelimoottori.GameScene;
+import fi.tamk.tikoot.pelimoottori.Settings;
 
 public class MenuScene extends GameScene {
+
+    public MenuScene(Settings settings) {
+        super(settings);
+    }
+
     @Override
     protected void launchProperties() {
 
