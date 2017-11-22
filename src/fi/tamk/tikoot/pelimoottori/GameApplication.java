@@ -32,9 +32,6 @@ public abstract class GameApplication extends Application {
         Render->draw();
     }
      */
-    protected Scene mainScene;
-    protected GraphicsContext graphicsContext;
-    protected InputHandler inputHandler;
     protected Stage primaryStage;
     protected GameScene gameScene;
 
@@ -50,13 +47,13 @@ public abstract class GameApplication extends Application {
 
         Group root = new Group();
         Canvas gameCanvas = new Canvas(localSettings.getWidth() + 20,localSettings.getHeight() + 20);
-        graphicsContext = gameCanvas.getGraphicsContext2D();
-        graphicsContext.setFont(Font.font(30));
+        gameScene.setGraphicsContext(gameCanvas.getGraphicsContext2D());
+        gameScene.getGraphicsContext().setFont(Font.font(30));
         root.getChildren().add(gameCanvas);
-        mainScene = new Scene(root,localSettings.getWidth(),localSettings.getHeight());
+        gameScene.setScene(new Scene(root,localSettings.getWidth(),localSettings.getHeight()));
         primaryStage.setTitle(localSettings.getTitle());
         primaryStage.setResizable(false);
-        primaryStage.setScene(mainScene);
+        primaryStage.setScene(gameScene.getScene());
         primaryStage.show();
         gameScene.launchProperties();
     }
@@ -72,7 +69,7 @@ public abstract class GameApplication extends Application {
 
         final Long[] lastNanoTime = {System.nanoTime()};
 
-        inputHandler = new InputHandler(mainScene);
+        gameScene.setInputHandler(new InputHandler(gameScene.getScene()));
 
         //Create game loop
         new AnimationTimer()

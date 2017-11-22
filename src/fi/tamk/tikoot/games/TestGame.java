@@ -6,10 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import java.util.Random;
 import java.util.ArrayList;
-
+/*
 /**
  * Created by Penjami on 6.11.2017.
- */
+ *
 public class TestGame extends GameApplication {
 
     private int score = 0;
@@ -168,3 +168,4 @@ public class TestGame extends GameApplication {
         points.setText("Points : " + score);
     }
 }
+*/

@@ -32,7 +32,6 @@ public class PongScene extends GameScene {
 
         ball.setPosition(getScene().getWidth()/2, getScene().getHeight()/2);
         randomBallVel();
-
     }
 
     @Override
@@ -44,14 +43,14 @@ public class PongScene extends GameScene {
 
         pongPadPlayer2.setVelocity(0,0);
         pongPadPlayer1.setVelocity(0,0);
-        if (inputHandler.getInput().contains("W") && pongPadPlayer1.getPositionY()>0)
+        if (getInputHandler().getInput().contains("W") && pongPadPlayer1.getPositionY()>0)
             pongPadPlayer1.addVelocity(0,-100);
-        if (inputHandler.getInput().contains("S")
+        if (getInputHandler().getInput().contains("S")
                 && pongPadPlayer1.getPositionY()<getScene().getHeight()-pongPadPlayer1.getHeight())
             pongPadPlayer1.addVelocity(0,100);
-        if (inputHandler.getInput().contains("UP") && pongPadPlayer2.getPositionY()>0)
+        if (getInputHandler().getInput().contains("UP") && pongPadPlayer2.getPositionY()>0)
             pongPadPlayer2.addVelocity(0,-100);
-        if (inputHandler.getInput().contains("DOWN")
+        if (getInputHandler().getInput().contains("DOWN")
                 && pongPadPlayer1.getPositionY()<getScene().getHeight()-pongPadPlayer1.getHeight() )
             pongPadPlayer2.addVelocity(0,100);
 
@@ -72,12 +71,12 @@ public class PongScene extends GameScene {
 
     @Override
     protected void draw() {
-        graphicsContext.clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
-        ball.render(graphicsContext);
-        pongPadPlayer1.render(graphicsContext);
-        pongPadPlayer2.render(graphicsContext);
-        player1ScoreText.render(graphicsContext);
-        player2ScoreText.render(graphicsContext);
+        getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
+        ball.render(getGraphicsContext());
+        pongPadPlayer1.render(getGraphicsContext());
+        pongPadPlayer2.render(getGraphicsContext());
+        player1ScoreText.render(getGraphicsContext());
+        player2ScoreText.render(getGraphicsContext());
     }
 
     @Override
