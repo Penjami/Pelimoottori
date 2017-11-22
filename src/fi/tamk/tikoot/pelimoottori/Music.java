@@ -44,6 +44,15 @@ public class Music {
     }
 
     /**
+     * Gets the music file as a media object.
+     *
+     * @return Media file that contains the music file.
+     */
+    public Media getMusic() {
+        return music;
+    }
+
+    /**
      * Used to check if the music is playing or not.
      *
      * @return true or false depending on the current state of the music object.

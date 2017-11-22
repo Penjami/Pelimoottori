@@ -40,4 +40,14 @@ public class Sound {
     public void setSound(String fileLocation) {
         sound = new Media(new File(fileLocation).toURI().toString());
     }
+
+
+    /**
+     * Gets the sound file as a media object.
+     *
+     * @return Media file that contains the sound file.
+     */
+    public Media getSound() {
+        return sound;
+    }
 }

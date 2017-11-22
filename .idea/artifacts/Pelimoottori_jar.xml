@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Pelimoottori:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Pelimoottori_jar</output-path>
+    <root id="archive" name="Pelimoottori.jar">
+      <element id="module-output" name="Pelimoottori" />
+    </root>
+  </artifact>
+</component>

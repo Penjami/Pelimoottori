@@ -1,4 +1,4 @@
 package fi.tamk.tikoot.pelimoottori;
 
-public class GameWindow {
+public class GameScene {
 }

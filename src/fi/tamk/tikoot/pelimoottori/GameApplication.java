@@ -35,7 +35,7 @@ public abstract class GameApplication extends Application {
     protected Scene mainScene;
     protected GraphicsContext graphicsContext;
     protected InputHandler inputHandler;
-    protected Stage primaryStage;
+    private Stage primaryStage;
 
     /**
      * Creates and initializes the stage and settings.
