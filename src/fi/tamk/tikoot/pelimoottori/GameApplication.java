@@ -35,8 +35,8 @@ public abstract class GameApplication extends Application {
     protected Scene mainScene;
     protected GraphicsContext graphicsContext;
     protected InputHandler inputHandler;
-    private Stage primaryStage;
-    private GameScene gameScene;
+    protected Stage primaryStage;
+    protected GameScene gameScene;
 
     /**
      * Creates and initializes the stage and settings.
@@ -58,7 +58,7 @@ public abstract class GameApplication extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(mainScene);
         primaryStage.show();
-        launchProperties();
+        gameScene.launchProperties();
     }
 
     /**
