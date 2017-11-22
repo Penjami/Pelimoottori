@@ -36,6 +36,7 @@ public abstract class GameApplication extends Application {
     protected GraphicsContext graphicsContext;
     protected InputHandler inputHandler;
     private Stage primaryStage;
+    private GameScene gameScene;
 
     /**
      * Creates and initializes the stage and settings.
@@ -82,17 +83,7 @@ public abstract class GameApplication extends Application {
                 double elapsedTime = (currentNanoTime - lastNanoTime[0]) / 1000000000.0;
                 lastNanoTime[0] = currentNanoTime;
 
-                // game logic
-                update(elapsedTime);
-
-                // collision detection
-                collisions();
-
-                // render
-                draw();
-
-                // remove marked objects
-                removeObjects();
+                gameScene.update(elapsedTime);
 
             }
         }.start();
@@ -104,28 +95,4 @@ public abstract class GameApplication extends Application {
      * @param settings object containing all the settings
      */
     abstract protected void setSettings(Settings settings);
-    /**
-     * Used to set all objects to start values.
-     */
-    abstract protected void launchProperties();
-    /**
-     * Do logic in this method
-     *
-     * @param time the time between frames.
-     */
-    abstract protected void update(double time);
-    /**
-     * Check collision in this method
-     */
-    abstract protected void collisions();
-    /**
-     * Draw all sprites in this method
-     */
-    abstract protected void draw();
-    /**
-     * Draw all sprites in this method
-     */
-    abstract protected void removeObjects();
-
-
 }
