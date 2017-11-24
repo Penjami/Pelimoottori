@@ -29,8 +29,10 @@ public class ImageObject extends GameObject{
      */
     public ImageObject(String fileLocation, World world) {
         setImage(fileLocation);
-        body.addFixture(Geometry.createRectangle(getImage().getWidth(),getImage().getWidth()));
+        body.addFixture(Geometry.createRectangle(getImage().getWidth()/STATIC.SCALE,
+                getImage().getWidth()/STATIC.SCALE));
         body.setMass(MassType.NORMAL);
+        body.translate(1,3);
         world.addBody(body);
     }
 
@@ -74,7 +76,7 @@ public class ImageObject extends GameObject{
     public void render(GraphicsContext gc)
     {
         Transform t = body.getTransform();
-        gc.drawImage( image, t.getTranslationX(),t.getTranslationY());
+        gc.drawImage( image, t.getTranslationX() * STATIC.SCALE,t.getTranslationY() * STATIC.SCALE);
     }
 
 }

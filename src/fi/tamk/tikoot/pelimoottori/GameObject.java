@@ -27,11 +27,11 @@ public class GameObject{
     }
 
     public GameObject(MassType type, double x, double y, double width, double height, World world) {
-        body.addFixture(Geometry.createRectangle(width,height));
+        body.addFixture(Geometry.createRectangle(width/STATIC.SCALE,height/STATIC.SCALE));
         this.width = width;
         this.height = height;
         body.setMass(type);
-        body.translate(x,y);
+        body.translate(x/STATIC.SCALE,y/STATIC.SCALE);
         world.addBody(body);
     }
 
@@ -45,7 +45,6 @@ public class GameObject{
     {
         return true;
     }
-
 
     /**
      * Used to get the width of this sprite object.
@@ -72,7 +71,7 @@ public class GameObject{
      * @param y Position in the y axis.
      */
     public void setPosition(double x, double y) {
-        body.translate(x/64,y/64);
+        body.translate(x/STATIC.SCALE,y/STATIC.SCALE);
     }
 
     /**
@@ -119,14 +118,14 @@ public class GameObject{
      * @return The x position of the object.
      */
     public double getPositionX() {
-        return body.getLocalCenter().x;
+        return body.getTransform().getTranslationX();
     }
 
     /**
      * @return The y position of the object.
      */
     public double getPositionY() {
-        return body.getLocalCenter().y;
+        return body.getTransform().getTranslationY();
     }
 
 }

@@ -71,9 +71,8 @@ public abstract class GameApplication extends Application {
             {
                 // calculate time since last update.
                 float delta = 1f / (1000.0f / ((currentNanoTime-lastNanoTime[0]) / 1000000));
-                lastNanoTime[0] = currentNanoTime;
                 gameScene.loop(delta);
-
+                lastNanoTime[0] = currentNanoTime;
             }
         }.start();
     }
