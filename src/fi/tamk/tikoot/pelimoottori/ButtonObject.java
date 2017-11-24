@@ -8,9 +8,10 @@ public class ButtonObject extends GameObject {
 
     private Button button;
 
-    public ButtonObject(String text) {
+    public ButtonObject(String text, Scene scene) {
         super();
         button = new Button(text);
+        scene.getRoot().getChildrenUnmodifiable().add(getButton());
     }
 
     public void draw(GraphicsContext gc) {
