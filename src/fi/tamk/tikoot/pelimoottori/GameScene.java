@@ -5,15 +5,18 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
+import org.dyn4j.dynamics.World;
 
 abstract public class GameScene {
     private GraphicsContext graphicsContext;
     private Group uiRoot;
     private Scene scene;
     private InputHandler inputHandler;
+    private World world;
 
 
     public GameScene(Settings settings) {
+        world = new World();
         Group root = new Group();
         uiRoot = new Group();
         Canvas gameCanvas = new Canvas(settings.getWidth() + 20,settings.getHeight() + 20);
