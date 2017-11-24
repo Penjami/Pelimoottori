@@ -19,7 +19,10 @@ public class PongScene extends GameScene {
     private TextObject player2ScoreText =
             new TextObject("P1 Points : " + player2Score, Color.DARKRED,0,0, 25);
     private Music bgm = new Music("src/bgm.mp3");
-    private Sound ballBounceSound = new Sound("src/ballHit.wav");
+    private Sound ballBounceWallSound = new Sound("src/ballHit.wav");
+    private Sound ballBouncePadSound = new Sound("src/blop.mp3");
+    private ButtonObject button = new ButtonObject("button", getUiRoot(), 200,200);
+    private double gameSpeed = 2;
 
     public PongScene(Settings settings) {
         super(settings);
@@ -48,18 +51,18 @@ public class PongScene extends GameScene {
         pongPadPlayer2.setVelocity(0,0);
         pongPadPlayer1.setVelocity(0,0);
         if (getInputHandler().getInput().contains("W") && pongPadPlayer1.getPositionY()>0) {
-            pongPadPlayer1.addVelocity(0,-100);
+            pongPadPlayer1.addVelocity(0,-100 * gameSpeed);
         }
         if (getInputHandler().getInput().contains("S")
                 && pongPadPlayer1.getPositionY()<getScene().getHeight()-pongPadPlayer1.getHeight()){
-            pongPadPlayer1.addVelocity(0,100);
+            pongPadPlayer1.addVelocity(0,100 * gameSpeed);
         }
         if (getInputHandler().getInput().contains("UP") && pongPadPlayer2.getPositionY()>0){
-            pongPadPlayer2.addVelocity(0,-100);
+            pongPadPlayer2.addVelocity(0,-100 * gameSpeed);
         }
         if (getInputHandler().getInput().contains("DOWN")
                 && pongPadPlayer2.getPositionY()<getScene().getHeight()-pongPadPlayer2.getHeight() ) {
-            pongPadPlayer2.addVelocity(0,100);
+            pongPadPlayer2.addVelocity(0,100 * gameSpeed);
         }
 
 
@@ -73,6 +76,7 @@ public class PongScene extends GameScene {
     protected void collisions() {
         if(pongPadPlayer1.intersects(ball) || pongPadPlayer2.intersects(ball) ) {
             ball.setVelocityX(-ball.getVelocityX());
+            ballBouncePadSound.play();
         }
         changeDirIfHitWall(ball);
 
@@ -97,22 +101,22 @@ public class PongScene extends GameScene {
             player1ScoreText.setText("P1 Points : " + player1Score);
             ball.setPosition(getScene().getWidth()/2, getScene().getHeight()/2);
             randomBallVel();
-            ballBounceSound.play();
+            ballBounceWallSound.play();
         }
         if(sprite.getPositionX() <= 0) {
             player2Score++;
             player2ScoreText.setText("P2 Points : " + player2Score);
             ball.setPosition(getScene().getWidth()/2, getScene().getHeight()/2);
             randomBallVel();
-            ballBounceSound.play();
+            ballBounceWallSound.play();
         }
         if(sprite.getPositionY() >= getScene().getHeight() - sprite.getHeight()) {
             sprite.setVelocityY(sprite.getVelocityY() * -1);
-            ballBounceSound.play();
+            ballBounceWallSound.play();
         }
         if(sprite.getPositionY() <= 0) {
             sprite.setVelocityY(sprite.getVelocityY() * -1);
-            ballBounceSound.play();
+            ballBounceWallSound.play();
         }
     }
 
@@ -124,13 +128,13 @@ public class PongScene extends GameScene {
     private void randomBallVel() {
         double dir = randomBetweenNum(0,4);
         if(dir<=1) {
-            ball.setVelocity(100,-100);
+            ball.setVelocity(100 * gameSpeed,-100 * gameSpeed);
         } else if(dir>1 && dir<=2) {
-            ball.setVelocity(-100,100);
+            ball.setVelocity(-100 * gameSpeed,100 * gameSpeed);
         } else if(dir>2 && dir<=3) {
-            ball.setVelocity(-100,-100);
+            ball.setVelocity(-100 * gameSpeed,-100 * gameSpeed);
         } else if(dir>3 && dir<=4) {
-            ball.setVelocity(100,100);
+            ball.setVelocity(100 * gameSpeed,100 * gameSpeed);
         }
     }
 

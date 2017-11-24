@@ -1,5 +1,6 @@
 package fi.tamk.tikoot.pelimoottori;
 
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -8,10 +9,12 @@ public class ButtonObject extends GameObject {
 
     private Button button;
 
-    public ButtonObject(String text, Scene scene) {
+    public ButtonObject(String text, Group uiRoot, double x, double y) {
         super();
         button = new Button(text);
-        scene.getRoot().getChildrenUnmodifiable().add(getButton());
+        button.setTranslateX(x);
+        button.setTranslateY(y);
+        uiRoot.getChildren().add(getButton());
     }
 
     public void draw(GraphicsContext gc) {
