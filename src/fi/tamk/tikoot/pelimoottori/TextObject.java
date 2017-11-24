@@ -1,9 +1,10 @@
 package fi.tamk.tikoot.pelimoottori;
 
-import fi.tamk.tikoot.pelimoottori.GameObject;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 /**
@@ -13,7 +14,7 @@ import javafx.scene.text.Font;
  * @version 1.2
  * @since 1.8
  */
-public class TextObject extends GameObject {
+public class TextObject extends Text {
 
     private String text;
     private Color textColor;
@@ -28,29 +29,13 @@ public class TextObject extends GameObject {
      * @param y Position y of the text object.
      * @param fontSize The size of the font of this object.
      */
-    public TextObject(String text, Color textColor, double x, double y, int fontSize) {
-        this.text = text;
-        this.textColor = textColor;
-        this.fontSize = fontSize;
-        setPosition(x,y);
-    }
-
-    /**
-     * Constructor for text object.
-     *
-     * @param text The text that is being shown.
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    /**
-     * Used to get the text to of this object.
-     *
-     * @return The text that is being shown.
-     */
-    public String getText() {
-        return text;
+    public TextObject(String text, Color textColor, double x, double y, int fontSize, Group uiRoot) {
+        setFont(Font.font(fontSize));
+        setText(text);
+        setTextColor(textColor);
+        setTranslateX(x);
+        setTranslateY(y);
+        uiRoot.getChildren().add(this);
     }
 
     /**
@@ -76,13 +61,9 @@ public class TextObject extends GameObject {
      *
      * @param gc GraphicsContext object that is used to draw text objects.
      */
-    public void render(GraphicsContext gc)
+    public void setPosition(GraphicsContext gc)
     {
-        double tempSize = gc.getFont().getSize();
-        gc.setFont(Font.font(fontSize));
-        gc.setFill(textColor);
-        gc.strokeText( text, getPositionX(),getPositionY() );
-        gc.setFont(Font.font(tempSize));
+
     }
 
     /**

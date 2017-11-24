@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class TestGame extends GameApplication {
 
     private int score = 0;
-    private SpriteObject backGround = new SpriteObject("img.jpg");
-    private ArrayList<SpriteObject> collectables = new ArrayList<>();
-    private ArrayList<SpriteObject> removeList = new ArrayList<>();
-    private SpriteObject monk = new SpriteObject("monk.png");
+    private ImageObject backGround = new ImageObject("img.jpg");
+    private ArrayList<ImageObject> collectables = new ArrayList<>();
+    private ArrayList<ImageObject> removeList = new ArrayList<>();
+    private ImageObject monk = new ImageObject("monk.png");
     private TextObject points = new TextObject("Points : " + score, Color.ALICEBLUE, 0, 30, 20);
     private Music bgm = new Music("src/bgm3.mp3");
     private Sound gotItemSound = new Sound("src/ballHit.wav");
@@ -37,9 +37,9 @@ public class TestGame extends GameApplication {
         monk.setPosition(20,40);
         int collisions = 1;
         for(int i = 0; i<10; i++) {
-            collectables.add(new SpriteObject("soda.png"));
+            collectables.add(new ImageObject("soda.png"));
         }
-        for(SpriteObject col : collectables) {
+        for(ImageObject col : collectables) {
             double dir = randomBetweenNum(0,4);
             col.setPosition(randomBetweenNum(0,mainScene.getWidth() - col.getWidth()),
                     randomBetweenNum(0,mainScene.getHeight() - col.getHeight()));
@@ -86,7 +86,7 @@ public class TestGame extends GameApplication {
         if (inputHandler.getInput().contains("DOWN"))
             monk.addVelocity(0,50);
 
-        for(SpriteObject col : collectables) {
+        for(ImageObject col : collectables) {
             col.update(time);
         }
         monk.update(time);
@@ -97,7 +97,7 @@ public class TestGame extends GameApplication {
 
     @Override
     protected void collisions() {
-        for(SpriteObject col : collectables) {
+        for(ImageObject col : collectables) {
             if(monk.intersects(col)) {
                 addScore();
                 gotItemSound.play();
@@ -120,7 +120,7 @@ public class TestGame extends GameApplication {
                 }
             }
         }
-        for(SpriteObject col : collectables) {
+        for(ImageObject col : collectables) {
             changeDirIfHitWall(col);
         }
 
@@ -131,7 +131,7 @@ public class TestGame extends GameApplication {
     protected void draw() {
         graphicsContext.clearRect(0, 0, mainScene.getWidth(), mainScene.getHeight());
         backGround.render(graphicsContext);
-        for(SpriteObject col : collectables) {
+        for(ImageObject col : collectables) {
             col.render(graphicsContext);
         }
         monk.render(graphicsContext);
@@ -143,7 +143,7 @@ public class TestGame extends GameApplication {
         collectables.removeAll(removeList);
     }
 
-    private void changeDirIfHitWall(SpriteObject sprite) {
+    private void changeDirIfHitWall(ImageObject sprite) {
         if(sprite.getPositionX() >= mainScene.getWidth() - sprite.getWidth()) {
             sprite.setVelocityX(sprite.getVelocityX() * -1);
         }

@@ -3,20 +3,67 @@ package fi.tamk.tikoot.pelimoottori;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.World;
+import org.dyn4j.geometry.Geometry;
+import org.dyn4j.geometry.MassType;
+import org.dyn4j.geometry.Transform;
+import org.dyn4j.geometry.Vector2;
 
 /**
- * This is used to create the base for the game object classes.
+ * This class is used to create game objects for the game.
  *
  * @author Penjami Rantakangas
  * @version 1.2
  * @since 1.8
  */
-public abstract class GameObject {
+public class GameObject{
 
-    private double positionX;
-    private double positionY;
-    private double velocityY;
-    private double velocityX;
+    protected double width;
+    protected double height;
+    public Body body = new Body();
+
+    GameObject() {
+    }
+
+    public GameObject(MassType type, double x, double y, double width, double height, World world) {
+        body.addFixture(Geometry.createRectangle(width,height));
+        this.width = width;
+        this.height = height;
+        body.setMass(type);
+        body.translate(x,y);
+        world.addBody(body);
+    }
+
+    /**
+     * Used to check if this object intersects with a certain other sprite object.
+     *
+     * @param g the other sprite object.
+     * @return Returns the boolean that informs if the objects in question collide with each other.
+     */
+    public boolean intersects(GameObject g)
+    {
+        return true;
+    }
+
+
+    /**
+     * Used to get the width of this sprite object.
+     *
+     * @return the width of this sprite object.
+     */
+    public double getWidth() {
+        return width;
+    }
+
+    /**
+     * Used to get the height of this sprite object.
+     *
+     * @return the height of this sprite object.
+     */
+    public double getHeight() {
+        return height;
+    }
 
     /**
      * Sets the position of the object'
@@ -25,17 +72,7 @@ public abstract class GameObject {
      * @param y Position in the y axis.
      */
     public void setPosition(double x, double y) {
-        positionX = x;
-        positionY = y;
-    }
-
-    /**
-     * Updates the gameobjects position based on velocity.
-     *
-     * @param time The time between frames.
-     */
-    public void update(double time) {
-        setPosition(getPositionX() + velocityX * time, getPositionY() + velocityY * time);
+        body.translate(x/64,y/64);
     }
 
     /**
@@ -44,17 +81,9 @@ public abstract class GameObject {
      * @return Y axis velocity.
      */
     public double getVelocityY() {
-        return velocityY;
+        return body.getLinearVelocity().y;
     }
 
-    /**
-     * Sets the y axis velocity of the object.
-     *
-     * @param velocityY Y axis velocity.
-     */
-    public void setVelocityY(double velocityY) {
-        this.velocityY = velocityY;
-    }
 
     /**
      * Get the x axis velocity of the object.
@@ -62,16 +91,7 @@ public abstract class GameObject {
      * @return X axis velocity.
      */
     public double getVelocityX() {
-        return velocityX;
-    }
-
-    /**
-     * Sets the x axis velocity of the object.
-     *
-     * @param velocityX X axis velocity.
-     */
-    public void setVelocityX(double velocityX) {
-        this.velocityX = velocityX;
+        return body.getLinearVelocity().x;
     }
 
     /**
@@ -81,8 +101,7 @@ public abstract class GameObject {
      * @param y Y axis velocity.
      */
     public void setVelocity(double x, double y) {
-        setVelocityX(x);
-        setVelocityY(y);
+        body.setLinearVelocity(x,y);
     }
 
     /**
@@ -92,8 +111,7 @@ public abstract class GameObject {
      * @param y Y axis velocity.
      */
     public void addVelocity(double x, double y) {
-        velocityX += x;
-        velocityY += y;
+        body.setLinearVelocity(body.getLinearVelocity().x + x, body.getLinearVelocity().y + y);
     }
 
 
@@ -101,14 +119,14 @@ public abstract class GameObject {
      * @return The x position of the object.
      */
     public double getPositionX() {
-        return positionX;
+        return body.getLocalCenter().x;
     }
 
     /**
      * @return The y position of the object.
      */
     public double getPositionY() {
-        return positionY;
+        return body.getLocalCenter().y;
     }
 
 }
