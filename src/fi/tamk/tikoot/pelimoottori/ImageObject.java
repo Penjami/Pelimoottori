@@ -20,7 +20,6 @@ import org.dyn4j.geometry.Vector2;
 public class ImageObject extends GameObject{
 
     private Image image;
-    public Body body = new Body();
 
     /**
      * Constructor for image object.
@@ -29,11 +28,12 @@ public class ImageObject extends GameObject{
      */
     public ImageObject(String fileLocation, World world) {
         setImage(fileLocation);
-        body.addFixture(Geometry.createRectangle(getImage().getWidth()/STATIC.SCALE,
-                getImage().getWidth()/STATIC.SCALE));
-        body.setMass(MassType.NORMAL);
-        body.translate(1,3);
-        world.addBody(body);
+        getBody().addFixture(Geometry.createRectangle(getImage().getWidth()/STATIC.SCALE,
+                getImage().getWidth()/STATIC.SCALE),1,0.2,0.2);
+        getBody().setMass(MassType.NORMAL);
+        getBody().translate(1,3);
+        getBody().setAutoSleepingEnabled(false);
+        world.addBody(getBody());
     }
 
     /**
@@ -75,8 +75,7 @@ public class ImageObject extends GameObject{
      */
     public void render(GraphicsContext gc)
     {
-        Transform t = body.getTransform();
+        Transform t = getBody().getTransform();
         gc.drawImage( image, t.getTranslationX() * STATIC.SCALE,t.getTranslationY() * STATIC.SCALE);
     }
-
 }

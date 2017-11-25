@@ -4,6 +4,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.Force;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.MassType;
@@ -21,7 +22,7 @@ public class GameObject{
 
     protected double width;
     protected double height;
-    public Body body = new Body();
+    private Body body = new Body();
 
     GameObject() {
     }
@@ -32,11 +33,12 @@ public class GameObject{
         this.height = height;
         body.setMass(type);
         body.translate(x/STATIC.SCALE,y/STATIC.SCALE);
+        body.setAutoSleepingEnabled(false);
         world.addBody(body);
     }
 
     /**
-     * Used to check if this object intersects with a certain other sprite object.
+     * Used to check if this object intersects with a certain other object.
      *
      * @param g the other sprite object.
      * @return Returns the boolean that informs if the objects in question collide with each other.
@@ -65,13 +67,15 @@ public class GameObject{
     }
 
     /**
-     * Sets the position of the object'
+     * Sets the position of the object.
      *
      * @param x Position in the x axis.
      * @param y Position in the y axis.
      */
     public void setPosition(double x, double y) {
-        body.translate(x/STATIC.SCALE,y/STATIC.SCALE);
+        Transform transform = new Transform();
+        transform.translate(x/STATIC.SCALE,y/STATIC.SCALE);
+        body.setTransform(transform);
     }
 
     /**
@@ -101,6 +105,7 @@ public class GameObject{
      */
     public void setVelocity(double x, double y) {
         body.setLinearVelocity(x,y);
+        System.out.println(body.getTransform().toString());
     }
 
     /**
@@ -110,9 +115,8 @@ public class GameObject{
      * @param y Y axis velocity.
      */
     public void addVelocity(double x, double y) {
-        body.setLinearVelocity(body.getLinearVelocity().x + x, body.getLinearVelocity().y + y);
+        body.setLinearVelocity(getVelocityX()+x,getVelocityY()+y);
     }
-
 
     /**
      * @return The x position of the object.
@@ -128,4 +132,10 @@ public class GameObject{
         return body.getTransform().getTranslationY();
     }
 
+    /**
+     * @return The physcis body of this object.
+     */
+    public Body getBody() {
+        return body;
+    }
 }

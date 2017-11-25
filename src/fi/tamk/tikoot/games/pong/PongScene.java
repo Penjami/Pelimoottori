@@ -1,8 +1,11 @@
 package fi.tamk.tikoot.games.pong;
 
 import fi.tamk.tikoot.pelimoottori.*;
+import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.Force;
+import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Vector2;
 
@@ -29,13 +32,13 @@ public class PongScene extends GameScene {
     private Sound ballBouncePadSound = new Sound("src/blop.mp3");
     private double gameSpeed = 2;
 
-    private GameObject wallUp = new GameObject(MassType.INFINITE, 0,
-            getScene().getHeight(),10, 1, world);
+    private GameObject wallUp = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
+            getScene().getHeight(), getScene().getWidth(), 10, world);
     private GameObject wallDown = new GameObject(MassType.INFINITE, 0,
-            0,1000, 10, world);
-    private GameObject wallRigth = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
+            -10, getScene().getWidth(), 10, world);
+    private GameObject wallRigth = new GameObject(MassType.INFINITE, getScene().getWidth(),
             getScene().getHeight()/2,1, getScene().getHeight(), world);
-    private GameObject wallLeft = new GameObject(MassType.INFINITE, -getScene().getWidth()/2,
+    private GameObject wallLeft = new GameObject(MassType.INFINITE, 0,
             getScene().getHeight()/2,1, getScene().getHeight(), world);
 
     public PongScene(Settings settings) {
@@ -44,9 +47,25 @@ public class PongScene extends GameScene {
 
     @Override
     protected void launchProperties() {
+        world.setGravity(World.ZERO_GRAVITY);
         bgm.loop(true);
-        wallDown.body.isStatic();
-        //pongPadPlayer1.setPosition(-200,getScene().getHeight()/2 - pongPadPlayer1.getHeight()/2);
+
+        wallUp.getBody().getFixture(0).setRestitution(1);
+        wallDown.getBody().getFixture(0).setRestitution(1);
+        wallRigth.getBody().getFixture(0).setRestitution(1);
+        wallLeft.getBody().getFixture(0).setRestitution(1);
+
+        ball.setVelocity(4,0);
+        ball.getBody().setBullet(true);
+
+        pongPadPlayer1.getBody().setMassType(MassType.INFINITE);
+        pongPadPlayer2.getBody().setMassType(MassType.INFINITE);
+        pongPadPlayer1.getBody().getFixture(0).setRestitution(1.1);
+        pongPadPlayer1.getBody().getFixture(0).setRestitution(1.1);
+
+        pongPadPlayer1.setPosition(20,getScene().getHeight()/2);
+        pongPadPlayer2.setPosition(getScene().getWidth()-20,getScene().getHeight()/2);
+
         /*
         pongPadPlayer2.setPosition(getScene().getWidth() - pongPadPlayer2.getWidth(),
                 getScene().getHeight()/2 - pongPadPlayer2.getHeight()/2);
@@ -58,22 +77,23 @@ public class PongScene extends GameScene {
 
     @Override
     protected void update(double time) {
-
         if(!bgm.isPlaying()) {
             bgm.play();
         }
 
+        pongPadPlayer1.setVelocity(0,0);
+        pongPadPlayer2.setVelocity(0,0);
         if (getInputHandler().getInput().contains("W")) {
-            pongPadPlayer1.addVelocity(0,100 * gameSpeed);
+            pongPadPlayer1.setVelocity(0,1);
         }
         if (getInputHandler().getInput().contains("S")){
-            pongPadPlayer1.addVelocity(0,-100 * gameSpeed);
+            pongPadPlayer1.setVelocity(0,-1);
         }
         if (getInputHandler().getInput().contains("UP")){
-            pongPadPlayer2.addVelocity(0,100 * gameSpeed);
+            pongPadPlayer2.setVelocity(0,1);
         }
         if (getInputHandler().getInput().contains("DOWN")) {
-            pongPadPlayer2.addVelocity(0,-100 * gameSpeed);
+            pongPadPlayer2.setVelocity(0,-1);
         }
 
     }

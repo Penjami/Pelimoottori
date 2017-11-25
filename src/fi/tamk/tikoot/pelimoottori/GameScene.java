@@ -21,12 +21,11 @@ abstract public class GameScene {
 
 
     public GameScene(Settings settings) {
-        world.setGravity(new Vector2(0,-9));
         Group root = new Group();
         uiRoot = new Group();
         Scale s = new Scale(1, -1);
         Translate t = new Translate(0,-settings.getHeight());
-        gameCanvas = new Canvas(settings.getWidth() + 20,settings.getHeight() + 20);
+        gameCanvas = new Canvas(settings.getWidth()+20,settings.getHeight()+20);
         setGraphicsContext(gameCanvas.getGraphicsContext2D());
         getGraphicsContext().setFont(Font.font(30));
         gameCanvas.getTransforms().addAll(s,t);
