@@ -28,7 +28,8 @@ abstract public class GameScene {
         gameCanvas = new Canvas(settings.getWidth()+20,settings.getHeight()+20);
         setGraphicsContext(gameCanvas.getGraphicsContext2D());
         getGraphicsContext().setFont(Font.font(30));
-        gameCanvas.getTransforms().addAll(s,t);
+        graphicsContext.getTransform().append(t);
+        graphicsContext.getTransform().appendScale(1,-1);
         root.getChildren().addAll(gameCanvas, uiRoot);
         setScene(new Scene(root,settings.getWidth(),settings.getHeight()));
     }
