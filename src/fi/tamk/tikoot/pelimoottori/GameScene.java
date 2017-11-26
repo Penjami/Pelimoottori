@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -18,11 +19,20 @@ abstract public class GameScene {
     public World world = new World();
 
     public GameScene(Settings settings) {
-        Group root = new Group();
+        Pane root = new Pane();
         uiRoot = new Group();
+        root.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 2;" +
+                "-fx-border-insets: 5;" +
+                "-fx-border-radius: 5;" +
+                "-fx-border-color: blue;");
+
         Scale s = new Scale(1, -1);
         Translate t = new Translate(0,-settings.getHeight());
         gameCanvas = new Canvas(settings.getWidth(),settings.getHeight());
+        gameCanvas.setWidth(settings.getWidth());
+        gameCanvas.setHeight(settings.getHeight());
         setGraphicsContext(gameCanvas.getGraphicsContext2D());
         getGraphicsContext().setFont(Font.font(30));
         gameCanvas.getTransforms().addAll(s,t);

@@ -121,14 +121,14 @@ public class GameObject{
      * @return The x position of the object.
      */
     public double getPositionX() {
-        return body.getTransform().getTranslationX();
+        return (body.getTransform().getTranslationX() * STATIC.SCALE - width/2);
     }
 
     /**
      * @return The y position of the object.
      */
     public double getPositionY() {
-        return body.getTransform().getTranslationY();
+        return (body.getTransform().getTranslationY() * STATIC.SCALE - height/2);
     }
 
     /**
