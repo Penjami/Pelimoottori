@@ -33,8 +33,8 @@ public class PongScene extends GameScene {
     private double gameSpeed = 2;
 
     private GameObject wallUp = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
-            getScene().getHeight(), getScene().getWidth(), 10, world);
-    private GameObject wallDown = new GameObject(MassType.INFINITE, 0,
+            getScene().getHeight(), getScene().getWidth()*2, 10, world);
+    private GameObject wallDown = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
             -10, getScene().getWidth(), 10, world);
     private GameObject wallRigth = new GameObject(MassType.INFINITE, getScene().getWidth(),
             getScene().getHeight()/2,1, getScene().getHeight(), world);
@@ -58,10 +58,10 @@ public class PongScene extends GameScene {
         ball.setVelocity(4,0);
         ball.getBody().setBullet(true);
 
-        pongPadPlayer1.getBody().setMassType(MassType.INFINITE);
+        //pongPadPlayer1.getBody().setMassType(MassType.INFINITE);
         pongPadPlayer2.getBody().setMassType(MassType.INFINITE);
         pongPadPlayer1.getBody().getFixture(0).setRestitution(1.1);
-        pongPadPlayer1.getBody().getFixture(0).setRestitution(1.1);
+        pongPadPlayer2.getBody().getFixture(0).setRestitution(1.1);
 
         pongPadPlayer1.setPosition(20,getScene().getHeight()/2);
         pongPadPlayer2.setPosition(getScene().getWidth()-20,getScene().getHeight()/2);
@@ -84,10 +84,16 @@ public class PongScene extends GameScene {
         pongPadPlayer1.setVelocity(0,0);
         pongPadPlayer2.setVelocity(0,0);
         if (getInputHandler().getInput().contains("W")) {
-            pongPadPlayer1.setVelocity(0,1);
+            pongPadPlayer1.addVelocity(0,1);
         }
         if (getInputHandler().getInput().contains("S")){
-            pongPadPlayer1.setVelocity(0,-1);
+            pongPadPlayer1.addVelocity(0,-1);
+        }
+        if (getInputHandler().getInput().contains("D")) {
+            pongPadPlayer1.addVelocity(1,0);
+        }
+        if (getInputHandler().getInput().contains("A")){
+            pongPadPlayer1.addVelocity(-1,0);
         }
         if (getInputHandler().getInput().contains("UP")){
             pongPadPlayer2.setVelocity(0,1);

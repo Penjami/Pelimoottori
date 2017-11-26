@@ -3,12 +3,11 @@ package fi.tamk.tikoot.pelimoottori;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Rotate;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.World;
-import org.dyn4j.geometry.Geometry;
-import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Transform;
-import org.dyn4j.geometry.Vector2;
+import org.dyn4j.geometry.*;
 
 /**
  * This class is used to create game objects for the game.
@@ -20,6 +19,7 @@ import org.dyn4j.geometry.Vector2;
 public class ImageObject extends GameObject{
 
     private Image image;
+    private Affine affine;
 
     /**
      * Constructor for image object.
@@ -29,11 +29,11 @@ public class ImageObject extends GameObject{
     public ImageObject(String fileLocation, World world) {
         setImage(fileLocation);
         getBody().addFixture(Geometry.createRectangle(getImage().getWidth()/STATIC.SCALE,
-                getImage().getWidth()/STATIC.SCALE),1,0.2,0.2);
+                getImage().getHeight()/STATIC.SCALE),1,0.2,0.2);
         getBody().setMass(MassType.NORMAL);
-        getBody().translate(1,3);
         getBody().setAutoSleepingEnabled(false);
         world.addBody(getBody());
+        affine = new Affine();
     }
 
     /**
@@ -75,7 +75,14 @@ public class ImageObject extends GameObject{
      */
     public void render(GraphicsContext gc)
     {
-        Transform t = getBody().getTransform();
-        gc.drawImage( image, t.getTranslationX() * STATIC.SCALE,t.getTranslationY() * STATIC.SCALE);
+        gc.save();
+        Vector2 bodyCenter = getBody().getWorldCenter();
+        Rotate r = new Rotate(getBody().getTransform().getRotation() * 57.2958,
+                bodyCenter.x * STATIC.SCALE, bodyCenter.y * STATIC.SCALE);
+        affine.setToTransform(r);
+        gc.transform(affine);
+        gc.drawImage( image, (bodyCenter.x * STATIC.SCALE) - getWidth()/2,
+                (bodyCenter.y * STATIC.SCALE) - getHeight()/2);
+        gc.restore();
     }
 }

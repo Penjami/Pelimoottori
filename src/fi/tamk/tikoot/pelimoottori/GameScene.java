@@ -8,8 +8,6 @@ import javafx.scene.text.Font;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import org.dyn4j.dynamics.World;
-import org.dyn4j.geometry.AABB;
-import org.dyn4j.geometry.Vector2;
 
 abstract public class GameScene {
     private GraphicsContext graphicsContext;
@@ -19,17 +17,16 @@ abstract public class GameScene {
     private InputHandler inputHandler;
     public World world = new World();
 
-
     public GameScene(Settings settings) {
         Group root = new Group();
         uiRoot = new Group();
         Scale s = new Scale(1, -1);
         Translate t = new Translate(0,-settings.getHeight());
-        gameCanvas = new Canvas(settings.getWidth()+20,settings.getHeight()+20);
+        gameCanvas = new Canvas(settings.getWidth(),settings.getHeight());
         setGraphicsContext(gameCanvas.getGraphicsContext2D());
         getGraphicsContext().setFont(Font.font(30));
-        graphicsContext.getTransform().append(t);
-        graphicsContext.getTransform().appendScale(1,-1);
+        gameCanvas.getTransforms().addAll(s,t);
+
         root.getChildren().addAll(gameCanvas, uiRoot);
         setScene(new Scene(root,settings.getWidth(),settings.getHeight()));
     }

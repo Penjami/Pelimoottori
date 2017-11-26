@@ -105,7 +105,6 @@ public class GameObject{
      */
     public void setVelocity(double x, double y) {
         body.setLinearVelocity(x,y);
-        System.out.println(body.getTransform().toString());
     }
 
     /**
