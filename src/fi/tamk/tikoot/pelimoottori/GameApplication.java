@@ -51,6 +51,13 @@ public abstract class GameApplication extends Application {
         gameScene.launchProperties();
     }
 
+    public void changeScene(GameScene scene) {
+        gameScene = scene;
+        primaryStage.setScene(scene.getScene());
+        scene.launchProperties();
+        gameScene.setInputHandler(new InputHandler(gameScene.getScene()));
+    }
+
     /**
      * Does everything needed to start the game.
      *

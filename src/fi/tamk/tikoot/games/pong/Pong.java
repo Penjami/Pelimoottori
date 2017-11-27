@@ -14,6 +14,6 @@ public class Pong extends GameApplication {
         settings.setTitle("TestGame");
         settings.setWidth(600);
         settings.setHeight(360);
-        gameScene = new PongScene(settings);
+        gameScene = new MenuScene(settings, this);
     }
 }

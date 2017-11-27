@@ -42,8 +42,8 @@ public class PongScene extends GameScene {
     private GameObject wallLeft = new GameObject(MassType.INFINITE, 0,
             getScene().getHeight()/2,1, getScene().getHeight(), world);
 
-    public PongScene(Settings settings) {
-        super(settings);
+    public PongScene(Settings settings, GameApplication app) {
+        super(settings, app);
     }
 
     @Override

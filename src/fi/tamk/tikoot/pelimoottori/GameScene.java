@@ -16,18 +16,15 @@ abstract public class GameScene {
     private Group uiRoot;
     private Scene scene;
     private InputHandler inputHandler;
+    private Settings settings;
+    private GameApplication app;
     public World world = new World();
 
-    public GameScene(Settings settings) {
+    public GameScene(Settings settings, GameApplication app) {
+        this.app = app;
+        this.settings = settings;
         Pane root = new Pane();
         uiRoot = new Group();
-        root.setStyle("-fx-padding: 10;" +
-                "-fx-border-style: solid inside;" +
-                "-fx-border-width: 2;" +
-                "-fx-border-insets: 5;" +
-                "-fx-border-radius: 5;" +
-                "-fx-border-color: blue;");
-
         Scale s = new Scale(1, -1);
         Translate t = new Translate(0,-settings.getHeight());
         gameCanvas = new Canvas(settings.getWidth(),settings.getHeight());
@@ -36,7 +33,6 @@ abstract public class GameScene {
         setGraphicsContext(gameCanvas.getGraphicsContext2D());
         getGraphicsContext().setFont(Font.font(30));
         gameCanvas.getTransforms().addAll(s,t);
-
         root.getChildren().addAll(gameCanvas, uiRoot);
         setScene(new Scene(root,settings.getWidth(),settings.getHeight()));
     }
@@ -65,7 +61,7 @@ abstract public class GameScene {
     }
 
     public void changeGameScene(GameScene scene) {
-
+        app.changeScene(scene);
     }
 
     public InputHandler getInputHandler() {
@@ -105,8 +101,12 @@ abstract public class GameScene {
     public Group getUiRoot() {
         return uiRoot;
     }
-    public Canvas getGameCanvas() {
-        return gameCanvas;
+
+    public Settings getSettings() {
+        return settings;
     }
 
+    public GameApplication getApp() {
+        return app;
+    }
 }
