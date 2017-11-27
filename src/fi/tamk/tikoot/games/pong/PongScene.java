@@ -1,6 +1,8 @@
 package fi.tamk.tikoot.games.pong;
 
 import fi.tamk.tikoot.pelimoottori.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import org.dyn4j.dynamics.Body;

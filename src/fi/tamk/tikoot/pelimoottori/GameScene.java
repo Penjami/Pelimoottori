@@ -56,7 +56,7 @@ abstract public class GameScene {
         return scene;
     }
 
-    public void setScene(Scene scene) {
+    private void setScene(Scene scene) {
         this.scene = scene;
     }
 
