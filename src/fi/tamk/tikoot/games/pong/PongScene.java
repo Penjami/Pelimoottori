@@ -51,25 +51,24 @@ public class PongScene extends GameScene {
         world.setGravity(World.ZERO_GRAVITY);
         bgm.loop(true);
 
-        wallUp.getBody().getFixture(0).setRestitution(1.1);
-        wallDown.getBody().getFixture(0).setRestitution(1.1);
-        wallRigth.getBody().getFixture(0).setRestitution(1.1);
-        wallLeft.getBody().getFixture(0).setRestitution(1.1);
+        wallUp.getBody().getFixture(0).setRestitution(1);
+        wallDown.getBody().getFixture(0).setRestitution(1);
+        wallUp.getBody().getFixture(0).setFriction(0);
+        wallDown.getBody().getFixture(0).setFriction(0);
 
-        /*
         ball.getBody().removeFixture(0);
         ball.getBody().addFixture(new Circle(ball.getWidth()/2/STATIC.SCALE));
-        */
-        ball.setVelocity(4,0);
+        ball.setVelocity(4,4);
         ball.getBody().setBullet(true);
-        ball.getBody().getFixture(0).setRestitution(1.1);
-        ball.getBody().getFixture(0).setFriction(1);
+        ball.getBody().getFixture(0).setRestitution(1);
+        ball.getBody().getFixture(0).setFriction(0);
 
         pongPadPlayer1.getBody().setMassType(MassType.INFINITE);
         pongPadPlayer2.getBody().setMassType(MassType.INFINITE);
-        pongPadPlayer1.getBody().getFixture(0).setRestitution(1.1);
-        pongPadPlayer2.getBody().getFixture(0).setRestitution(1.1);
-
+        pongPadPlayer1.getBody().getFixture(0).setRestitution(1);
+        pongPadPlayer2.getBody().getFixture(0).setRestitution(1);
+        pongPadPlayer1.getBody().getFixture(0).setFriction(0);
+        pongPadPlayer2.getBody().getFixture(0).setFriction(0);
 
         pongPadPlayer1.setPosition(20,getScene().getHeight()/2);
         pongPadPlayer2.setPosition(getScene().getWidth()-20,getScene().getHeight()/2);
@@ -99,21 +98,20 @@ public class PongScene extends GameScene {
             pongPadPlayer2.setVelocity(0,-4);
         }
 
-        //ball.getBody().setAngularVelocity(0);
     }
 
     @Override
     protected void collisions() {
         if(ball.getBody().isInContact(wallLeft.getBody())) {
             ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
-            ball.setVelocity(4,0);
+            ball.setVelocity(4,4);
             ball.getBody().setAngularVelocity(0);
             player1Score++;
             player1ScoreText.setText("P1 Points : " + player1Score);
         }
         if( ball.getBody().isInContact(wallRigth.getBody())) {
             ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
-            ball.setVelocity(-4,0);
+            ball.setVelocity(-4,4);
             ball.getBody().setAngularVelocity(0);
             player2Score++;
             player2ScoreText.setText("P2 Points : " + player2Score);
