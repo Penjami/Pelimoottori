@@ -28,11 +28,11 @@ public class GameObject{
     }
 
     public GameObject(MassType type, double x, double y, double width, double height, World world) {
-        body.addFixture(Geometry.createRectangle(width/STATIC.SCALE,height/STATIC.SCALE));
+        body.addFixture(Geometry.createRectangle(width/Settings.SCALE,height/Settings.SCALE));
         this.width = width;
         this.height = height;
         body.setMass(type);
-        body.translate(x/STATIC.SCALE,y/STATIC.SCALE);
+        body.translate(x/Settings.SCALE,y/Settings.SCALE);
         body.setAutoSleepingEnabled(false);
         world.addBody(body);
     }
@@ -74,7 +74,7 @@ public class GameObject{
      */
     public void setPosition(double x, double y) {
         Transform transform = new Transform();
-        transform.translate(x/STATIC.SCALE,y/STATIC.SCALE);
+        transform.translate(x/Settings.SCALE,y/Settings.SCALE);
         body.setTransform(transform);
     }
 
@@ -121,14 +121,14 @@ public class GameObject{
      * @return The x position of the object.
      */
     public double getPositionX() {
-        return (body.getTransform().getTranslationX() * STATIC.SCALE - width/2);
+        return (body.getTransform().getTranslationX() * Settings.SCALE - width/2);
     }
 
     /**
      * @return The y position of the object.
      */
     public double getPositionY() {
-        return (body.getTransform().getTranslationY() * STATIC.SCALE - height/2);
+        return (body.getTransform().getTranslationY() * Settings.SCALE - height/2);
     }
 
     /**

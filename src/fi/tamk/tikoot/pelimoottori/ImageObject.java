@@ -28,8 +28,8 @@ public class ImageObject extends GameObject{
      */
     public ImageObject(String fileLocation, World world) {
         setImage(fileLocation);
-        getBody().addFixture(Geometry.createRectangle(getImage().getWidth()/STATIC.SCALE,
-                getImage().getHeight()/STATIC.SCALE),1,0.2,0.2);
+        getBody().addFixture(Geometry.createRectangle(getImage().getWidth()/Settings.SCALE,
+                getImage().getHeight()/Settings.SCALE),1,0.2,0.2);
         getBody().setMass(MassType.NORMAL);
         getBody().setAutoSleepingEnabled(false);
         world.addBody(getBody());
@@ -78,11 +78,11 @@ public class ImageObject extends GameObject{
         gc.save();
         Vector2 bodyCenter = getBody().getWorldCenter();
         Rotate r = new Rotate(getBody().getTransform().getRotation() * 57.2958,
-                bodyCenter.x * STATIC.SCALE, bodyCenter.y * STATIC.SCALE);
+                bodyCenter.x * Settings.SCALE, bodyCenter.y * Settings.SCALE);
         affine.setToTransform(r);
         gc.transform(affine);
-        gc.drawImage( image, (bodyCenter.x * STATIC.SCALE) - getWidth()/2,
-                (bodyCenter.y * STATIC.SCALE) - getHeight()/2);
+        gc.drawImage( image, (bodyCenter.x * Settings.SCALE) - getWidth()/2,
+                (bodyCenter.y * Settings.SCALE) - getHeight()/2);
         gc.restore();
     }
 }

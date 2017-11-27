@@ -51,28 +51,22 @@ public class PongScene extends GameScene {
         world.setGravity(World.ZERO_GRAVITY);
         bgm.loop(true);
 
-        wallUp.getBody().getFixture(0).setRestitution(1);
-        wallDown.getBody().getFixture(0).setRestitution(1);
-        wallUp.getBody().getFixture(0).setFriction(0);
-        wallDown.getBody().getFixture(0).setFriction(0);
-
         ball.getBody().removeFixture(0);
-        ball.getBody().addFixture(new Circle(ball.getWidth()/2/STATIC.SCALE));
+        ball.getBody().addFixture(new Circle(ball.getWidth()/2/Settings.SCALE));
         ball.setVelocity(4,4);
         ball.getBody().setBullet(true);
-        ball.getBody().getFixture(0).setRestitution(1);
-        ball.getBody().getFixture(0).setFriction(0);
 
         pongPadPlayer1.getBody().setMassType(MassType.INFINITE);
         pongPadPlayer2.getBody().setMassType(MassType.INFINITE);
-        pongPadPlayer1.getBody().getFixture(0).setRestitution(1);
-        pongPadPlayer2.getBody().getFixture(0).setRestitution(1);
-        pongPadPlayer1.getBody().getFixture(0).setFriction(0);
-        pongPadPlayer2.getBody().getFixture(0).setFriction(0);
 
         pongPadPlayer1.setPosition(20,getScene().getHeight()/2);
         pongPadPlayer2.setPosition(getScene().getWidth()-20,getScene().getHeight()/2);
         ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
+
+        for(Body body : world.getBodies()) {
+            body.getFixture(0).setRestitution(1);
+            body.getFixture(0).setFriction(0);
+        }
     }
 
     @Override

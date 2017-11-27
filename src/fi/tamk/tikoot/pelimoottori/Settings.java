@@ -12,6 +12,7 @@ public class Settings {
     private String title = "Untitled";
     private int width = 800;
     private int height = 600;
+    final public static int SCALE = 64;
 
     /**
      * Constructor that uses default settings.
