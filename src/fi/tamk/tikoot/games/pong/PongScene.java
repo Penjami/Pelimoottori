@@ -24,7 +24,7 @@ public class PongScene extends GameScene {
     private ImageObject ball = new ImageObject("ball.png", world);
     private TextObject player2ScoreText =
             new TextObject("P2 Points : " + player1Score, Color.ALICEBLUE,
-                    getScene().getWidth()/2-250,30, 25, getUiRoot());
+                    getScene().getWidth()/2-100,30, 25, getUiRoot());
     private TextObject player1ScoreText =
             new TextObject("P1 Points : " + player2Score, Color.DARKRED,
                     getScene().getWidth()/2+100,30, 25, getUiRoot());

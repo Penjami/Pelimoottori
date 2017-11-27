@@ -33,8 +33,8 @@ public class TextObject extends Text {
         setFont(Font.font(fontSize));
         setText(text);
         setTextColor(textColor);
-        setTranslateX(x);
-        setTranslateY(y);
+        setTranslateX(x-getBoundsInLocal().getMaxX()/2);
+        setTranslateY(y-getBoundsInLocal().getMaxY()/2);
         uiRoot.getChildren().add(this);
     }
 

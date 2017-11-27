@@ -1,17 +1,18 @@
 package fi.tamk.tikoot.games.pong;
 
-import fi.tamk.tikoot.pelimoottori.ButtonObject;
-import fi.tamk.tikoot.pelimoottori.GameApplication;
-import fi.tamk.tikoot.pelimoottori.GameScene;
-import fi.tamk.tikoot.pelimoottori.Settings;
+import fi.tamk.tikoot.pelimoottori.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventType;
+import javafx.scene.paint.Color;
 
 import java.beans.EventHandler;
 
 public class MenuScene extends GameScene {
 
+
+    TextObject logo = new TextObject("Pong", Color.BLACK, getScene().getWidth()/2,
+            getScene().getHeight()*1/4,50 , getUiRoot());
     ButtonObject play = new ButtonObject("PLAY", getUiRoot(), getScene().getWidth()/2, getScene().getHeight()/2);
 
     public MenuScene(Settings settings, GameApplication app) {
