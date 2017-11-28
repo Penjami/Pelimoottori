@@ -37,7 +37,7 @@ public class MenuScene extends GameScene {
     }
 
     @Override
-    protected void draw() {
+    protected void draw(double time) {
 
     }
 

@@ -2,6 +2,7 @@ package fi.tamk.tikoot.games.platformer;
 
 import fi.tamk.tikoot.pelimoottori.*;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Circle;
@@ -14,9 +15,10 @@ public class PlatformerScene extends GameScene {
 
     private int player1Score = 0;
     private int player2Score = 0;
+    private AnimationImageObject ball = new AnimationImageObject("ball-sheet.png",
+            world, 0.100, 4, 4, 0, 0, 32, 32);
     private ImageObject pongPadPlayer1 = new ImageObject("pongPad1.png", world);
     private ImageObject pongPadPlayer2 = new ImageObject("pongPad2.png", world);
-    private ImageObject ball = new ImageObject("ball.png", world);
     private TextObject player2ScoreText =
             new TextObject("P2 Points : " + player1Score, Color.ALICEBLUE,
                     getScene().getWidth()/2-100,30, 25, getUiRoot());
@@ -108,9 +110,9 @@ public class PlatformerScene extends GameScene {
     }
 
     @Override
-    protected void draw() {
+    protected void draw(double time) {
         getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
-        ball.render(getGraphicsContext());
+        ball.render(getGraphicsContext(), time);
         pongPadPlayer1.render(getGraphicsContext());
         pongPadPlayer2.render(getGraphicsContext());
         getGraphicsContext().fill();

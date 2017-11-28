@@ -115,7 +115,7 @@ public class PongScene extends GameScene {
     }
 
     @Override
-    protected void draw() {
+    protected void draw(double time) {
         getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
         ball.render(getGraphicsContext());
         pongPadPlayer1.render(getGraphicsContext());

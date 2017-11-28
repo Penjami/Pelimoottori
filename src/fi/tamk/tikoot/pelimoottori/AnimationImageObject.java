@@ -5,9 +5,12 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import org.dyn4j.dynamics.World;
+import org.dyn4j.geometry.Geometry;
+import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Vector2;
 
 public class AnimationImageObject extends ImageObject {
@@ -18,7 +21,8 @@ public class AnimationImageObject extends ImageObject {
     private int offsetY;
     private int width;
     private int height;
-    private int lastIndex;
+    private double duration;
+    private double timeGonePast;
 
     /**
      * Constructor for animation image object.
@@ -27,38 +31,43 @@ public class AnimationImageObject extends ImageObject {
      * @param world
      */
     public AnimationImageObject(String fileLocation, World world,
-                                Duration duration,
+                                double duration,
                                 int count,   int columns,
                                 int offsetX, int offsetY,
                                 int width,   int height) {
-        super(fileLocation, world);
+        this.duration = duration;
         this.count = count;
         this.columns = columns;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.width = width;
         this.height = height;
+        setImage(fileLocation);
+        getBody().addFixture(Geometry.createRectangle(getImage().getWidth()/Settings.SCALE/columns,
+                getImage().getHeight()/Settings.SCALE/count),1,0.2,0.2);
+        getBody().setMass(MassType.NORMAL);
+        getBody().setAutoSleepingEnabled(false);
+        world.addBody(getBody());
+        affine = new Affine();
 
         //setCycleDuration(duration);
         //setInterpolator(Interpolator.LINEAR);
     }
 
-    @Override
-    public void render(GraphicsContext gc)
+    public void render(GraphicsContext gc, double time)
     {
-        int x = 0;
-        int y = 0;
-        final int index = Math.min((int) Math.floor(k * count), count - 1);
-        if (index != lastIndex) {
-            x = (index % columns) * width  + offsetX;
-            y = (index / columns) * height + offsetY;
-            imageView.setViewport(new Rectangle2D(x, y, width, height));
-            lastIndex = index;
-        }
+        timeGonePast = timeGonePast + time;
+        int index = (int)(((timeGonePast % (count * duration)) / duration));
+
+        int x = (index % columns) * width  + offsetX;
+        int y = (index / columns) * height + offsetY;
+
+        Vector2 bodyCenter = getBody().getWorldCenter();
+        System.out.println(index);
 
         gc.save();
-        Vector2 bodyCenter = getBody().getWorldCenter();
-        Rotate r = new Rotate(getBody().getTransform().getRotation() * 57.2958,
+
+        Rotate r = new Rotate(getBody().getTransform().getRotation() * 57.2958 + 180,
                 bodyCenter.x * Settings.SCALE, bodyCenter.y * Settings.SCALE);
         affine.setToTransform(r);
         gc.transform(affine);
@@ -66,13 +75,12 @@ public class AnimationImageObject extends ImageObject {
         gc.drawImage(getImage(),
                     x,
                     y,
-                    getWidth(),
-                    getWidth(),
-                    getPositionX(),
-                    getVelocityY(),
-                    getWidth(), getHeight());
-        gc.drawImage( getImage(), (bodyCenter.x * Settings.SCALE) - getWidth()/2,
-                (bodyCenter.y * Settings.SCALE) - getHeight()/2);
+                    getWidth()/columns,
+                    getHeight(),
+                    (bodyCenter.x * Settings.SCALE) - getWidth()/columns/2,
+                    (bodyCenter.y * Settings.SCALE) - getHeight()/columns/2,
+                    getWidth()/columns,
+                    getHeight());
         gc.restore();
     }
 

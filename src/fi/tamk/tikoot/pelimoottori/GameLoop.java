@@ -14,7 +14,7 @@ public class GameLoop extends AnimationTimer {
     @Override
     public void handle(long currentNanoTime) {
         // calculate time since last update.
-        float delta = 1f / (1000.0f / ((currentNanoTime-lastNanoTime) / 1000000));
+        double delta = (currentNanoTime - lastNanoTime) / 1000000000.0;
         gameScene.loop(delta);
         lastNanoTime = currentNanoTime;
     }

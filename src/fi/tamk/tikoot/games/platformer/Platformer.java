@@ -10,7 +10,7 @@ public class Platformer extends GameApplication {
 
     @Override
     protected void setSettings(Settings settings) {
-        settings.setTitle("TestGame");
+        settings.setTitle("Platformer");
         settings.setWidth(600);
         settings.setHeight(360);
         gameScene = new MenuScene(settings, this);

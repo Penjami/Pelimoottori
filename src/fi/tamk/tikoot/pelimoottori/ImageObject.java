@@ -21,6 +21,10 @@ public class ImageObject extends GameObject{
     private Image image;
     protected Affine affine;
 
+
+    public ImageObject() {
+
+    }
     /**
      * Constructor for image object.
      *

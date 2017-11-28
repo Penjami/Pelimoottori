@@ -11,7 +11,7 @@ public class Pong extends GameApplication {
 
     @Override
     protected void setSettings(Settings settings) {
-        settings.setTitle("TestGame");
+        settings.setTitle("Pong");
         settings.setWidth(600);
         settings.setHeight(360);
         gameScene = new MenuScene(settings, this);

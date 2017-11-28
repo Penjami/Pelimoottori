@@ -41,7 +41,7 @@ abstract public class GameScene {
         world.updatev(time);
         update(time);
         collisions();
-        draw();
+        draw(time);
     }
 
     public GraphicsContext getGraphicsContext() {
@@ -89,7 +89,7 @@ abstract public class GameScene {
     /**
      * Draw all sprites in this method
      */
-    abstract protected void draw();
+    abstract protected void draw(double time);
     /**
      * Draw all sprites in this method
      */
