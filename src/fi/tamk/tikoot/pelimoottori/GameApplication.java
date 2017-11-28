@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.lang.model.element.AnnotationMirror;
 import java.util.ArrayList;
 
 /**
@@ -34,6 +35,7 @@ public abstract class GameApplication extends Application {
      */
     protected Stage primaryStage;
     protected GameScene gameScene;
+    protected Loop loop;
 
     /**
      * Creates and initializes the stage and settings.
@@ -54,6 +56,7 @@ public abstract class GameApplication extends Application {
     public void changeScene(GameScene scene) {
         gameScene = scene;
         primaryStage.setScene(scene.getScene());
+        loop.setGameScene(scene);
         scene.launchProperties();
         gameScene.setInputHandler(new InputHandler(gameScene.getScene()));
     }
@@ -72,16 +75,17 @@ public abstract class GameApplication extends Application {
         gameScene.setInputHandler(new InputHandler(gameScene.getScene()));
 
         //Create game loop
-        new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
+        loop = new Loop(gameScene, lastNanoTime[0]);
+        loop.start();
+        /*new AnimationTimer() {
+            @Override
+            public void handle(long currentNanoTime) {
                 // calculate time since last update.
                 float delta = 1f / (1000.0f / ((currentNanoTime-lastNanoTime[0]) / 1000000));
                 gameScene.loop(delta);
                 lastNanoTime[0] = currentNanoTime;
             }
-        }.start();
+        }.start();*/
     }
 
     /**
