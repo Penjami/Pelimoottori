@@ -62,7 +62,7 @@ public class Music {
     }
 
     /**
-     * Set the music to loop or not to loop.
+     * Set the music to gameLoop or not to gameLoop.
      *
      * @param t Boolean value that defines if the music loops.
      */

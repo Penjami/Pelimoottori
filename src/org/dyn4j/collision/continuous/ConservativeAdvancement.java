@@ -137,7 +137,7 @@ public class ConservativeAdvancement implements TimeOfImpactDetector {
 		// set the previous time
 		double l0 = l;
 		
-		// loop until the distance is less than the tolerance
+		// gameLoop until the distance is less than the tolerance
 		while (d > this.distanceEpsilon && iterations < this.maxIterations) {
 			// project the relative max velocity along the separation normal
 			double rvDotN = rv.dot(n);
@@ -200,7 +200,7 @@ public class ConservativeAdvancement implements TimeOfImpactDetector {
 				// objects are rotating very fast, in which case just assume
 				// this is as close as we can get
 				
-				// break from the loop since we have detected the
+				// break from the gameLoop since we have detected the
 				// time of impact but had to fix the distance
 				break;
 			}

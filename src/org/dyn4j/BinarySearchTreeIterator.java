@@ -148,7 +148,7 @@ final class BinarySearchTreeIterator<E extends Comparable<E>> implements Iterato
 	 * @param node the root node of the subtree
 	 */
 	protected void pushLeft(BinarySearchTreeNode<E> node) {
-		// loop until we don't have any more left nodes
+		// gameLoop until we don't have any more left nodes
 		while (node != null) {
 			// if we have a iterate to node, then only push nodes
 			// to that are less than or equal to it
@@ -164,7 +164,7 @@ final class BinarySearchTreeIterator<E extends Comparable<E>> implements Iterato
 	 * @param node the root node of the subtree
 	 */
 	protected void pushRight(BinarySearchTreeNode<E> node) {
-		// loop until we don't have any more right nodes
+		// gameLoop until we don't have any more right nodes
 		while (node != null) {
 			this.stack.push(node);
 			node = node.right;

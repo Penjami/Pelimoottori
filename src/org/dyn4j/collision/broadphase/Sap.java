@@ -281,7 +281,7 @@ public class Sap<E extends Collidable<T>, T extends Fixture> extends AbstractBro
 						}
 					}
 				} else {
-					// otherwise we can break from the loop
+					// otherwise we can break from the gameLoop
 					break;
 				}
 			}
@@ -330,7 +330,7 @@ public class Sap<E extends Collidable<T>, T extends Fixture> extends AbstractBro
 				}
 			} else if (aabb.getMaxX() < proxy.aabb.getMinX()) {
 				// if not overlapping, then nothing after this
-				// node will overlap either so we can exit the loop
+				// node will overlap either so we can exit the gameLoop
 				break;
 			}
 		}
@@ -413,7 +413,7 @@ public class Sap<E extends Collidable<T>, T extends Fixture> extends AbstractBro
 				}
 			} else if (aabb.getMaxX() < proxy.aabb.getMinX()) {
 				// if not overlapping, then nothing after this
-				// node will overlap either so we can exit the loop
+				// node will overlap either so we can exit the gameLoop
 				break;
 			}
 		}
@@ -426,7 +426,7 @@ public class Sap<E extends Collidable<T>, T extends Fixture> extends AbstractBro
 	 */
 	@Override
 	public void shift(Vector2 shift) {
-		// loop over all the proxies and translate their aabb
+		// gameLoop over all the proxies and translate their aabb
 		Iterator<SapProxy<E, T>> it = this.tree.iterator();
 		while (it.hasNext()) {
 			SapProxy<E, T> proxy = it.next();

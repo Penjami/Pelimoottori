@@ -87,7 +87,7 @@ public class WarmStartingContactManager extends SimpleContactManager implements 
 		// create a new map for the new contacts constraints
 		Map<ContactConstraintId, ContactConstraint> newMap = this.constraints1;
 		
-		// loop over the new contact constraints
+		// gameLoop over the new contact constraints
 		// and attempt to persist contacts
 		for (int i = 0; i < size; i++) {
 			// get the new contact constraint
@@ -145,7 +145,7 @@ public class WarmStartingContactManager extends SimpleContactManager implements 
 				for (int j = nsize - 1; j >= 0; j--) {
 					// get the new contact
 					Contact newContact = contacts.get(j);
-					// loop over the old contacts
+					// gameLoop over the old contacts
 					boolean found = false;
 					for (int k = 0; k < osize; k++) {
 						// get the old contact
@@ -279,11 +279,11 @@ public class WarmStartingContactManager extends SimpleContactManager implements 
 		
 		// check the map and its size
 		if (!this.constraints.isEmpty()) {
-			// now loop over the remaining contacts in the map to notify of any removed contacts
+			// now gameLoop over the remaining contacts in the map to notify of any removed contacts
 			Iterator<ContactConstraint> icc = this.constraints.values().iterator();
 			while (icc.hasNext()) {
 				ContactConstraint contactConstraint = icc.next();
-				// loop over the contact points
+				// gameLoop over the contact points
 				int rsize = contactConstraint.contacts.size();
 				for (int i = 0; i < rsize; i++) {
 					// get the contact

@@ -115,7 +115,7 @@ public class MonotoneChain implements HullGenerator {
 		Vector2 lp2 = points[minmin];
 		// push
 		lower.add(points[minmin]);
-		// loop over the points between the min and max
+		// gameLoop over the points between the min and max
 		for (int i = minmax + 1; i <= maxmin; i++) {
 			// get the current point
 			Vector2 p = points[i];
@@ -154,7 +154,7 @@ public class MonotoneChain implements HullGenerator {
 		Vector2 up2 = points[maxmax];
 		// push
 		upper.add(points[maxmax]);
-		// loop over the points between the min and max
+		// gameLoop over the points between the min and max
 		for (int i = maxmax - 1; i >= minmax; i--) {
 			// get the current point
 			Vector2 p = points[i];

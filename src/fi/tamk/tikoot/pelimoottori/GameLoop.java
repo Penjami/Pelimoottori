@@ -2,11 +2,11 @@ package fi.tamk.tikoot.pelimoottori;
 
 import javafx.animation.AnimationTimer;
 
-public class Loop extends AnimationTimer {
+public class GameLoop extends AnimationTimer {
     private GameScene gameScene;
     private Long lastNanoTime;
 
-    public Loop(GameScene gameScene, Long lastNanoTime) {
+    public GameLoop(GameScene gameScene, Long lastNanoTime) {
         this.gameScene = gameScene;
         this.lastNanoTime = lastNanoTime;
     }

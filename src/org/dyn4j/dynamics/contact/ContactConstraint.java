@@ -162,7 +162,7 @@ public class ContactConstraint extends Constraint implements Shiftable {
 	@Override
 	public void shift(Vector2 shift) {
 		int size = this.contacts.size();
-		// loop over the contacts
+		// gameLoop over the contacts
 		for (int i = 0; i < size; i++) {
 			Contact c = this.contacts.get(i);
 			// translate the world space contact point

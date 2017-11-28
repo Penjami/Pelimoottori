@@ -92,7 +92,7 @@ final class DoubleEdgeList {
 		DoubleEdgeListHalfEdge prevLeftEdge = null;
 		DoubleEdgeListHalfEdge prevRightEdge = null;
 		
-		// loop over the points creating the vertices and
+		// gameLoop over the points creating the vertices and
 		// half edges for the data structure
 		for (int i = 0; i < size; i++) {
 			Vector2 point = points[i];
@@ -278,10 +278,10 @@ final class DoubleEdgeList {
 		// if the leaving edge faces are already the same then just return
 		if (v1.leaving.face == v2.leaving.face) return v1.leaving.face;
 		
-		// loop over all the edges whose destination is the first vertex (constant time)
+		// gameLoop over all the edges whose destination is the first vertex (constant time)
 		DoubleEdgeListHalfEdge e1 = v1.leaving.twin.next.twin;
 		while (e1 != v1.leaving.twin) {
-			// loop over all the edges whose destination is the second vertex (constant time)
+			// gameLoop over all the edges whose destination is the second vertex (constant time)
 			DoubleEdgeListHalfEdge e2 = v2.leaving.twin.next.twin;
 			while (e2 != v2.leaving.twin) {
 				// if we find a common face, that must be the reference face
@@ -680,7 +680,7 @@ final class DoubleEdgeList {
 	 * 4 times the minimum number of convex pieces.
 	 */
 	public void hertelMehlhorn() {
-		// loop over all the edges and see which we can remove
+		// gameLoop over all the edges and see which we can remove
 		int vSize = this.vertices.size();
 		
 		// This method will remove any unnecessary diagonals (those that do not

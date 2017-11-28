@@ -250,7 +250,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 		if (this.root == null) return criteria;
 		// set the current node to the root
 		BinarySearchTreeNode<E> node = this.root;
-		// loop until the current node is null
+		// gameLoop until the current node is null
 		while (node != null) {
 			// perform the search criteria 
 			int result = criteria.evaluate(node.comparable);
@@ -388,7 +388,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 	BinarySearchTreeNode<E> getMinimum(BinarySearchTreeNode<E> node) {
 		// check for a null node
 		if (node == null) return null;
-		// loop until we find the minimum
+		// gameLoop until we find the minimum
 		while (node.left != null) {
 			// continue to the left since the minimum value
 			// will always be the left most node
@@ -406,7 +406,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 	BinarySearchTreeNode<E> getMaximum(BinarySearchTreeNode<E> node) {
 		// check for a null node
 		if (node == null) return null;
-		// loop until we find the maximum
+		// gameLoop until we find the maximum
 		while (node.right != null) {
 			// continue to the right since the maximum value
 			// will always be the right most node
@@ -734,7 +734,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 	boolean insert(BinarySearchTreeNode<E> item, BinarySearchTreeNode<E> node) {
 		// make sure the given node is not null
 		if (node == null) return false;
-		// loop until we find where the node should be placed
+		// gameLoop until we find where the node should be placed
 		while (node != null) {
 			// compare the item to the current item
 			if (item.compareTo(node) < 0) {
@@ -746,7 +746,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 					node.left = item;
 					// don't forget to set the parent node
 					item.parent = node;
-					// we are done, so break from the loop
+					// we are done, so break from the gameLoop
 					break;
 				} else {
 					// if the left node is not null then we need
@@ -764,7 +764,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 					node.right = item;
 					// don't forget to set the parent node
 					item.parent = node;
-					// we are done, so break from the loop
+					// we are done, so break from the gameLoop
 					break;
 				} else {
 					// if the right node is not null then we need
@@ -1026,7 +1026,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 	 * @since 3.0.0
 	 */
 	void balanceTree(BinarySearchTreeNode<E> node) {
-		// loop until we reach the root node
+		// gameLoop until we reach the root node
 		while (node != null) {
 			// balance the tree; this can return a new root
 			// node because of the rotations that happen therefore

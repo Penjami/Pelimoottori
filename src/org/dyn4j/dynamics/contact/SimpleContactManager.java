@@ -132,7 +132,7 @@ public class SimpleContactManager implements ContactManager, Shiftable {
 		Iterator<ContactConstraint> icc = this.constraints.values().iterator();
 		while (icc.hasNext()) {
 			ContactConstraint contactConstraint = icc.next();
-			// loop over the contact points
+			// gameLoop over the contact points
 			int rsize = contactConstraint.contacts.size();
 			for (int i = 0; i < rsize; i++) {
 				// get the contact
@@ -157,7 +157,7 @@ public class SimpleContactManager implements ContactManager, Shiftable {
 		
 		this.constraints.clear();
 		
-		// loop over the new contact constraints
+		// gameLoop over the new contact constraints
 		// and attempt to persist contacts
 		for (int i = 0; i < size; i++) {
 			// get the new contact constraint
@@ -240,12 +240,12 @@ public class SimpleContactManager implements ContactManager, Shiftable {
 	public void preSolveNotify(List<ContactListener> listeners) {
 		int lsize = listeners != null ? listeners.size() : 0;
 		
-		// loop through the list of contacts that were solved
+		// gameLoop through the list of contacts that were solved
 		Iterator<ContactConstraint> itContactConstraints = this.constraints.values().iterator();
 		while (itContactConstraints.hasNext()) {
 			// get the contact constraint
 			ContactConstraint contactConstraint = itContactConstraints.next();
-			// loop over the contacts
+			// gameLoop over the contacts
 			int csize = contactConstraint.contacts.size();
 			// iterate backwards so we can remove
 			for (int j = csize - 1; j >= 0; j--) {
@@ -289,9 +289,9 @@ public class SimpleContactManager implements ContactManager, Shiftable {
 	public void postSolveNotify(List<ContactListener> listeners) {
 		int lsize = listeners != null ? listeners.size() : 0;
 		
-		// loop through the list of contacts that were solved
+		// gameLoop through the list of contacts that were solved
 		for (ContactConstraint contactConstraint : this.constraints.values()) {
-			// loop over the contacts
+			// gameLoop over the contacts
 			int rsize = contactConstraint.contacts.size();
 			for (int j = 0; j < rsize; j++) {
 				// get the contact

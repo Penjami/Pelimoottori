@@ -1,16 +1,7 @@
 package fi.tamk.tikoot.pelimoottori;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import javax.lang.model.element.AnnotationMirror;
-import java.util.ArrayList;
 
 /**
  * This is the main-class of the program. Everything starts from here.
@@ -35,7 +26,7 @@ public abstract class GameApplication extends Application {
      */
     protected Stage primaryStage;
     protected GameScene gameScene;
-    protected Loop loop;
+    protected GameLoop gameLoop;
 
     /**
      * Creates and initializes the stage and settings.
@@ -56,7 +47,7 @@ public abstract class GameApplication extends Application {
     public void changeScene(GameScene scene) {
         gameScene = scene;
         primaryStage.setScene(scene.getScene());
-        loop.setGameScene(scene);
+        gameLoop.setGameScene(scene);
         scene.launchProperties();
         gameScene.setInputHandler(new InputHandler(gameScene.getScene()));
     }
@@ -74,15 +65,15 @@ public abstract class GameApplication extends Application {
 
         gameScene.setInputHandler(new InputHandler(gameScene.getScene()));
 
-        //Create game loop
-        loop = new Loop(gameScene, lastNanoTime[0]);
-        loop.start();
+        //Create game gameLoop
+        gameLoop = new GameLoop(gameScene, lastNanoTime[0]);
+        gameLoop.start();
         /*new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
                 // calculate time since last update.
                 float delta = 1f / (1000.0f / ((currentNanoTime-lastNanoTime[0]) / 1000000));
-                gameScene.loop(delta);
+                gameScene.gameLoop(delta);
                 lastNanoTime[0] = currentNanoTime;
             }
         }.start();*/

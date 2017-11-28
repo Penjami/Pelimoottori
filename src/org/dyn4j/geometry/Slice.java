@@ -154,7 +154,7 @@ public class Slice extends AbstractShape implements Convex, Shape, Transformable
 		axes[n++] = transform.getTransformedR(this.normals[0]);
 		axes[n++] = transform.getTransformedR(this.normals[1]);
 		
-		// loop over the focal points and find the closest
+		// gameLoop over the focal points and find the closest
 		// points on the polygon to the focal points
 		Vector2 focus = transform.getTransformed(this.vertices[0]);
 		for (int i = 0; i < fociSize; i++) {
@@ -217,7 +217,7 @@ public class Slice extends AbstractShape implements Convex, Shape, Transformable
 			point.set(this.vertices[0]);
 			// prime the projection amount
 			double max = localn.dot(this.vertices[0]);
-			// loop through the rest of the vertices to find a further point along the axis
+			// gameLoop through the rest of the vertices to find a further point along the axis
 			int size = this.vertices.length;
 			for (int i = 1; i < size; i++) {
 				// get the current vertex
