@@ -19,7 +19,7 @@ import org.dyn4j.geometry.*;
 public class ImageObject extends GameObject{
 
     private Image image;
-    private Affine affine;
+    protected Affine affine;
 
     /**
      * Constructor for image object.
