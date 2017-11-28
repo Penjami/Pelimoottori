@@ -1,12 +1,8 @@
-package fi.tamk.tikoot.games.pong;
+package fi.tamk.tikoot.games.platformer;
 
 import fi.tamk.tikoot.pelimoottori.*;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.scene.paint.Color;
-
-import java.beans.EventHandler;
 
 public class MenuScene extends GameScene {
 
@@ -25,7 +21,7 @@ public class MenuScene extends GameScene {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println(2);
-                changeGameScene(new PongScene(getSettings(), getApp()));
+                changeGameScene(new PlatformerScene(getSettings(), getApp()));
             }
         });
     }
