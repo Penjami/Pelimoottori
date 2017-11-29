@@ -17,8 +17,7 @@ public class PlatformerScene extends GameScene {
     private int player2Score = 0;
     private AnimationImageObject ball = new AnimationImageObject("ball-sheet.png",
             world, 0.100, 4, 4, 0, 0, 32, 32);
-    private ImageObject pongPadPlayer1 = new ImageObject("pongPad1.png", world);
-    private ImageObject pongPadPlayer2 = new ImageObject("pongPad2.png", world);
+    private ImageObject player = new ImageObject("pongPad1.png", world);
     private TextObject player2ScoreText =
             new TextObject("P2 Points : " + player1Score, Color.ALICEBLUE,
                     getScene().getWidth()/2-100,30, 25, getUiRoot());
@@ -30,14 +29,8 @@ public class PlatformerScene extends GameScene {
     private Sound ballBouncePadSound = new Sound("src/blop.mp3");
     private double gameSpeed = 2;
 
-    private GameObject wallUp = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
-            getScene().getHeight() - 5, getScene().getWidth(), 10, world);
     private GameObject wallDown = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
             -5, getScene().getWidth(), 10, world);
-    private GameObject wallRigth = new GameObject(MassType.INFINITE, getScene().getWidth(),
-            getScene().getHeight()/2,1, getScene().getHeight(), world);
-    private GameObject wallLeft = new GameObject(MassType.INFINITE, 0,
-            getScene().getHeight()/2,1, getScene().getHeight(), world);
 
     public PlatformerScene(Settings settings, GameApplication app) {
         super(settings, app);
@@ -53,11 +46,6 @@ public class PlatformerScene extends GameScene {
         ball.setVelocity(4,4);
         ball.getBody().setBullet(true);
 
-        pongPadPlayer1.getBody().setMassType(MassType.INFINITE);
-        pongPadPlayer2.getBody().setMassType(MassType.INFINITE);
-
-        pongPadPlayer1.setPosition(20,getScene().getHeight()/2);
-        pongPadPlayer2.setPosition(getScene().getWidth()-20,getScene().getHeight()/2);
         ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
 
         for(Body body : world.getBodies()) {
@@ -72,49 +60,31 @@ public class PlatformerScene extends GameScene {
             bgm.play();
         }
 
-        pongPadPlayer1.setVelocity(0,0);
-        pongPadPlayer2.setVelocity(0,0);
-        if (getInputHandler().getInput().contains("W") &&
-                pongPadPlayer1.getPositionY() < getScene().getHeight() - pongPadPlayer1.getHeight()*4/3) {
-            pongPadPlayer1.addVelocity(0,4);
+
+        if (getInputHandler().getInput().contains("W")) {
         }
-        if (getInputHandler().getInput().contains("S") && pongPadPlayer1.getPositionY() > 0) {
-            pongPadPlayer1.addVelocity(0,-4);
+        if (getInputHandler().getInput().contains("A")) {
+            player.addVelocity(0,-4);
         }
-        if (getInputHandler().getInput().contains("UP") &&
-                pongPadPlayer2.getPositionY() < getScene().getHeight() - pongPadPlayer2.getHeight()*4/3) {
-            pongPadPlayer2.setVelocity(0,4);
+        if (getInputHandler().getInput().contains("S")) {
+            player.setVelocity(0,4);
         }
-        if (getInputHandler().getInput().contains("DOWN") && pongPadPlayer2.getPositionY() > 0) {
-            pongPadPlayer2.setVelocity(0,-4);
+        if (getInputHandler().getInput().contains("D")) {
+            player.setVelocity(0,-4);
         }
 
     }
 
     @Override
     protected void collisions() {
-        if(ball.getBody().isInContact(wallLeft.getBody())) {
-            ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
-            ball.setVelocity(4,4);
-            ball.getBody().setAngularVelocity(0);
-            player1Score++;
-            player1ScoreText.setText("P1 Points : " + player1Score);
-        }
-        if( ball.getBody().isInContact(wallRigth.getBody())) {
-            ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
-            ball.setVelocity(-4,4);
-            ball.getBody().setAngularVelocity(0);
-            player2Score++;
-            player2ScoreText.setText("P2 Points : " + player2Score);
-        }
+
     }
 
     @Override
     protected void draw(double time) {
         getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
         ball.render(getGraphicsContext(), time);
-        pongPadPlayer1.render(getGraphicsContext());
-        pongPadPlayer2.render(getGraphicsContext());
+        player.render(getGraphicsContext());
         getGraphicsContext().fill();
     }
 
