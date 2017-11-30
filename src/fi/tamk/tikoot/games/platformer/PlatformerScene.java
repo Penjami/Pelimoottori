@@ -36,9 +36,9 @@ public class PlatformerScene extends GameScene {
     @Override
     protected void update(double time) {
 
-        player.setVelocity(0,0);
-        if (getInputHandler().getInput().contains("W")) {
-            player.getBody().applyForce(new Vector2(0,2));
+        player.setVelocity(0,player.getVelocityY());
+        if (getInputHandler().getInput().contains("W") && player.isGrounded) {
+            player.getBody().applyForce(new Vector2(0,100));
         }
         if (getInputHandler().getInput().contains("A")) {
             player.addVelocity(-1,0);
