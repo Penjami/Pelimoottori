@@ -42,8 +42,7 @@ public class PlatformerScene extends GameScene {
         bgm.loop(true);
 
         ball.getBody().removeFixture(0);
-        ball.getBody().addFixture(new Circle(ball.getWidth()/2/Settings.SCALE));
-        ball.setVelocity(4,4);
+        ball.getBody().addFixture(new Circle(32/2/Settings.SCALE));
         ball.getBody().setBullet(true);
 
         ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
@@ -61,17 +60,7 @@ public class PlatformerScene extends GameScene {
         }
 
 
-        if (getInputHandler().getInput().contains("W")) {
-        }
-        if (getInputHandler().getInput().contains("A")) {
-            player.addVelocity(0,-4);
-        }
-        if (getInputHandler().getInput().contains("S")) {
-            player.setVelocity(0,4);
-        }
-        if (getInputHandler().getInput().contains("D")) {
-            player.setVelocity(0,-4);
-        }
+
 
     }
 

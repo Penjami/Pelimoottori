@@ -15,14 +15,7 @@ import org.dyn4j.geometry.Vector2;
 
 public class AnimationImageObject extends ImageObject {
 
-    private int count;
-    private int columns;
-    private int offsetX;
-    private int offsetY;
-    private int width;
-    private int height;
-    private double duration;
-    private double timeGonePast;
+    Animation animation;
 
     /**
      * Constructor for animation image object.
@@ -34,17 +27,13 @@ public class AnimationImageObject extends ImageObject {
                                 double duration,
                                 int count,   int columns,
                                 int offsetX, int offsetY,
-                                int width,   int height) {
-        this.duration = duration;
-        this.count = count;
-        this.columns = columns;
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
-        this.width = width;
-        this.height = height;
-        setImage(fileLocation);
-        getBody().addFixture(Geometry.createRectangle(getImage().getWidth()/Settings.SCALE/columns,
-                getImage().getHeight()/Settings.SCALE/count),1,0.2,0.2);
+                                int width, int height) {
+
+        animation = new Animation(new Image(fileLocation),
+                duration, count, columns, offsetX, offsetY, width, height);
+
+        getBody().addFixture(Geometry.createRectangle((double) width/Settings.SCALE,
+                (double) height/Settings.SCALE),1,0.2,0.2);
         getBody().setMass(MassType.NORMAL);
         getBody().setAutoSleepingEnabled(false);
         world.addBody(getBody());
@@ -56,14 +45,9 @@ public class AnimationImageObject extends ImageObject {
 
     public void render(GraphicsContext gc, double time)
     {
-        timeGonePast = timeGonePast + time;
-        int index = (int)(((timeGonePast % (count * duration)) / duration));
-
-        int x = (index % columns) * width  + offsetX;
-        int y = (index / columns) * height + offsetY;
+        int[] xyz = animation.getFrameLocation(time);
 
         Vector2 bodyCenter = getBody().getWorldCenter();
-        System.out.println(index);
 
         gc.save();
 
@@ -73,13 +57,13 @@ public class AnimationImageObject extends ImageObject {
         gc.transform(affine);
 
         gc.drawImage(getImage(),
-                    x,
-                    y,
-                    getWidth()/columns,
+                    xyz[0],
+                    xyz[1],
+                    getWidth()/xyz[2],
                     getHeight(),
-                    (bodyCenter.x * Settings.SCALE) - getWidth()/columns/2,
-                    (bodyCenter.y * Settings.SCALE) - getHeight()/columns/2,
-                    getWidth()/columns,
+                    (bodyCenter.x * Settings.SCALE) - getWidth()/xyz[2]/2,
+                    (bodyCenter.y * Settings.SCALE) - getHeight()/xyz[2]/2,
+                    getWidth()/xyz[2],
                     getHeight());
         gc.restore();
     }

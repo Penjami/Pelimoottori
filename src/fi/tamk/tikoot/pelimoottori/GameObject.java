@@ -6,10 +6,7 @@ import javafx.scene.image.Image;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.Force;
 import org.dyn4j.dynamics.World;
-import org.dyn4j.geometry.Geometry;
-import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Transform;
-import org.dyn4j.geometry.Vector2;
+import org.dyn4j.geometry.*;
 
 /**
  * This class is used to create game objects for the game.
@@ -20,8 +17,6 @@ import org.dyn4j.geometry.Vector2;
  */
 public class GameObject{
 
-    protected double width;
-    protected double height;
     private Body body = new Body();
 
     GameObject() {
@@ -29,8 +24,6 @@ public class GameObject{
 
     public GameObject(MassType type, double x, double y, double width, double height, World world) {
         body.addFixture(Geometry.createRectangle(width/Settings.SCALE,height/Settings.SCALE));
-        this.width = width;
-        this.height = height;
         body.setMass(type);
         body.translate(x/Settings.SCALE,y/Settings.SCALE);
         body.setAutoSleepingEnabled(false);
@@ -54,7 +47,8 @@ public class GameObject{
      * @return the width of this sprite object.
      */
     public double getWidth() {
-        return width;
+        AABB aabb = getBody().createAABB();
+        return aabb.getWidth();
     }
 
     /**
@@ -63,7 +57,8 @@ public class GameObject{
      * @return the height of this sprite object.
      */
     public double getHeight() {
-        return height;
+        AABB aabb = getBody().createAABB();
+        return aabb.getHeight();
     }
 
     /**
@@ -121,14 +116,14 @@ public class GameObject{
      * @return The x position of the object.
      */
     public double getPositionX() {
-        return (body.getTransform().getTranslationX() * Settings.SCALE - width/2);
+        return ((body.getTransform().getTranslationY() - getHeight()/2) * Settings.SCALE );
     }
 
     /**
      * @return The y position of the object.
      */
     public double getPositionY() {
-        return (body.getTransform().getTranslationY() * Settings.SCALE - height/2);
+        return ((body.getTransform().getTranslationY() - getWidth()/2) * Settings.SCALE);
     }
 
     /**

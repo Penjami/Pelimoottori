@@ -48,8 +48,6 @@ public class ImageObject extends GameObject{
     public void setImage(Image i)
     {
         image = i;
-        width = i.getWidth();
-        height = i.getHeight();
     }
 
     /**
