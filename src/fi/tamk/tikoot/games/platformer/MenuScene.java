@@ -7,9 +7,9 @@ import javafx.scene.paint.Color;
 public class MenuScene extends GameScene {
 
 
-    TextObject logo = new TextObject("Platformer", Color.BLACK, getScene().getWidth()/2,
+    UIText logo = new UIText("Platformer", Color.BLACK, getScene().getWidth()/2,
             getScene().getHeight()*1/4,50 , getUiRoot());
-    ButtonObject play = new ButtonObject("PLAY", getUiRoot(), getScene().getWidth()/2, getScene().getHeight()/2);
+    UIButton play = new UIButton("PLAY", getUiRoot(), getScene().getWidth()/2, getScene().getHeight()/2);
 
     public MenuScene(Settings settings, GameApplication app) {
         super(settings, app);

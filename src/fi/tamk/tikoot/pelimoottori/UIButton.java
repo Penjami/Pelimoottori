@@ -7,9 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 
-public class ButtonObject extends Button {
+public class UIButton extends Button {
 
-    public ButtonObject(String text, Group uiRoot, double x, double y) {
+    public UIButton(String text, Group uiRoot, double x, double y) {
         super(text);
         uiRoot.getChildren().add(this);
         Platform.runLater(() -> {

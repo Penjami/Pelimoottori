@@ -1,18 +1,11 @@
 package fi.tamk.tikoot.games.pong;
 
 import fi.tamk.tikoot.pelimoottori.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import org.dyn4j.dynamics.Body;
-import org.dyn4j.dynamics.Force;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Vector2;
-
-import java.util.Random;
 
 /**
  * Created by Penjami on 6.11.2017.
@@ -24,11 +17,11 @@ public class PongScene extends GameScene {
     private ImageObject pongPadPlayer1 = new ImageObject("pongPad1.png", world);
     private ImageObject pongPadPlayer2 = new ImageObject("pongPad2.png", world);
     private ImageObject ball = new ImageObject("ball.png", world);
-    private TextObject player2ScoreText =
-            new TextObject("P2 Points : " + player1Score, Color.ALICEBLUE,
+    private UIText player2ScoreText =
+            new UIText("P2 Points : " + player1Score, Color.ALICEBLUE,
                     getScene().getWidth()/2-100,30, 25, getUiRoot());
-    private TextObject player1ScoreText =
-            new TextObject("P1 Points : " + player2Score, Color.DARKRED,
+    private UIText player1ScoreText =
+            new UIText("P1 Points : " + player2Score, Color.DARKRED,
                     getScene().getWidth()/2+100,30, 25, getUiRoot());
     private Music bgm = new Music("src/bgm.mp3");
     private Sound ballBounceWallSound = new Sound("src/ballHit.wav");

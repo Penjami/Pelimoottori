@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
  * @version 1.2
  * @since 1.8
  */
-public class TextObject extends Text {
+public class UIText extends Text {
 
     private String text;
     private Color textColor;
@@ -29,7 +29,7 @@ public class TextObject extends Text {
      * @param y Position y of the text object.
      * @param fontSize The size of the font of this object.
      */
-    public TextObject(String text, Color textColor, double x, double y, int fontSize, Group uiRoot) {
+    public UIText(String text, Color textColor, double x, double y, int fontSize, Group uiRoot) {
         setFont(Font.font(fontSize));
         setText(text);
         setTextColor(textColor);
