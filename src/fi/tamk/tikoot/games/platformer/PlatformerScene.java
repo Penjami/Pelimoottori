@@ -1,33 +1,18 @@
 package fi.tamk.tikoot.games.platformer;
 
 import fi.tamk.tikoot.pelimoottori.*;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
-import org.dyn4j.dynamics.Body;
-import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.MassType;
+import org.dyn4j.geometry.Vector2;
 
 /**
  * Created by Penjami on 6.11.2017.
  */
 public class PlatformerScene extends GameScene {
 
-    private int player1Score = 0;
-    private int player2Score = 0;
-    private AnimationImageObject ball = new AnimationImageObject("ball-sheet.png",
-            world, 0.100, 4, 4, 0, 0, 32, 32);
-    private ImageObject player = new ImageObject("pongPad1.png", world);
-    private TextObject player2ScoreText =
-            new TextObject("P2 Points : " + player1Score, Color.ALICEBLUE,
-                    getScene().getWidth()/2-100,30, 25, getUiRoot());
-    private TextObject player1ScoreText =
-            new TextObject("P1 Points : " + player2Score, Color.DARKRED,
-                    getScene().getWidth()/2+100,30, 25, getUiRoot());
+    private AnimationImageObject player = new AnimationImageObject("ball-sheet.png",
+            world, 0.100, 4, 4, 0, 0, 64, 64);
     private Music bgm = new Music("src/bgm.mp3");
-    private Sound ballBounceWallSound = new Sound("src/ballHit.wav");
-    private Sound ballBouncePadSound = new Sound("src/blop.mp3");
-    private double gameSpeed = 2;
 
     private GameObject wallDown = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
             -5, getScene().getWidth(), 10, world);
@@ -38,30 +23,29 @@ public class PlatformerScene extends GameScene {
 
     @Override
     protected void launchProperties() {
-        world.setGravity(World.ZERO_GRAVITY);
+        //world.setGravity(World.ZERO_GRAVITY);
         bgm.loop(true);
 
-        ball.getBody().removeFixture(0);
-        ball.getBody().addFixture(new Circle(32/2/Settings.SCALE));
-        ball.getBody().setBullet(true);
+        player.getBody().removeFixture(0);
+        player.getBody().addFixture(new Circle(64/2/Settings.SCALE));
+        player.getBody().setBullet(true);
 
-        ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
-
-        for(Body body : world.getBodies()) {
-            body.getFixture(0).setRestitution(1);
-            body.getFixture(0).setFriction(0);
-        }
+        player.setPosition(getScene().getWidth()/2+50,getScene().getHeight()/2+50);
     }
 
     @Override
     protected void update(double time) {
-        if(!bgm.isPlaying()) {
-            bgm.play();
+
+        player.setVelocity(0,0);
+        if (getInputHandler().getInput().contains("W")) {
+            player.getBody().applyForce(new Vector2(0,2));
         }
-
-
-
-
+        if (getInputHandler().getInput().contains("A")) {
+            player.addVelocity(-1,0);
+        }
+        if (getInputHandler().getInput().contains("D")) {
+            player.setVelocity(1,0);
+        }
     }
 
     @Override
@@ -72,9 +56,8 @@ public class PlatformerScene extends GameScene {
     @Override
     protected void draw(double time) {
         getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
-        ball.render(getGraphicsContext(), time);
-        player.render(getGraphicsContext());
-        getGraphicsContext().fill();
+        player.render(getGraphicsContext(), time);
+
     }
 
     @Override

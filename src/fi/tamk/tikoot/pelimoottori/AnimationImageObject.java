@@ -12,10 +12,30 @@ import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Vector2;
+import sun.plugin.services.WPlatformService;
 
 public class AnimationImageObject extends ImageObject {
 
     Animation animation;
+
+
+    /**
+     * Constructor for animation image object.
+     *
+     * @param animation Location of the sprite.
+     * @param world
+     */
+    public AnimationImageObject(Animation animation, World world, int width, int height) {
+
+        this.animation = animation;
+
+        getBody().addFixture(Geometry.createRectangle((double) width/Settings.SCALE,
+                (double) height/Settings.SCALE),1,0.2,0.2);
+        getBody().setMass(MassType.NORMAL);
+        getBody().setAutoSleepingEnabled(false);
+        world.addBody(getBody());
+        affine = new Affine();
+    }
 
     /**
      * Constructor for animation image object.
@@ -38,9 +58,6 @@ public class AnimationImageObject extends ImageObject {
         getBody().setAutoSleepingEnabled(false);
         world.addBody(getBody());
         affine = new Affine();
-
-        //setCycleDuration(duration);
-        //setInterpolator(Interpolator.LINEAR);
     }
 
     public void render(GraphicsContext gc, double time)
@@ -56,15 +73,40 @@ public class AnimationImageObject extends ImageObject {
         affine.setToTransform(r);
         gc.transform(affine);
 
-        gc.drawImage(getImage(),
-                    xyz[0],
-                    xyz[1],
-                    getWidth()/xyz[2],
-                    getHeight(),
-                    (bodyCenter.x * Settings.SCALE) - getWidth()/xyz[2]/2,
-                    (bodyCenter.y * Settings.SCALE) - getHeight()/xyz[2]/2,
-                    getWidth()/xyz[2],
-                    getHeight());
+        gc.drawImage(animation.getSpriteSheet(),
+                xyz[0],
+                xyz[1],
+                animation.getSpriteSheet().getWidth()/xyz[2],
+                animation.getSpriteSheet().getHeight(),
+                (bodyCenter.x * Settings.SCALE) - animation.getSpriteSheet().getWidth()/xyz[2]/2,
+                (bodyCenter.y * Settings.SCALE) - animation.getSpriteSheet().getHeight()/2,
+                animation.getSpriteSheet().getWidth()/xyz[2],
+                animation.getSpriteSheet().getHeight());
+        gc.restore();
+    }
+
+    public void render(GraphicsContext gc, double time, Animation animation)
+    {
+        int[] xyz = animation.getFrameLocation(time);
+
+        Vector2 bodyCenter = getBody().getWorldCenter();
+
+        gc.save();
+
+        Rotate r = new Rotate(getBody().getTransform().getRotation() * 57.2958 + 180,
+                bodyCenter.x * Settings.SCALE, bodyCenter.y * Settings.SCALE);
+        affine.setToTransform(r);
+        gc.transform(affine);
+
+        gc.drawImage(animation.getSpriteSheet(),
+                xyz[0],
+                xyz[1],
+                animation.getSpriteSheet().getWidth()/xyz[2],
+                animation.getSpriteSheet().getWidth(),
+                (bodyCenter.x * Settings.SCALE) - animation.getSpriteSheet().getWidth()/xyz[2]/2,
+                (bodyCenter.y * Settings.SCALE) - animation.getSpriteSheet().getHeight()/2,
+                animation.getSpriteSheet().getWidth(),
+                animation.getSpriteSheet().getHeight());
         gc.restore();
     }
 
