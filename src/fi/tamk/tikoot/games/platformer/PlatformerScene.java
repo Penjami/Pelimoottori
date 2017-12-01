@@ -1,6 +1,7 @@
 package fi.tamk.tikoot.games.platformer;
 
 import fi.tamk.tikoot.pelimoottori.*;
+import javafx.scene.image.Image;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Vector2;
@@ -10,12 +11,13 @@ import org.dyn4j.geometry.Vector2;
  */
 public class PlatformerScene extends GameScene {
 
-    private AnimationImageObject player = new AnimationImageObject("ball-sheet.png",
-            world, 0.100, 4, 4, 0, 0, 64, 64);
+    private GameObject player = new GameObject(MassType.NORMAL,64,64,world);
+    private Animation animation = new Animation(new Image("ball-sheet.png"), 0.1,
+            4,4,0,0,64,64);
     private Music bgm = new Music("src/bgm.mp3");
 
-    private GameObject wallDown = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
-            -5, getScene().getWidth(), 10, world);
+    private GameObject wallDown = new GameObject(MassType.INFINITE, getScene().getWidth(),
+            30, world);
 
     public PlatformerScene(Settings settings, GameApplication app) {
         super(settings, app);
@@ -31,13 +33,14 @@ public class PlatformerScene extends GameScene {
         player.getBody().setBullet(true);
 
         player.setPosition(getScene().getWidth()/2+50,getScene().getHeight()/2+50);
+        wallDown.setPosition(getScene().getWidth()/2,-5);
     }
 
     @Override
     protected void update(double time) {
 
         player.setVelocity(0,player.getVelocityY());
-        if (getInputHandler().getInput().contains("W") && player.isGrounded) {
+        if (getInputHandler().getInput().contains("W")) {
             player.getBody().applyForce(new Vector2(0,100));
         }
         if (getInputHandler().getInput().contains("A")) {
@@ -56,7 +59,7 @@ public class PlatformerScene extends GameScene {
     @Override
     protected void draw(double time) {
         getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
-        player.render(getGraphicsContext(), time);
+        player.render(getGraphicsContext(), time, animation);
 
     }
 

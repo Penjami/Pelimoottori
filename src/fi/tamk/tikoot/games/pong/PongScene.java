@@ -14,9 +14,9 @@ public class PongScene extends GameScene {
 
     private int player1Score = 0;
     private int player2Score = 0;
-    private ImageObject pongPadPlayer1 = new ImageObject("pongPad1.png", world);
-    private ImageObject pongPadPlayer2 = new ImageObject("pongPad2.png", world);
-    private ImageObject ball = new ImageObject("ball.png", world);
+    private GameObject pongPadPlayer1 = new GameObject(MassType.NORMAL,"pongPad1.png", world);
+    private GameObject pongPadPlayer2 = new GameObject(MassType.NORMAL,"pongPad2.png", world);
+    private GameObject ball = new GameObject(MassType.NORMAL,"ball.png", world);
     private UIText player2ScoreText =
             new UIText("P2 Points : " + player1Score, Color.ALICEBLUE,
                     getScene().getWidth()/2-100,30, 25, getUiRoot());
@@ -28,14 +28,14 @@ public class PongScene extends GameScene {
     private Sound ballBouncePadSound = new Sound("src/blop.mp3");
     private double gameSpeed = 2;
 
-    private GameObject wallUp = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
-            getScene().getHeight() - 5, getScene().getWidth(), 10, world);
-    private GameObject wallDown = new GameObject(MassType.INFINITE, getScene().getWidth()/2,
-            -5, getScene().getWidth(), 10, world);
-    private GameObject wallRigth = new GameObject(MassType.INFINITE, getScene().getWidth(),
-            getScene().getHeight()/2,1, getScene().getHeight(), world);
-    private GameObject wallLeft = new GameObject(MassType.INFINITE, 0,
-            getScene().getHeight()/2,1, getScene().getHeight(), world);
+    private GameObject wallUp = new GameObject(MassType.INFINITE,
+            getScene().getWidth(), 10, world);
+    private GameObject wallDown = new GameObject(MassType.INFINITE,
+            getScene().getWidth(), 10, world);
+    private GameObject wallRigth = new GameObject(MassType.INFINITE,
+            1, getScene().getHeight(), world);
+    private GameObject wallLeft = new GameObject(MassType.INFINITE,
+            1, getScene().getHeight(), world);
 
     public PongScene(Settings settings, GameApplication app) {
         super(settings, app);
@@ -43,6 +43,13 @@ public class PongScene extends GameScene {
 
     @Override
     protected void launchProperties() {
+
+        wallUp.setPosition(getScene().getWidth()/2,getScene().getHeight() - 5);
+        wallDown.setPosition(getScene().getWidth()/2,-5);
+        wallRigth.setPosition( getScene().getWidth(),getScene().getHeight()/2);
+        wallLeft.setPosition(0, getScene().getHeight()/2);
+
+
         world.setGravity(World.ZERO_GRAVITY);
         bgm.loop(true);
 

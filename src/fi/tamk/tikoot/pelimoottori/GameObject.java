@@ -3,6 +3,8 @@ package fi.tamk.tikoot.pelimoottori;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Rotate;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.Force;
 import org.dyn4j.dynamics.World;
@@ -17,17 +19,29 @@ import org.dyn4j.geometry.*;
  */
 public class GameObject{
 
+    private Image image;
+    private Affine affine;
     private Body body = new Body();
 
     GameObject() {
     }
 
-    public GameObject(MassType type, double x, double y, double width, double height, World world) {
+    public GameObject(MassType type, double width, double height, World world) {
         body.addFixture(Geometry.createRectangle(width/Settings.SCALE,height/Settings.SCALE));
         body.setMass(type);
-        body.translate(x/Settings.SCALE,y/Settings.SCALE);
         body.setAutoSleepingEnabled(false);
         world.addBody(body);
+        affine = new Affine();
+    }
+
+    public GameObject(MassType type, String imageLocation, World world) {
+        setImage(imageLocation);
+        getBody().addFixture(Geometry.createRectangle(getImage().getWidth()/Settings.SCALE,
+                getImage().getHeight()/Settings.SCALE),1,0.2,0.2);
+        getBody().setMass(type);
+        getBody().setAutoSleepingEnabled(false);
+        world.addBody(getBody());
+        affine = new Affine();
     }
 
     /**
@@ -131,5 +145,73 @@ public class GameObject{
      */
     public Body getBody() {
         return body;
+    }
+
+    /**
+     * Sets the image objects image.
+     *
+     * @param i The image.
+     */
+    public void setImage(Image i)
+    {
+        image = i;
+    }
+
+    /**
+     * Sets the image objects image based on the filename.
+     *
+     * @param filename The filename of the image.
+     */
+    public void setImage(String filename)
+    {
+        Image i = new Image(filename);
+        setImage(i);
+    }
+
+    /**
+     * Used to get the image of this image object.
+     *
+     * @return The image of this sprite object.
+     */
+    public Image getImage() {
+        return image;
+    }
+
+    public void render(GraphicsContext gc, double time, Animation animation)
+    {
+        int[] xyz = animation.getFrameLocation(time);
+
+        Vector2 bodyCenter = getBody().getWorldCenter();
+
+        gc.save();
+
+        Rotate r = new Rotate(getBody().getTransform().getRotation() * 57.2958 + 180,
+                bodyCenter.x * Settings.SCALE, bodyCenter.y * Settings.SCALE);
+        affine.setToTransform(r);
+        gc.transform(affine);
+
+        gc.drawImage(animation.getSpriteSheet(),
+                xyz[0],
+                xyz[1],
+                animation.getSpriteSheet().getWidth()/xyz[2],
+                animation.getSpriteSheet().getHeight(),
+                (bodyCenter.x * Settings.SCALE) - animation.getSpriteSheet().getWidth()/xyz[2]/2,
+                (bodyCenter.y * Settings.SCALE) - animation.getSpriteSheet().getHeight()/2,
+                animation.getSpriteSheet().getWidth()/xyz[2],
+                animation.getSpriteSheet().getHeight());
+        gc.restore();
+    }
+
+    public void render(GraphicsContext gc)
+    {
+        gc.save();
+        Vector2 bodyCenter = getBody().getWorldCenter();
+        Rotate r = new Rotate(getBody().getTransform().getRotation() * 57.2958,
+                bodyCenter.x * Settings.SCALE, bodyCenter.y * Settings.SCALE);
+        affine.setToTransform(r);
+        gc.transform(affine);
+        gc.drawImage( image, (bodyCenter.x * Settings.SCALE) - getWidth()/2,
+                (bodyCenter.y * Settings.SCALE) - getHeight()/2);
+        gc.restore();
     }
 }
