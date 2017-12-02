@@ -1,7 +1,7 @@
 package fi.tamk.tikoot.games.platformer;
 
-import fi.tamk.tikoot.pelimoottori.GameApplication;
-import fi.tamk.tikoot.pelimoottori.Settings;
+import fi.tamk.tikoot.pelimoottori.core.GameApplication;
+import fi.tamk.tikoot.pelimoottori.core.Settings;
 
 public class Platformer extends GameApplication {
     private PlatformerScene platformerScene;

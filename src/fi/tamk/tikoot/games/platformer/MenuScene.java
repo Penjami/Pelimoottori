@@ -1,6 +1,10 @@
 package fi.tamk.tikoot.games.platformer;
 
-import fi.tamk.tikoot.pelimoottori.*;
+import fi.tamk.tikoot.pelimoottori.core.GameApplication;
+import fi.tamk.tikoot.pelimoottori.core.GameScene;
+import fi.tamk.tikoot.pelimoottori.core.Settings;
+import fi.tamk.tikoot.pelimoottori.ui.UIButton;
+import fi.tamk.tikoot.pelimoottori.ui.UIText;
 import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
 

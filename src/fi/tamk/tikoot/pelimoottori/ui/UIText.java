@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.pelimoottori;
+package fi.tamk.tikoot.pelimoottori.ui;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;

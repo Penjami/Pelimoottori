@@ -1,6 +1,12 @@
 package fi.tamk.tikoot.games.pong;
 
-import fi.tamk.tikoot.pelimoottori.*;
+import fi.tamk.tikoot.pelimoottori.audio.Music;
+import fi.tamk.tikoot.pelimoottori.audio.Sound;
+import fi.tamk.tikoot.pelimoottori.core.GameApplication;
+import fi.tamk.tikoot.pelimoottori.core.GameScene;
+import fi.tamk.tikoot.pelimoottori.core.Settings;
+import fi.tamk.tikoot.pelimoottori.object.GameObject;
+import fi.tamk.tikoot.pelimoottori.ui.UIText;
 import javafx.scene.paint.Color;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.World;

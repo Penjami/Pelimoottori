@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.pelimoottori;
+package fi.tamk.tikoot.pelimoottori.core;
 
 /**
  * This class is used to set all the base settings for the game application.

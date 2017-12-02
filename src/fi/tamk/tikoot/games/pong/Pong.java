@@ -1,8 +1,7 @@
 package fi.tamk.tikoot.games.pong;
 
-import fi.tamk.tikoot.pelimoottori.GameApplication;
-import fi.tamk.tikoot.pelimoottori.GameScene;
-import fi.tamk.tikoot.pelimoottori.Settings;
+import fi.tamk.tikoot.pelimoottori.core.GameApplication;
+import fi.tamk.tikoot.pelimoottori.core.Settings;
 
 public class Pong extends GameApplication {
     private PongScene pongScene;

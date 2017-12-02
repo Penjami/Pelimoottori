@@ -1,6 +1,11 @@
 package fi.tamk.tikoot.games.platformer;
 
-import fi.tamk.tikoot.pelimoottori.*;
+import fi.tamk.tikoot.pelimoottori.audio.Music;
+import fi.tamk.tikoot.pelimoottori.core.GameApplication;
+import fi.tamk.tikoot.pelimoottori.core.GameScene;
+import fi.tamk.tikoot.pelimoottori.core.Settings;
+import fi.tamk.tikoot.pelimoottori.object.Animation;
+import fi.tamk.tikoot.pelimoottori.object.GameObject;
 import javafx.scene.image.Image;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.MassType;

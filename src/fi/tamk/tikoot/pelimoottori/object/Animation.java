@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.pelimoottori;
+package fi.tamk.tikoot.pelimoottori.object;
 
 import javafx.scene.image.Image;
 import org.dyn4j.geometry.Vector2;

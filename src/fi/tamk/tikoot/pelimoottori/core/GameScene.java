@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.pelimoottori;
+package fi.tamk.tikoot.pelimoottori.core;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;

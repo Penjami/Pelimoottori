@@ -1,12 +1,11 @@
-package fi.tamk.tikoot.pelimoottori;
+package fi.tamk.tikoot.pelimoottori.object;
 
-import javafx.geometry.Rectangle2D;
+import fi.tamk.tikoot.pelimoottori.core.Settings;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import org.dyn4j.dynamics.Body;
-import org.dyn4j.dynamics.Force;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.*;
 
@@ -22,12 +21,16 @@ public class GameObject{
     private Image image;
     private Affine affine;
     private Body body = new Body();
+    private ObjectType type;
 
-    GameObject() {
+    GameObject(World world) {
+        body.setAutoSleepingEnabled(false);
+        world.addBody(body);
+        affine = new Affine();
     }
 
     public GameObject(MassType type, double width, double height, World world) {
-        body.addFixture(Geometry.createRectangle(width/Settings.SCALE,height/Settings.SCALE));
+        body.addFixture(Geometry.createRectangle(width/ Settings.SCALE,height/Settings.SCALE));
         body.setMass(type);
         body.setAutoSleepingEnabled(false);
         world.addBody(body);
@@ -175,6 +178,14 @@ public class GameObject{
      */
     public Image getImage() {
         return image;
+    }
+
+    public ObjectType getType() {
+        return type;
+    }
+
+    public void setType(ObjectType type) {
+        this.type = type;
     }
 
     public void render(GraphicsContext gc, double time, Animation animation)
