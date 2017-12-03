@@ -130,14 +130,14 @@ public class GameObject{
     }
 
     /**
-     * @return The x position of the object.
+     * @return The x coordinate of the center of the object in the world.
      */
     public double getPositionX() {
         return ((body.getTransform().getTranslationY() - getHeight()/2) * Settings.SCALE );
     }
 
     /**
-     * @return The y position of the object.
+     * @return The y coordinate of the center of the object in the world.
      */
     public double getPositionY() {
         return ((body.getTransform().getTranslationY() - getWidth()/2) * Settings.SCALE);
@@ -191,8 +191,8 @@ public class GameObject{
     public void render(GraphicsContext gc, double time, Animation animation)
     {
         int[] xyz = animation.getFrameLocation(time);
-
         Vector2 bodyCenter = getBody().getWorldCenter();
+        Image sprite = animation.getSpriteSheet(time);
 
         gc.save();
 
@@ -201,15 +201,15 @@ public class GameObject{
         affine.setToTransform(r);
         gc.transform(affine);
 
-        gc.drawImage(animation.getSpriteSheet(),
+        gc.drawImage(sprite,
                 xyz[0],
                 xyz[1],
-                animation.getSpriteSheet().getWidth()/xyz[2],
-                animation.getSpriteSheet().getHeight(),
-                (bodyCenter.x * Settings.SCALE) - animation.getSpriteSheet().getWidth()/xyz[2]/2,
-                (bodyCenter.y * Settings.SCALE) - animation.getSpriteSheet().getHeight()/2,
-                animation.getSpriteSheet().getWidth()/xyz[2],
-                animation.getSpriteSheet().getHeight());
+                sprite.getWidth()/xyz[2],
+                sprite.getHeight(),
+                (bodyCenter.x * Settings.SCALE) - sprite.getWidth()/xyz[2]/2,
+                (bodyCenter.y * Settings.SCALE) - sprite.getHeight()/2,
+                sprite.getWidth()/xyz[2],
+                sprite.getHeight());
         gc.restore();
     }
 

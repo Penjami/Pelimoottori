@@ -1,5 +1,6 @@
 package fi.tamk.tikoot.pelimoottori.object;
 
+import fi.tamk.tikoot.pelimoottori.core.Settings;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.Geometry;
@@ -20,9 +21,9 @@ public class GameObjectCreator {
      */
     public GameObject createRectangleObject(World world, double width, double height, double x, double y, MassType type) {
         GameObject rectangle = new GameObject(world);
-        rectangle.getBody().addFixture(Geometry.createRectangle(width, height));
+        rectangle.getBody().addFixture(Geometry.createRectangle(width/Settings.SCALE, height/Settings.SCALE));
         rectangle.getBody().setMass(type);
-        rectangle.getBody().translate(x, y);
+        rectangle.getBody().translate(x/ Settings.SCALE,y/Settings.SCALE);
         rectangle.setType(ObjectType.RECTANGLE);
         return rectangle;
     }
@@ -39,9 +40,9 @@ public class GameObjectCreator {
      */
     public GameObject createCircleObject(World world, double radius, double x, double y, MassType type) {
         GameObject circle = new GameObject(world);
-        circle.getBody().addFixture(new Circle(radius));
+        circle.getBody().addFixture(new Circle(radius/Settings.SCALE));
         circle.getBody().setMass(type);
-        circle.getBody().translate(x, y);
+        circle.getBody().translate(x/Settings.SCALE, y/Settings.SCALE);
         circle.setType(ObjectType.CIRCLE);
         return circle;
     }

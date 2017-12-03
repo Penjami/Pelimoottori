@@ -17,6 +17,7 @@ public class Animation {
     private double timeGonePast;
     private ArrayList<Image> sprites;
     private Image spriteSheet;
+    private boolean multipleImages;
 
     public Animation(Image spriteSheet,double duration,
                      int count,   int columns,
@@ -30,11 +31,13 @@ public class Animation {
         this.offsetY = offsetY;
         this.width = width;
         this.height = height;
+        multipleImages = false;
     }
 
     public Animation(ArrayList<Image> sprites, double duration) {
         this.duration = duration;
         this.sprites = sprites;
+        multipleImages = true;
     }
 
     public Animation(double duration, Image... sprites) {
@@ -44,26 +47,41 @@ public class Animation {
     }
 
     public int[] getFrameLocation(double time) {
-        int[] xyc = new int[3];
+        if(multipleImages) {
+            return new int[]{0, 0, 1};
+        }
+        else {
 
-        timeGonePast = timeGonePast + time;
-        int index = (int) (((timeGonePast % (count * duration)) / duration));
-        int x = (index % columns) * width + offsetX;
-        int y = (index / columns) * height + offsetY;
+            int[] xyc = new int[3];
 
-        xyc[0] = x;
-        xyc[1] = y;
-        xyc[2] = columns;
-        return xyc;
+            timeGonePast = timeGonePast + time;
+            int index = (int) (((timeGonePast % (count * duration)) / duration));
+            int x = (index % columns) * width + offsetX;
+            int y = (index / columns) * height + offsetY;
+
+            xyc[0] = x;
+            xyc[1] = y;
+            xyc[2] = columns;
+            return xyc;
+        }
     }
 
-    public Image getFrame(double time) {
-        timeGonePast = timeGonePast + time;
-        int index = (int) (((timeGonePast % (sprites.size() * duration)) / duration));
-        return sprites.get(index);
+    public Image getSpriteSheet(double time) {
+        if( multipleImages) {
+            timeGonePast = timeGonePast + time;
+            int index = (int) (((timeGonePast % (sprites.size() * duration)) / duration));
+            return sprites.get(index);
+        } else {
+            return spriteSheet;
+        }
     }
 
-    public Image getSpriteSheet() {
-        return spriteSheet;
+    private ArrayList<Image> ConvertToImages() {
+        ArrayList<Image> images = new ArrayList<>();
+
+
+
+
+        return images;
     }
 }

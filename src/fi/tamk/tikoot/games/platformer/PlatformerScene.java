@@ -6,17 +6,21 @@ import fi.tamk.tikoot.pelimoottori.core.GameScene;
 import fi.tamk.tikoot.pelimoottori.core.Settings;
 import fi.tamk.tikoot.pelimoottori.object.Animation;
 import fi.tamk.tikoot.pelimoottori.object.GameObject;
+import fi.tamk.tikoot.pelimoottori.object.GameObjectCreator;
 import javafx.scene.image.Image;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Vector2;
+
+import java.util.ArrayList;
 
 /**
  * Created by Penjami on 6.11.2017.
  */
 public class PlatformerScene extends GameScene {
 
-    private GameObject player = new GameObject(MassType.NORMAL,64,64,world);
+    GameObjectCreator creator = new GameObjectCreator();
+    private GameObject player = creator.createRectangleObject(world,64,64 ,64,64,MassType.NORMAL);
     private Animation animation = new Animation(new Image("ball-sheet.png"), 0.1,
             4,4,0,0,64,64);
     private Music bgm = new Music("src/bgm.mp3");
