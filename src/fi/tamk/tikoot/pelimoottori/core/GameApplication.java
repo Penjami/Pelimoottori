@@ -11,23 +11,10 @@ import javafx.stage.Stage;
  * @since 1.8
  */
 public abstract class GameApplication extends Application {
-    /*
-        while(isRunning)
-    {
-        Input->readInput();
-        isRunning = GameLogic->doLogic();
-        Camera->update();
-        World->update();
-        GUI->update();
-        AI->update();
-        Audio->play();
-        Render->draw();
-    }
-     */
+
     protected Stage primaryStage;
     protected GameScene gameScene;
     protected GameLoop gameLoop;
-
     /**
      * Creates and initializes the stage and settings.
      *
@@ -44,6 +31,11 @@ public abstract class GameApplication extends Application {
         gameScene.launchProperties();
     }
 
+    /**
+     * Used to change the scene.
+     *
+     * @param scene The scene that is drawn on the screen.
+     */
     public void changeScene(GameScene scene) {
         gameScene = scene;
         primaryStage.setScene(scene.getScene());
@@ -68,15 +60,6 @@ public abstract class GameApplication extends Application {
         //Create game gameLoop
         gameLoop = new GameLoop(gameScene, lastNanoTime[0]);
         gameLoop.start();
-        /*new AnimationTimer() {
-            @Override
-            public void handle(long currentNanoTime) {
-                // calculate time since last update.
-                float delta = 1f / (1000.0f / ((currentNanoTime-lastNanoTime[0]) / 1000000));
-                gameScene.gameLoop(delta);
-                lastNanoTime[0] = currentNanoTime;
-            }
-        }.start();*/
     }
 
     /**
@@ -85,4 +68,5 @@ public abstract class GameApplication extends Application {
      * @param settings object containing all the settings
      */
     abstract protected void setSettings(Settings settings);
+
 }

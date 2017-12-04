@@ -21,12 +21,9 @@ public class MenuScene extends GameScene {
 
     @Override
     protected void launchProperties() {
-        play.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println(2);
-                changeGameScene(new PlatformerScene(getSettings(), getApp()));
-            }
+        play.setOnAction(event -> {
+            System.out.println(2);
+            changeGameScene(new PlatformerScene(getSettings(), getApp()));
         });
     }
 

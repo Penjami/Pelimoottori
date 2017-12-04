@@ -12,6 +12,7 @@ public class Settings {
     private String title = "Untitled";
     private int width = 800;
     private int height = 600;
+    //pixel to physics ratio
     final public static double SCALE = 64.0;
 
     /**

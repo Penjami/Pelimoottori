@@ -6,6 +6,14 @@ import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.MassType;
 
+
+/**
+ * This class is used to create game objects for the game with predefined attributes.
+ *
+ * @author Penjami Rantakangas
+ * @version 1.2
+ * @since 1.8
+ */
 public class GameObjectCreator {
 
     /**
@@ -38,7 +46,7 @@ public class GameObjectCreator {
      * @param type The mass type of the entity.
      * @return The gameObject to return.
      */
-    public GameObject createCircleObject(World world, double radius, double x, double y, MassType type) {
+    public GameObject createCircleObject( World world, double radius, double x, double y, MassType type) {
         GameObject circle = new GameObject(world);
         circle.getBody().addFixture(new Circle(radius/Settings.SCALE));
         circle.getBody().setMass(type);
