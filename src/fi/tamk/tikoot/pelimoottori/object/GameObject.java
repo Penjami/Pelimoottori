@@ -19,7 +19,7 @@ import org.dyn4j.geometry.*;
 public class GameObject{
 
     private Image image;
-    private Affine affine;
+    private Affine affine = new Affine();
     private Body body = new Body();
     private ObjectType type;
 
@@ -28,10 +28,9 @@ public class GameObject{
      *
      * @param world The physics world of this scene.
      */
-    GameObject(World world) {
+    public GameObject(World world) {
         body.setAutoSleepingEnabled(false);
         world.addBody(body);
-        affine = new Affine();
     }
 
     public GameObject(MassType type, double width, double height, World world) {
@@ -39,7 +38,6 @@ public class GameObject{
         body.setMass(type);
         body.setAutoSleepingEnabled(false);
         world.addBody(body);
-        affine = new Affine();
     }
 
     public GameObject(MassType type, String imageLocation, World world) {
@@ -49,7 +47,6 @@ public class GameObject{
         getBody().setMass(type);
         getBody().setAutoSleepingEnabled(false);
         world.addBody(getBody());
-        affine = new Affine();
     }
 
     /**
