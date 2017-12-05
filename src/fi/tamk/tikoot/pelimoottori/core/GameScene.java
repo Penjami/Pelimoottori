@@ -56,10 +56,10 @@ abstract public class GameScene {
      * @param time The time between frames in milliseconds.
      */
     public void loop(double time) {
+        world.update(time);
         update(time);
         collisions();
         draw(time);
-        world.update(time);
     }
 
     /**

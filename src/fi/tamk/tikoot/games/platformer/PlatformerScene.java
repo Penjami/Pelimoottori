@@ -52,9 +52,9 @@ public class PlatformerScene extends GameScene {
 
 
         player.setVelocity(0,player.getVelocityY());
-        if (getInputHandler().getInput().contains("SPACE") && player.isGrounded() && !player.hasJumped[0]) {
-            player.getBody().applyImpulse(new Vector2(0,3));
-            player.hasJumped[0] = true;
+        if (getInputHandler().getInput().contains("SPACE") && player.isGrounded() && !player.hasJumped) {
+            player.getBody().applyImpulse(new Vector2(0,0.5));
+            player.hasJumped = true;
         }
 
         if (getInputHandler().getInput().contains("A")) {
@@ -63,13 +63,13 @@ public class PlatformerScene extends GameScene {
         if (getInputHandler().getInput().contains("D")) {
             player.setVelocity(1,player.getVelocityY());
         }
-        System.out.println(timePassed % createPlatformTime);
 
         if(timePassed > createPlatformTime) {
             createPlatform();
             timePassed = 0;
         }
-        player.getBody().setAngularVelocity(0.0);
+        player.checkIfGrounded();
+        player.getBody().getTransform().setRotation(0);
     }
 
     @Override
