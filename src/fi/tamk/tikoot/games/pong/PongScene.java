@@ -93,6 +93,12 @@ public class PongScene extends GameScene {
 
     @Override
     protected void collisions() {
+        if(ball.getBody().isInContact(pongPadPlayer1.getBody()) || ball.getBody().isInContact(pongPadPlayer2.getBody())) {
+            ballBouncePadSound.play();
+        }
+        if(ball.getBody().isInContact(wallUp.getBody()) || ball.getBody().isInContact(wallDown.getBody())) {
+            ballBounceWallSound.play();
+        }
         if(ball.getBody().isInContact(wallLeft.getBody())) {
             ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
             ball.setVelocity(4,4);

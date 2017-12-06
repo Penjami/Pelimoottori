@@ -28,7 +28,6 @@ public class PlatformerScene extends GameScene {
     private GameObjectCreator creator = new GameObjectCreator();
     private Player player = new Player(MassType.NORMAL, 34, 44, world);
     private ArrayList<GameObject> groundObjects = new ArrayList<>();
-    private Music bgm = new Music("src/bgm.mp3");
 
     public PlatformerScene(Settings settings, GameApplication app) {
         super(settings, app);
@@ -36,8 +35,6 @@ public class PlatformerScene extends GameScene {
 
     @Override
     protected void launchProperties() {
-        //world.setGravity(World.ZERO_GRAVITY);
-        bgm.loop(true);
         player.setPosition(getScene().getWidth()*1/5,getScene().getHeight()/2+50);
         createPlatform(getScene().getWidth()*1/4, getScene().getHeight()*1/3);
         createPlatform(getScene().getWidth()*9/10, getScene().getHeight()*1/5);
