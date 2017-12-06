@@ -11,8 +11,20 @@ import javafx.scene.paint.Color;
 public class MenuScene extends GameScene {
 
 
-    UIText logo = new UIText("Platformer", Color.BLACK, getScene().getWidth()/2,
+    UIText logo = new UIText("Pong", Color.BLACK, getScene().getWidth()/2,
             getScene().getHeight()*1/4,50 , getUiRoot());
+    UIText instructions1 = new UIText("P1 controls", Color.BLACK, getScene().getWidth()*1/6,
+            getScene().getHeight()*1/2,30 , getUiRoot());
+    UIText instructions2 = new UIText("w = go up", Color.BLACK, getScene().getWidth()*1/6,
+            getScene().getHeight()*11/18,20 , getUiRoot());
+    UIText instructions3 = new UIText("s = go down", Color.BLACK, getScene().getWidth()*1/6,
+            getScene().getHeight()*12/18,20 , getUiRoot());
+    UIText instructions4 = new UIText("P2 controls", Color.BLACK, getScene().getWidth()*5/6,
+            getScene().getHeight()*1/2,30 , getUiRoot());
+    UIText instructions5 = new UIText("Arrow up = go up", Color.BLACK, getScene().getWidth()*5/6,
+            getScene().getHeight()*11/18,20 , getUiRoot());
+    UIText instructions6 = new UIText("Arrow down = go down", Color.BLACK, getScene().getWidth()*5/6,
+            getScene().getHeight()*12/18,20 , getUiRoot());
     UIButton play = new UIButton("PLAY", getUiRoot(), getScene().getWidth()/2, getScene().getHeight()/2);
 
     public MenuScene(Settings settings, GameApplication app) {

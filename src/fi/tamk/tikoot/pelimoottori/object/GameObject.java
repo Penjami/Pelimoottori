@@ -24,29 +24,13 @@ public class GameObject{
     private ObjectType type;
 
     /**
-     * The constructor for the GameObject class with only world as a parameter.
+     * Default constructor for the GameObject class.
      *
      * @param world The physics world of this scene.
      */
     public GameObject(World world) {
         body.setAutoSleepingEnabled(false);
         world.addBody(body);
-    }
-
-    public GameObject(MassType type, double width, double height, World world) {
-        body.addFixture(Geometry.createRectangle(width/ Settings.SCALE,height/Settings.SCALE));
-        body.setMass(type);
-        body.setAutoSleepingEnabled(false);
-        world.addBody(body);
-    }
-
-    public GameObject(MassType type, String imageLocation, World world) {
-        setImage(imageLocation);
-        getBody().addFixture(Geometry.createRectangle(getImage().getWidth()/Settings.SCALE,
-                getImage().getHeight()/Settings.SCALE),1,0.2,0.2);
-        getBody().setMass(type);
-        getBody().setAutoSleepingEnabled(false);
-        world.addBody(getBody());
     }
 
     /**
@@ -67,7 +51,7 @@ public class GameObject{
      */
     public double getWidth() {
         AABB aabb = getBody().createAABB();
-        return aabb.getWidth();
+        return aabb.getWidth() * Settings.SCALE;
     }
 
     /**
@@ -77,7 +61,7 @@ public class GameObject{
      */
     public double getHeight() {
         AABB aabb = getBody().createAABB();
-        return aabb.getHeight();
+        return aabb.getHeight() * Settings.SCALE;
     }
 
     /**
@@ -254,7 +238,7 @@ public class GameObject{
                 bodyCenter.x * Settings.SCALE, bodyCenter.y * Settings.SCALE);
         affine.setToTransform(r);
         gc.transform(affine);
-        gc.drawImage( image, (bodyCenter.x * Settings.SCALE) - image.getWidth()/2,
+        gc.drawImage( image, (bodyCenter.x * Settings.SCALE) + image.getWidth()/2,
                 (bodyCenter.y * Settings.SCALE) - image.getHeight()/2, -image.getWidth(), image.getHeight());
         gc.restore();
     }

@@ -12,6 +12,7 @@ import org.dyn4j.geometry.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Player extends GameObject {
 
@@ -38,10 +39,12 @@ public class Player extends GameObject {
     public void checkIfGrounded() {
         List<RaycastResult> results = new ArrayList<>();
         if(world.raycast(getBody().getWorldCenter(),
-                new Vector2(getBody().getWorldCenter().x + getWidth()*1/3,getBody().getWorldCenter().y-getHeight()/2-0.1),
+                new Vector2(getBody().getWorldCenter().x + getWidth()*1/3/Settings.SCALE,
+                        getBody().getWorldCenter().y-getHeight()/2/Settings.SCALE-0.1),
                 true,true,true, results) ||
                 world.raycast(getBody().getWorldCenter(),
-                        new Vector2(getBody().getWorldCenter().x - getWidth()*1/3,getBody().getWorldCenter().y-getHeight()/2-0.1),
+                        new Vector2(getBody().getWorldCenter().x - getWidth()*1/3/Settings.SCALE,
+                                getBody().getWorldCenter().y-getHeight()/2/Settings.SCALE-0.1),
                         true,true,true, results)) {
             hasJumped = false;
             isGrounded = true;

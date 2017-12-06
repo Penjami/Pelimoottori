@@ -6,11 +6,11 @@ import fi.tamk.tikoot.pelimoottori.core.GameApplication;
 import fi.tamk.tikoot.pelimoottori.core.GameScene;
 import fi.tamk.tikoot.pelimoottori.core.Settings;
 import fi.tamk.tikoot.pelimoottori.object.GameObject;
+import fi.tamk.tikoot.pelimoottori.object.GameObjectCreator;
 import fi.tamk.tikoot.pelimoottori.ui.UIText;
 import javafx.scene.paint.Color;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.World;
-import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.MassType;
 
 /**
@@ -18,11 +18,9 @@ import org.dyn4j.geometry.MassType;
  */
 public class PongScene extends GameScene {
 
+    private GameObjectCreator creator = new GameObjectCreator();
     private int player1Score = 0;
     private int player2Score = 0;
-    private GameObject pongPadPlayer1 = new GameObject(MassType.NORMAL,"pongPad1.png", world);
-    private GameObject pongPadPlayer2 = new GameObject(MassType.NORMAL,"pongPad2.png", world);
-    private GameObject ball = new GameObject(MassType.NORMAL,"ball.png", world);
     private UIText player2ScoreText =
             new UIText("P2 Points : " + player1Score, Color.ALICEBLUE,
                     getScene().getWidth()/2-100,30, 25, getUiRoot());
@@ -34,14 +32,20 @@ public class PongScene extends GameScene {
     private Sound ballBouncePadSound = new Sound("src/blop.mp3");
     private double gameSpeed = 2;
 
-    private GameObject wallUp = new GameObject(MassType.INFINITE,
-            getScene().getWidth(), 10, world);
-    private GameObject wallDown = new GameObject(MassType.INFINITE,
-            getScene().getWidth(), 10, world);
-    private GameObject wallRigth = new GameObject(MassType.INFINITE,
-            1, getScene().getHeight(), world);
-    private GameObject wallLeft = new GameObject(MassType.INFINITE,
-            1, getScene().getHeight(), world);
+    private GameObject pongPadPlayer1 = creator.createRectangleSpriteObject
+            ("pongPad1.png", world,20,getScene().getHeight()/2,MassType.INFINITE);
+    private GameObject pongPadPlayer2 = creator.createRectangleSpriteObject
+            ("pongPad2.png", world,getScene().getWidth()-20,getScene().getHeight()/2, MassType.INFINITE);
+    private GameObject ball = creator.createCircleSpriteObject
+            ("ball.png",world,getScene().getWidth()/2-20, getScene().getHeight()/2,MassType.NORMAL);
+    private GameObject wallUp = creator.createRectangleObject
+            (world,getScene().getWidth(),10,getScene().getWidth()/2,getScene().getHeight() - 5, MassType.INFINITE);
+    private GameObject wallDown = creator.createRectangleObject
+            (world,getScene().getWidth(),10,getScene().getWidth()/2,-5, MassType.INFINITE);
+    private GameObject wallRight = creator.createRectangleObject
+            (world,10,getScene().getHeight(),getScene().getWidth(),getScene().getHeight()/2, MassType.INFINITE);
+    private GameObject wallLeft = creator.createRectangleObject
+            (world,10,getScene().getHeight(), 0, getScene().getHeight()/2, MassType.INFINITE);
 
     public PongScene(Settings settings, GameApplication app) {
         super(settings, app);
@@ -49,27 +53,11 @@ public class PongScene extends GameScene {
 
     @Override
     protected void launchProperties() {
-
-        wallUp.setPosition(getScene().getWidth()/2,getScene().getHeight() - 5);
-        wallDown.setPosition(getScene().getWidth()/2,-5);
-        wallRigth.setPosition( getScene().getWidth(),getScene().getHeight()/2);
-        wallLeft.setPosition(0, getScene().getHeight()/2);
-
-
         world.setGravity(World.ZERO_GRAVITY);
         bgm.loop(true);
 
-        ball.getBody().removeFixture(0);
-        ball.getBody().addFixture(new Circle(ball.getWidth()/2/Settings.SCALE));
         ball.setVelocity(4,4);
         ball.getBody().setBullet(true);
-
-        pongPadPlayer1.getBody().setMassType(MassType.INFINITE);
-        pongPadPlayer2.getBody().setMassType(MassType.INFINITE);
-
-        pongPadPlayer1.setPosition(20,getScene().getHeight()/2);
-        pongPadPlayer2.setPosition(getScene().getWidth()-20,getScene().getHeight()/2);
-        ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
 
         for(Body body : world.getBodies()) {
             body.getFixture(0).setRestitution(1);
@@ -86,20 +74,21 @@ public class PongScene extends GameScene {
         pongPadPlayer1.setVelocity(0,0);
         pongPadPlayer2.setVelocity(0,0);
         if (getInputHandler().getInput().contains("W") &&
-                pongPadPlayer1.getPositionY() < getScene().getHeight() - pongPadPlayer1.getHeight()*4/3) {
+                pongPadPlayer1.getPositionY() < getScene().getHeight() - pongPadPlayer1.getHeight()/2) {
             pongPadPlayer1.addVelocity(0,4);
         }
-        if (getInputHandler().getInput().contains("S") && pongPadPlayer1.getPositionY() > 0) {
+        if (getInputHandler().getInput().contains("S") && pongPadPlayer1.getPositionY() > pongPadPlayer1.getHeight()/2) {
             pongPadPlayer1.addVelocity(0,-4);
         }
         if (getInputHandler().getInput().contains("UP") &&
-                pongPadPlayer2.getPositionY() < getScene().getHeight() - pongPadPlayer2.getHeight()*4/3) {
+                pongPadPlayer2.getPositionY() < getScene().getHeight() - pongPadPlayer2.getHeight()/2) {
             pongPadPlayer2.setVelocity(0,4);
         }
-        if (getInputHandler().getInput().contains("DOWN") && pongPadPlayer2.getPositionY() > 0) {
+        if (getInputHandler().getInput().contains("DOWN") && pongPadPlayer2.getPositionY() > pongPadPlayer2.getHeight()/2) {
             pongPadPlayer2.setVelocity(0,-4);
         }
 
+        ball.getBody().getTransform().setRotation(0);
     }
 
     @Override
@@ -107,14 +96,12 @@ public class PongScene extends GameScene {
         if(ball.getBody().isInContact(wallLeft.getBody())) {
             ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
             ball.setVelocity(4,4);
-            ball.getBody().setAngularVelocity(0);
             player1Score++;
             player1ScoreText.setText("P1 Points : " + player1Score);
         }
-        if( ball.getBody().isInContact(wallRigth.getBody())) {
+        if( ball.getBody().isInContact(wallRight.getBody())) {
             ball.setPosition(getScene().getWidth()/2-20,getScene().getHeight()/2);
             ball.setVelocity(-4,4);
-            ball.getBody().setAngularVelocity(0);
             player2Score++;
             player2ScoreText.setText("P2 Points : " + player2Score);
         }

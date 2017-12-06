@@ -28,12 +28,7 @@ public class PlatformerScene extends GameScene {
     private GameObjectCreator creator = new GameObjectCreator();
     private Player player = new Player(MassType.NORMAL, 34, 44, world);
     private ArrayList<GameObject> groundObjects = new ArrayList<>();
-    private Animation groundAnimation = new Animation(new Image("belt-sheet.png"), 0.1,
-            3,600,32);
     private Music bgm = new Music("src/bgm.mp3");
-
-    private GameObject ground = creator.createRectangleObject(world, getScene().getWidth(),
-            32, getScene().getWidth()/2,16, MassType.INFINITE);
 
     public PlatformerScene(Settings settings, GameApplication app) {
         super(settings, app);
@@ -43,7 +38,9 @@ public class PlatformerScene extends GameScene {
     protected void launchProperties() {
         //world.setGravity(World.ZERO_GRAVITY);
         bgm.loop(true);
-        player.setPosition(getScene().getWidth()/2-50,getScene().getHeight()/2+50);
+        player.setPosition(getScene().getWidth()*1/5,getScene().getHeight()/2+50);
+        createPlatform(getScene().getWidth()*1/4, getScene().getHeight()*1/3);
+        createPlatform(getScene().getWidth()*9/10, getScene().getHeight()*1/5);
     }
 
     @Override
@@ -65,7 +62,7 @@ public class PlatformerScene extends GameScene {
         }
 
         if(timePassed > createPlatformTime) {
-            createPlatform();
+            createPlatform(getScene().getWidth(), randomBetweenNum(0, getScene().getHeight()*2/5));
             timePassed = 0;
         }
         player.checkIfGrounded();
@@ -80,7 +77,6 @@ public class PlatformerScene extends GameScene {
     @Override
     protected void draw(double time) {
         getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
-        ground.render(getGraphicsContext(), time, groundAnimation);
         player.draw(getGraphicsContext(),time);
 
         for(GameObject groundObject : groundObjects) {
@@ -97,10 +93,10 @@ public class PlatformerScene extends GameScene {
         return min + (max - min) * r.nextDouble();
     }
 
-    private void createPlatform() {
-        int size = (int)randomBetweenNum(1,10);
+    private void createPlatform(double x, double y) {
+        int size = (int)randomBetweenNum(5,10);
         GameObject ground1 = creator.createRectangleObject(world, 32,
-                32, getScene().getWidth(), randomBetweenNum(0, getScene().getHeight() / 2), MassType.INFINITE);
+                32, x, y, MassType.INFINITE);
         ground1.getBody().getFixture(0).setFriction(0);
         ground1.setVelocity(-2, 0);
         groundObjects.add(ground1);
