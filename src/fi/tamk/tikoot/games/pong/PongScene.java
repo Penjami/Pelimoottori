@@ -14,7 +14,11 @@ import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.MassType;
 
 /**
- * Created by Penjami on 6.11.2017.
+ * This is the main scene class for the Pong game.
+ *
+ * @author Penjami Rantakangas
+ * @version 1.2
+ * @since 1.8
  */
 public class PongScene extends GameScene {
 

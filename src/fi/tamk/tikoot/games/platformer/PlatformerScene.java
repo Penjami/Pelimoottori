@@ -18,7 +18,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Penjami on 6.11.2017.
+ * This is the main scene class for the platformer game.
+ *
+ * @author Penjami Rantakangas
+ * @version 1.2
+ * @since 1.8
  */
 public class PlatformerScene extends GameScene {
 
@@ -84,12 +88,22 @@ public class PlatformerScene extends GameScene {
     @Override
     protected void removeObjects() {}
 
-
+    /**
+     * @param min The minimum value
+     * @param max The maximum value.
+     * @return Random between the min and max.
+     */
     private double randomBetweenNum(double min, double max) {
         Random r = new Random();
         return min + (max - min) * r.nextDouble();
     }
 
+    /**
+     *  Creates between 5*64 and 10*64 pixels long platform at the x and y location.
+     *
+     * @param x The horizontal location of where the first piece of the platform is placed.
+     * @param y The vertical location of where the first piece of the platform is placed.
+     */
     private void createPlatform(double x, double y) {
         int size = (int)randomBetweenNum(5,10);
         GameObject ground1 = creator.createRectangleObject(world, 32,

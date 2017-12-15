@@ -2,10 +2,19 @@ package fi.tamk.tikoot.games.pong;
 
 import fi.tamk.tikoot.pelimoottori.core.GameApplication;
 import fi.tamk.tikoot.pelimoottori.core.Settings;
-
+/**
+ * This is the main application class for the pong game.
+ *
+ * @author Penjami Rantakangas
+ * @version 1.2
+ * @since 1.8
+ */
 public class Pong extends GameApplication {
     private PongScene pongScene;
 
+    /**
+     * Launches the game.
+     */
     public static void main(String[] args) { launch(args); }
 
     @Override

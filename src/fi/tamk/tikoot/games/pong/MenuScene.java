@@ -8,6 +8,14 @@ import fi.tamk.tikoot.pelimoottori.ui.UIText;
 import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
 
+/**
+ *  This class is the menu scene of the Pong Game.
+ *
+ * @author Penjami Rantakangas
+ * @version 1.2
+ * @since 1.8
+ */
+
 public class MenuScene extends GameScene {
 
 
@@ -27,6 +35,12 @@ public class MenuScene extends GameScene {
             getScene().getHeight()*12/18,20 , getUiRoot());
     UIButton play = new UIButton("PLAY", getUiRoot(), getScene().getWidth()/2, getScene().getHeight()/2);
 
+    /**
+     * This is the constructor of the MenuScene class.
+     *
+     * @param app The app is used to manage the gameScenes.
+     * @param settings The settings contains the parameters that are needed to set the gameScene.
+     */
     public MenuScene(Settings settings, GameApplication app) {
         super(settings, app);
     }

@@ -14,6 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is used to extend GameObject with methods.
+ *
+ * @author Penjami Rantakangas
+ * @version 1.2
+ * @since 1.8
+ */
 public class Player extends GameObject {
 
     private World world;
@@ -23,6 +30,14 @@ public class Player extends GameObject {
             4,34,44);
     public Image jump = new Image("player-jump.png");
 
+    /**
+     * Constructor for a Player object.
+     *
+     * @param type The mass type of the player.
+     * @param width The width of the player in pixels.
+     * @param height The height of the player in pixels.
+     * @param world The physics world of the game.
+     */
     public Player(MassType type, double width, double height, World world) {
         super(world);
         this.world = world;
@@ -32,10 +47,16 @@ public class Player extends GameObject {
         getBody().setAngularDamping(1000000000);
     }
 
+    /**
+     * @return boolean that tells if the player is on the ground.
+     */
     public boolean isGrounded() {
         return isGrounded;
     }
 
+    /**
+     * Sends two rays from the bottom of the player to see if the player is on the ground.
+     */
     public void checkIfGrounded() {
         List<RaycastResult> results = new ArrayList<>();
         if(world.raycast(getBody().getWorldCenter(),
@@ -54,6 +75,12 @@ public class Player extends GameObject {
         }
     }
 
+    /**
+     * Used to render this Player depending on the current state of the player.
+     *
+     * @param gc The GraphicContext that is used to render the GameObject onto the scene.
+     * @param time The time between frames in milliseconds.
+     */
     public void draw(GraphicsContext gc, double time) {
         if(isGrounded()) {
             render(gc, time, walk);
