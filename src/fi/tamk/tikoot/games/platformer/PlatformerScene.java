@@ -7,7 +7,11 @@ import fi.tamk.tikoot.pelimoottori.core.Settings;
 import fi.tamk.tikoot.pelimoottori.object.Animation;
 import fi.tamk.tikoot.pelimoottori.object.GameObject;
 import fi.tamk.tikoot.pelimoottori.object.GameObjectCreator;
+import fi.tamk.tikoot.pelimoottori.tilemap.Map;
+import fi.tamk.tikoot.pelimoottori.tilemap.TileImage;
 import javafx.scene.image.Image;
+import org.dyn4j.dynamics.contact.Contact;
+import org.dyn4j.dynamics.contact.ContactPoint;
 import org.dyn4j.dynamics.joint.WeldJoint;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Ray;
@@ -15,6 +19,7 @@ import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Vector2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -26,12 +31,22 @@ import java.util.Random;
  */
 public class PlatformerScene extends GameScene {
 
-    private double createPlatformTime = 3.1;
+    private double createPlatformTime = 2.5;
     private double timePassed = 0;
     private Image groundSprite = new Image("ground.png");
     private GameObjectCreator creator = new GameObjectCreator();
     private Player player = new Player(MassType.NORMAL, 34, 44, world);
+    private GameObject killBox = creator.createRectangleObject(
+            world,32, getScene().getHeight(),-getScene().getWidth()/2,
+            getScene().getHeight()/2, MassType.INFINITE);
+    private GameObject deathBox = creator.createRectangleObject(
+            world,getScene().getWidth() * 2, 32,getScene().getWidth()/2,
+            -getScene().getHeight()/2, MassType.INFINITE);
     private ArrayList<GameObject> groundObjects = new ArrayList<>();
+    private ArrayList<GameObject> removeObjects = new ArrayList<>();
+    private Map map1;
+    private Map map2;
+    private TileImage tileImage;
 
     public PlatformerScene(Settings settings, GameApplication app) {
         super(settings, app);
@@ -42,6 +57,10 @@ public class PlatformerScene extends GameScene {
         player.setPosition(getScene().getWidth()*1/5,getScene().getHeight()/2+50);
         createPlatform(getScene().getWidth()*1/4, getScene().getHeight()*1/3);
         createPlatform(getScene().getWidth()*9/10, getScene().getHeight()*1/5);
+        killBox.getBody().getFixture(0).setSensor(true);
+        tileImage = new TileImage("tileSheet.png", 32, 17,8);
+        map1 = new Map("src/platformerMap1.txt", tileImage,0,0);
+        map2 = new Map("src/platformerMap2.txt", tileImage,864,0);
     }
 
     @Override
@@ -51,7 +70,7 @@ public class PlatformerScene extends GameScene {
 
         player.setVelocity(0,player.getVelocityY());
         if (getInputHandler().getInput().contains("SPACE") && player.isGrounded() && !player.hasJumped) {
-            player.getBody().applyImpulse(new Vector2(0,0.5));
+            player.getBody().applyImpulse(new Vector2(0,0.6));
             player.hasJumped = true;
         }
 
@@ -63,30 +82,50 @@ public class PlatformerScene extends GameScene {
         }
 
         if(timePassed > createPlatformTime) {
-            createPlatform(getScene().getWidth(), randomBetweenNum(0, getScene().getHeight()*2/5));
+            createPlatform(getScene().getWidth(), randomBetweenNum(getScene().getHeight()*1/5, getScene().getHeight()*2/5));
             timePassed = 0;
         }
+
+        map1.setPosition(map1.getMapX() - 0.2, map1.getMapY());
+        map2.setPosition(map2.getMapX() - 0.2, map2.getMapY());
+
+        if(map1.getMapX()<-832) {
+            map1.setPosition(864, map1.getMapY());
+        }
+        if(map2.getMapX()<-832) {
+            map2.setPosition(864, map2.getMapY());
+        }
+
         player.checkIfGrounded();
         player.getBody().getTransform().setRotation(0);
+        removeRemovedObjects();
     }
 
     @Override
     protected void collisions() {
-
+        if(deathBox.intersects(player)){
+            changeGameScene(new MenuScene(getSettings(), getApp()));
+        }
+        Iterator<GameObject> itr = groundObjects.iterator();
+        while(itr.hasNext()){
+            GameObject groundObject = itr.next();
+            if(killBox.intersects(groundObject)) {
+                removeObjects.add(groundObject);
+                itr.remove();
+            }
+        }
     }
 
     @Override
     protected void draw(double time) {
         getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
+        map1.draw(getGraphicsContext());
+        map2.draw(getGraphicsContext());
         player.draw(getGraphicsContext(),time);
-
         for(GameObject groundObject : groundObjects) {
             groundObject.render(getGraphicsContext(), groundSprite);
         }
     }
-
-    @Override
-    protected void removeObjects() {}
 
     /**
      * @param min The minimum value
@@ -105,11 +144,11 @@ public class PlatformerScene extends GameScene {
      * @param y The vertical location of where the first piece of the platform is placed.
      */
     private void createPlatform(double x, double y) {
-        int size = (int)randomBetweenNum(5,10);
+        int size = (int)randomBetweenNum(2,10);
         GameObject ground1 = creator.createRectangleObject(world, 32,
                 32, x, y, MassType.INFINITE);
         ground1.getBody().getFixture(0).setFriction(0);
-        ground1.setVelocity(-2, 0);
+        ground1.setVelocity(-3, 0);
         groundObjects.add(ground1);
 
         for(int i = 1; i<size; i++) {
@@ -117,12 +156,21 @@ public class PlatformerScene extends GameScene {
             GameObject ground = creator.createRectangleObject(world, 32,
                     32, lastGround.getPositionX()+32,lastGround.getPositionY(), MassType.INFINITE);
             ground.getBody().getFixture(0).setFriction(0);
-            ground.setVelocity(-2, 0);
+            ground.setVelocity(-3, 0);
             groundObjects.add(ground);
             /*
             WeldJoint joint = new WeldJoint(lastGround.getBody(), ground.getBody(),
                     new Vector2(lastGround.getPositionX()+16,lastGround.getPositionY()));
                     */
+        }
+    }
+
+    /**
+     * Remove the bodies in the removedObject list.
+     */
+    private void removeRemovedObjects() {
+        for(GameObject removedObject : removeObjects) {
+            world.removeBody(removedObject.getBody());
         }
     }
 

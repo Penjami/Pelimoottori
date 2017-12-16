@@ -71,8 +71,4 @@ public class MenuScene extends GameScene {
 
     }
 
-    @Override
-    protected void removeObjects() {
-
-    }
 }

@@ -41,7 +41,7 @@ public class GameObject{
      */
     public boolean intersects(GameObject g)
     {
-        return true;
+        return getBody().isInContact(g.getBody());
     }
 
     /**
@@ -238,8 +238,9 @@ public class GameObject{
                 bodyCenter.x * Settings.SCALE, bodyCenter.y * Settings.SCALE);
         affine.setToTransform(r);
         gc.transform(affine);
-        gc.drawImage( image, (bodyCenter.x * Settings.SCALE) + image.getWidth()/2,
-                (bodyCenter.y * Settings.SCALE) - image.getHeight()/2, -image.getWidth(), image.getHeight());
+        gc.drawImage( this.image, (bodyCenter.x * Settings.SCALE) + this.image.getWidth()/2,
+                (bodyCenter.y * Settings.SCALE) - this.image.getHeight()/2,
+                    -this.image.getWidth(), this.image.getHeight());
         gc.restore();
     }
 }

@@ -138,10 +138,6 @@ abstract public class GameScene {
      * Draw all sprites in this method
      */
     abstract protected void draw(double time);
-    /**
-     * Draw all sprites in this method
-     */
-    abstract protected void removeObjects();
 
     /**
      * @return Ui root used for ui elements.

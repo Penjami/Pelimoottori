@@ -126,13 +126,4 @@ public class PongScene extends GameScene {
         getGraphicsContext().fill();
     }
 
-    @Override
-    protected void removeObjects() {}
-
-    /*
-    private double randomBetweenNum(double min, double max) {
-        Random r = new Random();
-        return min + (max - min) * r.nextDouble();
-    }
-    */
 }

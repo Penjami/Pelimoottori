@@ -62,9 +62,4 @@ public class MenuScene extends GameScene {
     protected void draw(double time) {
 
     }
-
-    @Override
-    protected void removeObjects() {
-
-    }
 }
