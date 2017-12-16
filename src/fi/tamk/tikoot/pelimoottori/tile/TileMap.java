@@ -1,4 +1,4 @@
-package fi.tamk.tikoot.pelimoottori.tilemap;
+package fi.tamk.tikoot.pelimoottori.tile;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Affine;
@@ -8,7 +8,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class Map {
+/**
+ * This class is used to create Tilemaps for the game.
+ *
+ * @author Penjami Rantakangas
+ * @version 1.2
+ * @since 1.8
+ */
+public class TileMap {
 
     private int[][] tiles;
     private TileImage tileImage;
@@ -17,7 +24,15 @@ public class Map {
     private double mapY;
     private Affine affine = new Affine();
 
-    public Map(String fileName, TileImage tileImage, double mapX, double mapY) {
+    /**
+     * The constructor for the TileMap class.
+     *
+     * @param fileName Location and name of the tile file.
+     * @param tileImage Image that includes all the tiles sprites.
+     * @param mapX The horizontal coordinate of this map.
+     * @param mapY The vertical coordinate of this map.
+     */
+    public TileMap(String fileName, TileImage tileImage, double mapX, double mapY) {
         this.tileImage = tileImage;
         this.tileSize = tileImage.getTileSize();
         this.mapX = mapX;
@@ -26,6 +41,11 @@ public class Map {
 
     }
 
+    /**
+     * Used to render all the tiles from this tile.
+     *
+     * @param gc The GraphicContext that is used to render the GameObject onto the scene.
+     */
     public void draw(GraphicsContext gc) {
         for(int i = 0; i < tiles.length; i++) {
             for(int j = 0; j < tiles[0].length; j++) {
@@ -41,11 +61,22 @@ public class Map {
         }
     }
 
+    /**
+     * Used to set the position of the map object.
+     *
+     * @param mapX The horizontal coordinate of this map.
+     * @param mapY The vertical coordinate of this map.
+     */
     public void setPosition(double mapX, double mapY) {
         this.mapX = mapX;
         this.mapY = mapY;
     }
 
+    /**
+     * converts a text file to 2d int array that contains the number for a tile.
+     *
+     * @param fileName Location and name of the tile file.
+     */
     private void readMapToTiles(String fileName) {
         try {
             tiles = Files.lines(Paths.get(fileName))
@@ -59,10 +90,16 @@ public class Map {
 
     }
 
+    /**
+     * @return The horizontal coordinate of this map.
+     */
     public double getMapX() {
         return mapX;
     }
 
+    /**
+     * @return The vertical coordinate of this map.
+     */
     public double getMapY() {
         return mapY;
     }

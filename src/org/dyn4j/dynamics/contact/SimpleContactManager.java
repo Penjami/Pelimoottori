@@ -48,7 +48,7 @@ public class SimpleContactManager implements ContactManager, Shiftable {
 	/** The contact constraint queue */
 	protected List<ContactConstraint> constraintQueue;
 	
-	/** Map for fast look up of  {@link ContactConstraint}s */
+	/** TileMap for fast look up of  {@link ContactConstraint}s */
 	protected Map<ContactConstraintId, ContactConstraint> constraints;
 	
 	/**

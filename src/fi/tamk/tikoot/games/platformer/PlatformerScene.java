@@ -1,21 +1,14 @@
 package fi.tamk.tikoot.games.platformer;
 
-import fi.tamk.tikoot.pelimoottori.audio.Music;
 import fi.tamk.tikoot.pelimoottori.core.GameApplication;
 import fi.tamk.tikoot.pelimoottori.core.GameScene;
 import fi.tamk.tikoot.pelimoottori.core.Settings;
-import fi.tamk.tikoot.pelimoottori.object.Animation;
 import fi.tamk.tikoot.pelimoottori.object.GameObject;
 import fi.tamk.tikoot.pelimoottori.object.GameObjectCreator;
-import fi.tamk.tikoot.pelimoottori.tilemap.Map;
-import fi.tamk.tikoot.pelimoottori.tilemap.TileImage;
+import fi.tamk.tikoot.pelimoottori.tile.TileMap;
+import fi.tamk.tikoot.pelimoottori.tile.TileImage;
 import javafx.scene.image.Image;
-import org.dyn4j.dynamics.contact.Contact;
-import org.dyn4j.dynamics.contact.ContactPoint;
-import org.dyn4j.dynamics.joint.WeldJoint;
 import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Ray;
-import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Vector2;
 
 import java.util.ArrayList;
@@ -44,8 +37,8 @@ public class PlatformerScene extends GameScene {
             -getScene().getHeight()/2, MassType.INFINITE);
     private ArrayList<GameObject> groundObjects = new ArrayList<>();
     private ArrayList<GameObject> removeObjects = new ArrayList<>();
-    private Map map1;
-    private Map map2;
+    private TileMap tileMap1;
+    private TileMap tileMap2;
     private TileImage tileImage;
 
     public PlatformerScene(Settings settings, GameApplication app) {
@@ -59,8 +52,8 @@ public class PlatformerScene extends GameScene {
         createPlatform(getScene().getWidth()*9/10, getScene().getHeight()*1/5);
         killBox.getBody().getFixture(0).setSensor(true);
         tileImage = new TileImage("tileSheet.png", 32, 17,8);
-        map1 = new Map("src/platformerMap1.txt", tileImage,0,0);
-        map2 = new Map("src/platformerMap2.txt", tileImage,864,0);
+        tileMap1 = new TileMap("src/platformerMap1.txt", tileImage,0,0);
+        tileMap2 = new TileMap("src/platformerMap2.txt", tileImage,864,0);
     }
 
     @Override
@@ -86,14 +79,14 @@ public class PlatformerScene extends GameScene {
             timePassed = 0;
         }
 
-        map1.setPosition(map1.getMapX() - 0.2, map1.getMapY());
-        map2.setPosition(map2.getMapX() - 0.2, map2.getMapY());
+        tileMap1.setPosition(tileMap1.getMapX() - 0.2, tileMap1.getMapY());
+        tileMap2.setPosition(tileMap2.getMapX() - 0.2, tileMap2.getMapY());
 
-        if(map1.getMapX()<-832) {
-            map1.setPosition(864, map1.getMapY());
+        if(tileMap1.getMapX()<-832) {
+            tileMap1.setPosition(864, tileMap1.getMapY());
         }
-        if(map2.getMapX()<-832) {
-            map2.setPosition(864, map2.getMapY());
+        if(tileMap2.getMapX()<-832) {
+            tileMap2.setPosition(864, tileMap2.getMapY());
         }
 
         player.checkIfGrounded();
@@ -119,8 +112,8 @@ public class PlatformerScene extends GameScene {
     @Override
     protected void draw(double time) {
         getGraphicsContext().clearRect(0, 0, getScene().getWidth(), getScene().getHeight());
-        map1.draw(getGraphicsContext());
-        map2.draw(getGraphicsContext());
+        tileMap1.draw(getGraphicsContext());
+        tileMap2.draw(getGraphicsContext());
         player.draw(getGraphicsContext(),time);
         for(GameObject groundObject : groundObjects) {
             groundObject.render(getGraphicsContext(), groundSprite);
